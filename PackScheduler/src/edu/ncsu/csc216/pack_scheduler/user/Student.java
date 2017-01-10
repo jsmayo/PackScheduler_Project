@@ -133,5 +133,80 @@ public class Student {
 		if(maxCredits < 3 || maxCredits > 18) throw new IllegalArgumentException("Max credits cannot be less than 3 or greater than 18.");
 		this.maxCredits = maxCredits;
 	}
+
+	
+	/** 
+	 * Generates a hashCode for Student using all fields.
+	 * @return hashCode for Student.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + maxCredits;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+
+	/** 
+	 * Compares a given Object to this object for equality on all fields.
+	 * @param obj The Object to comare.
+	 * @return true if the objects are the same on all fields. 
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (maxCredits != other.maxCredits)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
+	}
+
+
+	/**
+	 * Returns a comma separated value String of all Student fields.
+	 * @return String representation of Student.
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "firstName,lastName,id,email,password,maxCredits";
+	}
+	
 }
 	
