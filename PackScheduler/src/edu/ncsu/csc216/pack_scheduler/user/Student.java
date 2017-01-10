@@ -10,6 +10,15 @@ public class Student {
 	private int maxCredits;
 	static final int MAX_CREDITS = 18;
 	
+	/**
+	 * Constructor for Student object. 
+	 * @param firstName Students first name. 
+	 * @param lastName Students last name.
+	 * @param id Students ID number.
+	 * @param email Students email address. 
+	 * @param hashPW Students password.
+	 * @param maxCredits Students maximum credit allocation. 
+	 */
 	public Student(String firstName, String lastName, String id, String email, String hashPW, int maxCredits) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -19,13 +28,21 @@ public class Student {
 		setMaxCredits(maxCredits);
 	}
 	
-
+	/**
+	 * Constructor for a Student Object that lacks a maxCredit parameter. 
+	 * @param firstName Students first name.
+	 * @param lastName Students last name.
+	 * @param id Students ID.
+	 * @param email Students email.
+	 * @param hashPW Students password.
+	 */
 	public Student(String firstName, String lastName, String id, String email, String hashPW) {
 		this(firstName, lastName, id, email, hashPW, 18);
 	}
 
 
 	/**
+	 * Returns the Students first name.
 	 * @return the firstName
 	 */
 	public String getFirstName() {
@@ -34,6 +51,7 @@ public class Student {
 
 
 	/**
+	 * Sets the Students first name.
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
@@ -43,6 +61,7 @@ public class Student {
 
 
 	/**
+	 * Returns the Students last name.
 	 * @return the lastName
 	 */
 	public String getLastName() {
@@ -51,6 +70,7 @@ public class Student {
 
 
 	/**
+	 * Sets the Students last name.
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
@@ -60,6 +80,7 @@ public class Student {
 
 
 	/**
+	 * Returns the Students ID.
 	 * @return the id
 	 */
 	public String getId() {
@@ -68,6 +89,7 @@ public class Student {
 
 
 	/**
+	 * Sets the Students ID.
 	 * @param id the id to set
 	 */
 	private void setId(String id) {
@@ -77,6 +99,7 @@ public class Student {
 
 
 	/**
+	 * Returns the Students email.
 	 * @return the email
 	 */
 	public String getEmail() {
@@ -85,6 +108,7 @@ public class Student {
 
 
 	/**
+	 * Sets the Students email.
 	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
@@ -102,6 +126,7 @@ public class Student {
 
 
 	/**
+	 * Returns the Students password.
 	 * @return the password
 	 */
 	public String getPassword() {
@@ -110,6 +135,7 @@ public class Student {
 
 
 	/**
+	 * Sets the Students password.
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
@@ -119,6 +145,7 @@ public class Student {
 
 
 	/**
+	 * Returns the students maximum number of credits.
 	 * @return the maxCredits
 	 */
 	public int getMaxCredits() {
@@ -127,6 +154,7 @@ public class Student {
 
 
 	/**
+	 * Sets the maximum number of credits allowed for the Student.
 	 * @param maxCredits the maxCredits to set
 	 */
 	public void setMaxCredits(int maxCredits) {
@@ -155,7 +183,7 @@ public class Student {
 
 	/** 
 	 * Compares a given Object to this object for equality on all fields.
-	 * @param obj The Object to comare.
+	 * @param obj The Object to compare.
 	 * @return true if the objects are the same on all fields. 
 	 */
 	@Override
@@ -204,7 +232,6 @@ public class Student {
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "firstName,lastName,id,email,password,maxCredits";
 	}
 	
