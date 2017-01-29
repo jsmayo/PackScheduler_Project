@@ -37,7 +37,6 @@ public class StudentRecordIO {
 				}
 			}
 			fileReader.close();
-			System.out.println(students);
 			return students;
 	}
 		
@@ -58,21 +57,14 @@ public class StudentRecordIO {
 		if(id.contains("@")) id = null;
 		String email = scanner.next();
 		if(!email.contains("@")) email = null;
-		String pw = scanner.next();
-			/*try {
-				Integer.parseInt(pw);
-				pw = null;
-			} catch (NumberFormatException e) {
-				//do nothing
-			}*/
-				
-		if(scanner.hasNext()) {
-			int credits = Integer.parseInt(scanner.next());
-			processedStudent = new Student(fname, lname, id, email, pw, credits);
+		String pw = scanner.next();				
+		if(!scanner.hasNext()) {
+			//Must have all parameters when reading in student records.
 			scanner.close();
-			return processedStudent; 
+			throw new IllegalArgumentException();
 		}
-		processedStudent = new Student(fname, lname, id, email, pw);
+		int credits = Integer.parseInt(scanner.next());
+		processedStudent = new Student(fname, lname, id, email, pw, credits);
 		scanner.close();
 		return processedStudent;
 	}
