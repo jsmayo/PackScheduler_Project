@@ -128,7 +128,7 @@ public class Student {
 	 * @param id The student's identification tag.
 	 * @throws IllegalArgumentException if the ID is invalid.
 	 */
-	public void setId(String id){
+	private void setId(String id){
 		if(id == null || id.isEmpty()) throw new IllegalArgumentException("Invalid id");
 		if(id.contains("@")) throw new IllegalArgumentException("Invalid id");
 		this.id = id;
