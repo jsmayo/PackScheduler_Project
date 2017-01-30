@@ -28,12 +28,12 @@ public class StudentRecordIOTest {
 
 	private String hashPW;
 	private static final String HASH_ALGORITHM = "SHA-256";
-	/** Valid course records */
+	/** Valid student records */
 	private final String validTestFile = "test-files/student_records.txt";
-	/** Invalid course records */
+	/** Invalid student records */
 	private final String invalidTestFile = "test-files/invalid_student_records.txt";
 	
-	/** Expected results for valid courses */
+	/** Expected results for valid students */
 	private final String validStudent1 = "Zahir,King,zking,orci.Donec@ametmassaQuisque.com,pw,15";
 	private final String validStudent2 = "Cassandra,Schwartz,cschwartz,semper@imperdietornare.co.uk,pw,4";
 	private final String validStudent3 = "Shannon,Hansen,shansen,convallis.est.vitae@arcu.ca,pw,14";
@@ -80,7 +80,7 @@ public class StudentRecordIOTest {
 	}
 
 	/**
-	 * Tests readValidCourseRecords().
+	 * Tests readValidStudentRecords().
 	 */
 	@Test
 	public void testReadValidStudentRecords() {
@@ -99,7 +99,7 @@ public class StudentRecordIOTest {
 	
 	
 	/**
-	 * Tests readInvalidCourseRecords().
+	 * Tests readInvalidStudentRecords().
 	 */
 	@Test
 	public void testReadInvalidStudentRecords() {
