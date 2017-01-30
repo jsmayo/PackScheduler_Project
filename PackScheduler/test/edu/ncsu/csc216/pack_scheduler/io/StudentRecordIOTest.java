@@ -52,6 +52,7 @@ public class StudentRecordIOTest {
 	
 	/**
 	 * Resets student_records.txt for use in other tests and sets the password has key.
+	 * @throws Exception if the file cannot be reached.
 	 */
 	@Before
 	public void setUp() throws Exception {

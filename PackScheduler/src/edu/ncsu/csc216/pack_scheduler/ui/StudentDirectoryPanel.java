@@ -316,7 +316,7 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 	
 	/**
 	 * {@link StudentDirectoryTableModel} is the object underlying the {@link JTable} object that displays
-	 * the list of {@link Student}s to the user.
+	 * the list of Students to the user.
 	 * @author Sarah Heckman
 	 */
 	private class StudentDirectoryTableModel extends AbstractTableModel {
