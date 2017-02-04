@@ -6,7 +6,7 @@ package edu.ncsu.csc216.pack_scheduler.user;
  * the Student's: first name, last name, id, email, password, and maximum credit hours.
  * @author Steven Mayo with partial skeleton code from Sarah Heckman
  */
-public class Student {
+public class Student implements Comparable<Student> {
 	/** String for student's first name */
 	private String firstName;
 	/** String for student's last name */
@@ -237,6 +237,60 @@ public class Student {
 	@Override
 	public String toString() {
 		return firstName + "," + lastName + "," + id + "," + email + "," + hashedPassword + "," + maxCredits;
+	}
+
+	@Override
+	public int compareTo(Student s) {
+		//get the two last names for comparison as a char array
+		char[] callingFirst = this.getFirstName().toCharArray();
+		char[] callingLast = this.getLastName().toCharArray();
+		char[] callingID = this.getId().toCharArray();
+		char[] compareFirst = s.getFirstName().toCharArray();
+		char[] compareLast = s.getLastName().toCharArray();
+		char[] compareID = s.getId().toCharArray();
+		
+		//get the shortest length for the last name to avoid boundary errors and double looping
+		int shortestlength = (callingLast.length <= compareLast.length) ? callingLast.length : compareLast.length;
+		
+		//for loop to compare character digit values. 
+		for(int i = 0; i < shortestlength; i++){
+			if(callingLast[i] < compareLast[i]) return -1;
+			if(callingLast[i] > compareLast[i]) return 1;
+			//if(callingLast[i] == compareLast[i]) continue;
+		}
+		//make sure that similar, but different last names don't pass through
+		//i.e (Williams vs Williamsons)
+		if(callingLast.length != compareLast.length) {
+			if(callingLast.length > compareLast.length) return 1;
+			if(callingLast.length < compareLast.length) return -1;
+		}
+		//start the first name comparison if the last name doesn't return a value
+		//get the shortest first name to start the for loop. 
+		//ensures iterating through an entire name without a boundary error.
+		shortestlength = (callingFirst.length <= compareFirst.length) ? callingFirst.length : compareFirst.length;
+		for(int i = 0; i < shortestlength; i++){
+			if(callingFirst[i] < compareFirst[i]) return -1;
+			if(callingFirst[i] > compareFirst[i]) return 1;
+			continue;
+		}
+		if(callingFirst.length != compareLast.length){
+			if(callingFirst.length > compareFirst.length) return 1;
+			if(callingFirst.length < compareFirst.length) return -1;
+		}
+		
+		//start the ID comparison if the last and first name comparisons didn't return a value.
+		//shortest ID assigned to abvoid boundary errors and double looping
+		shortestlength = (callingID.length <= compareID.length) ? callingID.length : compareID.length;
+		for(int i = 0; i < shortestlength; i++){
+			if(callingID[i] < compareID[i]) return -1;
+			if(callingID[i] > compareID[i]) return 1;
+			continue;
+		}
+		if(callingID.length != compareID.length){
+			if(callingID.length > compareID.length) return 1;
+			if(callingID.length < compareID.length) return -1;
+		}
+		return 0;
 	}
 }
 		
