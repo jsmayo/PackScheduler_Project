@@ -87,6 +87,14 @@ public class StudentDirectoryTest {
 		//Test valid file
 		sd.loadStudentsFromFile(validTestFile);
 		assertEquals(10, sd.getStudentDirectory().length);
+	
+		//Test invalid file
+		try {
+			sd.loadStudentsFromFile("nosuchfileshouldexistsforthistest.txt");
+			fail("Should not have a file called this");
+		} catch (IllegalArgumentException iae) {
+			assertEquals(10, sd.getStudentDirectory().length);
+		}
 	}
 
 	/**
@@ -103,6 +111,22 @@ public class StudentDirectoryTest {
 		assertEquals(FIRST_NAME, studentDirectory[0][0]);
 		assertEquals(LAST_NAME, studentDirectory[0][1]);
 		assertEquals(ID, studentDirectory[0][2]);
+		
+		//Test invalid Student and that order doesnt change
+		try {
+			sd.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, "INVALID", MAX_CREDITS);
+			fail("Passwords should mismatch");
+		} catch (IllegalArgumentException iae){
+			//No changes should have been made.
+			assertEquals(1, studentDirectory.length);
+			assertEquals(FIRST_NAME, studentDirectory[0][0]);
+			assertEquals(LAST_NAME, studentDirectory[0][1]);
+			assertEquals(ID, studentDirectory[0][2]);
+		}
+		
+		//Test adding a duplicate student
+		assertFalse(sd.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_CREDITS));
+		
 	}
 
 	/**
@@ -118,9 +142,9 @@ public class StudentDirectoryTest {
 		assertTrue(sd.removeStudent("efrost"));
 		String [][] studentDirectory = sd.getStudentDirectory();
 		assertEquals(9, studentDirectory.length);
-		assertEquals("Lane", studentDirectory[5][0]);
-		assertEquals("Berg", studentDirectory[5][1]);
-		assertEquals("lberg", studentDirectory[5][2]);
+		assertEquals("Lane", studentDirectory[1][0]);
+		assertEquals("Berg", studentDirectory[1][1]);
+		assertEquals("lberg", studentDirectory[1][2]);
 	}
 
 	/**

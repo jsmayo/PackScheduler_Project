@@ -4,6 +4,7 @@ package edu.ncsu.csc216.pack_scheduler.io;
 import java.util.*;
 import java.io.*;
 
+import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 /**
@@ -19,9 +20,9 @@ public class StudentRecordIO {
 	 * @throws FileNotFoundException if the file cannot be read.
 	 * @return String array containing Student objects.
 	 */
-	public static ArrayList<Student> readStudentRecords(String fileName) throws FileNotFoundException {
+	public static SortedList<Student> readStudentRecords(String fileName) throws FileNotFoundException {
 			Scanner fileReader = new Scanner(new FileInputStream(fileName));
-			ArrayList<Student> students = new ArrayList<Student>();	
+			SortedList<Student> students = new SortedList<Student>();	
 			
 			while(fileReader.hasNextLine()) {
 				try{
@@ -76,7 +77,7 @@ public class StudentRecordIO {
 	 * to be written as output. 
 	 * @throws FileNotFoundException if the file cannot be located or written to.
 	 */
-	public static void writeStudentRecords(String fileName, ArrayList<Student> studentDirectory) throws FileNotFoundException {
+	public static void writeStudentRecords(String fileName, SortedList<Student> studentDirectory) throws FileNotFoundException {
 		PrintStream fileWriter = new PrintStream(new FileOutputStream(new File(fileName)));
 		for(int i = 0; i < studentDirectory.size(); i++){
 			fileWriter.println(studentDirectory.get(i).toString());

@@ -15,9 +15,8 @@ import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import edu.ncsu.csc216.pack_scheduler.user.Student;
-
+import edu.ncsu.csc216.collections.list.SortedList;
 
 /**
  * Tests StudentRecordIO.
@@ -46,8 +45,9 @@ public class StudentRecordIOTest {
 	private final String validStudent10 = "Dylan,Nolan,dnolan,placerat.Cras.dictum@dictum.net,pw,5";
 	
 	/** Array to hold expected results */
-	private final String[] validStudents = {validStudent1, validStudent2, validStudent3, validStudent4, validStudent5, 
-			validStudent6, validStudent7, validStudent8, validStudent9, validStudent10};
+	private final String[] validStudents = {validStudent4, validStudent7, validStudent5, validStudent6, validStudent3, 
+			validStudent9, validStudent1, validStudent10, validStudent2, validStudent8};
+
 	
 	
 	/**
@@ -86,7 +86,7 @@ public class StudentRecordIOTest {
 	@Test
 	public void testReadValidStudentRecords() {
 		try {
-			ArrayList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
+			SortedList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
 			assertEquals(10, students.size());
 			
 			//check order.
@@ -104,7 +104,7 @@ public class StudentRecordIOTest {
 	 */
 	@Test
 	public void testReadInvalidStudentRecords() {
-		ArrayList<Student> students;
+		SortedList<Student> students;
 		try {
 			students = StudentRecordIO.readStudentRecords(invalidTestFile);
 			assertEquals(0, students.size());
@@ -118,7 +118,7 @@ public class StudentRecordIOTest {
 	 */
 	@Test
 	public void testReadInvalidFileLocation() {
-		ArrayList<Student> students = null;
+		SortedList<Student> students = null;
 		try {
 			students = StudentRecordIO.readStudentRecords("nosuchfile.txt");
 			fail("fileName should throw an exception!");
@@ -133,7 +133,7 @@ public class StudentRecordIOTest {
 	@Test
 	public void testWriteStudentRecords() {
 		try {
-			ArrayList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
+			SortedList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
 			StudentRecordIO.writeStudentRecords("test-files/student_records.txt", students);
 			}
 		 catch (IOException e) {

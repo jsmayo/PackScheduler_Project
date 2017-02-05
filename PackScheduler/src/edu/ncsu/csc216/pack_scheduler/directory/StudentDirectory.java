@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.io.StudentRecordIO;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
@@ -17,7 +18,7 @@ import edu.ncsu.csc216.pack_scheduler.user.Student;
 public class StudentDirectory {
 	
 	/** List of students in the directory */
-	private ArrayList<Student> studentDirectory;
+	private SortedList<Student> studentDirectory;
 	/** Hashing algorithm */
 	private static final String HASH_ALGORITHM = "SHA-256";
 	
@@ -33,7 +34,7 @@ public class StudentDirectory {
 	 * list are list unless saved by the user.
 	 */
 	public void newStudentDirectory() {
-		studentDirectory = new ArrayList<Student>();
+		studentDirectory = new SortedList<Student>();
 	}
 	
 	/**
@@ -68,9 +69,9 @@ public class StudentDirectory {
 	public boolean addStudent(String firstName, String lastName, String id, String email, String password, String repeatPassword, int maxCredits) {
 		String hashPW = "";
 		String repeatHashPW = "";
-		if (password == null || repeatPassword == null || password.equals("") || repeatPassword.equals("")) {
-			throw new IllegalArgumentException("Invalid password");
-		}
+		//if (password == null || repeatPassword == null || password.equals("") || repeatPassword.equals("")) {
+			//throw new IllegalArgumentException("Invalid password");
+		//}
 		try {
 			MessageDigest digest1 = MessageDigest.getInstance(HASH_ALGORITHM);
 			digest1.update(password.getBytes());
@@ -91,6 +92,7 @@ public class StudentDirectory {
 		//to the GUI
 		Student student = new Student(firstName, lastName, id, email, hashPW, maxCredits);
 		
+		//For loop to see if the student ID is already implemented. If so, then false is returned.
 		for (int i = 0; i < studentDirectory.size(); i++) {
 			Student s = studentDirectory.get(i);
 			if (s.getId().equals(student.getId())) {

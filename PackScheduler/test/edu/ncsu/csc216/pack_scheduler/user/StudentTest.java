@@ -335,6 +335,7 @@ public class StudentTest {
 		Student s7 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, 8);
 		Student s8 = new Student(FIRST, LAST, "different", EMAIL, PASSWORD, MAXCREDITS);
 		
+		
 		//testing for equality in both directions.
 		assertTrue(s1.equals(s2));
 		assertTrue(s2.equals(s1));
@@ -345,6 +346,7 @@ public class StudentTest {
 		assertFalse(s1.equals(s6));
 		assertFalse(s1.equals(s7));
 		assertFalse(s1.equals(s8));
+
 	}
 	
 	/**
@@ -396,35 +398,23 @@ public class StudentTest {
 		Student s2 = new Student("Cody", "Adcock", "cadcock", "cadcock@ncsu.edu", "pw", 15);
 		Student s3 = new Student("James", "Anderson", "janderson", "janderson@ncsu.edu", "pw", 18);
 		Student s4 = new Student("Cody", "Adcock", "cadcock1", "cadcock1@ncsu.edu", "pw", 17);
-		//Student s5 = new Student("Cody", "Adcock", "cadcock", "cadcock1@ncsu.edu", "pw", 17);
-		
-		list.add(s1);
-		list.add(s2);
-		list.add(s3);
-		list.add(s4);
-		//list.add(s5);
-		
-		assertEquals(list.size(), 4);
-		assertEquals(list.get(0), s2);
-		assertEquals(list.get(1), s4);
-		assertEquals(list.get(2), s3);
-		assertEquals(list.get(3), s1);
-		
-		//TODO should it add duplicates or not ??? Fixed ordering!! 
-		//just had to import the collections into here.. and add the students to a list.
-		
-		/*//Tests that the specified object parameter is greater than the calling.
-		assertEquals(s2.compareTo(s1), -1);
-		assertEquals(s2.compareTo(s5), -1);
-		
-		//Tests that the specified object parameter is less than the calling.
-		assertEquals(s1.compareTo(s3), 1);
-		//assertEquals(s4.compareTo(s2), 1);
-		
-		//Test that the specified objects and calling object are equal.
-		//assertEquals(0, s5.compareTo(s4));
-		//assertEquals(0, s4.compareTo(s5));
-	*/
+		Student s5 = new Student("Cody", "Adcock", "cadcock", "cadcock@ncsu.edu", "pw", 15);
+		//attempt to add students to the SortedList and check ordering.
+		try {
+			list.add(s1);
+			list.add(s2);
+			list.add(s3);
+			list.add(s4);
+			list.add(s5);
+			fail(); //should no be able to add s5, s5 == s2
+		} catch (IllegalArgumentException iae){
+			assertEquals(list.size(), 4);
+			assertEquals(list.get(0), s2);
+			assertEquals(list.get(1), s4);
+			assertEquals(list.get(2), s3);
+			assertEquals(list.get(3), s1);
+		}
 	}
+	
 		
 }
