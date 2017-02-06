@@ -166,6 +166,9 @@ public class SortedListTest {
 		}
 	}
 	
+	/**
+	 * Tests the remove method for the SortedList class. 
+	 */
 	@Test
 	public void testRemove() {
 		SortedList<String> list = new SortedList<String>();
@@ -247,6 +250,9 @@ public class SortedListTest {
 		}
 	}
 	
+	/**
+	 * Tests for the indexOf method of the SortedList class.
+	 */
 	@Test
 	public void testIndexOf() {
 		SortedList<String> list = new SortedList<String>();
@@ -274,7 +280,7 @@ public class SortedListTest {
 		assertEquals(list.indexOf("but perhaps"), -1);
 		assertEquals(list.indexOf("never"), 2);
 		int answers = list.indexOf("always") + list.indexOf("never") + 
-				list.indexOf("sometimes") + 2*list.indexOf("Owl City");
+				list.indexOf("sometimes") + 2 * list.indexOf("Owl City");
 		assertEquals(answers, 3);
 		
 		
