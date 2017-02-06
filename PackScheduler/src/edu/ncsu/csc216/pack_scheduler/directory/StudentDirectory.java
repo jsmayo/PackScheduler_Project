@@ -69,9 +69,9 @@ public class StudentDirectory {
 	public boolean addStudent(String firstName, String lastName, String id, String email, String password, String repeatPassword, int maxCredits) {
 		String hashPW = "";
 		String repeatHashPW = "";
-		//if (password == null || repeatPassword == null || password.equals("") || repeatPassword.equals("")) {
-			//throw new IllegalArgumentException("Invalid password");
-		//}
+		if (password == null || repeatPassword == null || password.equals("") || repeatPassword.equals("")) {
+			throw new IllegalArgumentException("Invalid password");
+		}
 		try {
 			MessageDigest digest1 = MessageDigest.getInstance(HASH_ALGORITHM);
 			digest1.update(password.getBytes());
