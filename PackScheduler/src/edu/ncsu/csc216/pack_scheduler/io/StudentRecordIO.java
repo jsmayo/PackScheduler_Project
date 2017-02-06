@@ -73,7 +73,7 @@ public class StudentRecordIO {
 	/**
 	 * Static method used to write valid student records to a file.
 	 * @param fileName is a String representing the output filename.
-	 * @param studentDirectory is an ArrayList of Student objects that is passed in 
+	 * @param studentDirectory is an SortedList of Student objects that is passed in 
 	 * to be written as output. 
 	 * @throws FileNotFoundException if the file cannot be located or written to.
 	 */
