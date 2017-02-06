@@ -414,7 +414,7 @@ public class SortedListTest {
 		
 				
 		//Test for the same and different hashCodes
-		assertEquals(list1.hashCode(),list3.hashCode());
+		assertEquals(list1.hashCode(), list3.hashCode());
 		assertNotEquals(list1.hashCode(), list2.hashCode());
 		assertNotEquals(list2.hashCode(), list3.hashCode());	
 	}
