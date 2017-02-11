@@ -1,0 +1,17 @@
+Programming Concepts - Java,001,4,sesmith5,MW,1330,1445
+CSC216,001,4,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,4,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,001,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,001,4,MW,1330,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,1330,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,MW,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,MW,1330
+C6,Programming Concepts - Java,001,4,sesmith5,MW,1330,1445
+CSC216,,001,4,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,01,4,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,001,7,sesmith5,MW,1330,1445
+CSC216,Programming Concepts - Java,001,4,,MW,1330,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,MWA,1330,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,A,1330,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,MW,267,1445
+CSC216,Programming Concepts - Java,001,4,sesmith5,MW,1445,1330
