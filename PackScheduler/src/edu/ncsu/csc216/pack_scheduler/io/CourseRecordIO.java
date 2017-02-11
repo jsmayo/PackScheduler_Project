@@ -85,10 +85,10 @@ public class CourseRecordIO {
 	/**
      * Writes the given list of Courses to a specified fileName
      * @param fileName Name of the file to write/save to.
-     * @param courses An ArrayList containing course objects.
+     * @param courses A SortedList containing course objects.
      * @throws IOException if the specified file cannot be written/saved to.
      */
-    public static void writeCourseRecords(String fileName, ArrayList<Course> courses) throws IOException {
+    public static void writeCourseRecords(String fileName, SortedList<Course> courses) throws IOException {
        PrintStream fileWriter = new PrintStream(new File(fileName));
        
        for(int i = 0; i < courses.size(); i++){
