@@ -626,7 +626,37 @@ public class CourseTest {
 		Activity c4 = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, "TH", 1145, 1425);
 		assertEquals("TH 11:45AM-2:25PM", c4.getMeetingString());
 	}
-
+	
+	/**
+	 * Tests that the getShortDisplayArray() works correctly
+	 */
+	@Test
+	public void testGetShortDisplayArray(){
+		Activity c1 = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
+		String[] sda = c1.getShortDisplayArray();
+		assertEquals(NAME, sda[0]);
+		assertEquals(SECTION, sda[1]);
+		assertEquals(TITLE, sda[2]);
+		assertEquals(c1.getMeetingString(), sda[3]);
+	}
+	
+	/**
+	 * Tests that the getLongDisplayArray() works correctly
+	 */
+	@Test
+	public void testGetLongDisplayArray(){
+		Activity c1 = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
+		String[] sda = c1.getLongDisplayArray();
+		assertEquals(NAME, sda[0]);
+		assertEquals(SECTION, sda[1]);
+		assertEquals(TITLE, sda[2]);
+		assertEquals("" + CREDITS, sda[3]);
+		assertEquals(INSTRUCTOR_ID, sda[4]);
+		assertEquals(c1.getMeetingString(), sda[5]);
+		assertEquals("", sda[6]);
+	}
+		
+			
 	/**
 	 * Tests that the equals method works for all Course fields.
 	 */

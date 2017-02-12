@@ -3,12 +3,9 @@ package edu.ncsu.csc216.pack_scheduler.catalog;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 
 import edu.ncsu.csc216.collections.list.SortedList;
-import edu.ncsu.csc216.pack_scheduler.io.StudentRecordIO;
-import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.io.CourseRecordIO;
 
@@ -80,9 +77,9 @@ public class CourseCatalog{
 	}
 	
 	
-	public boolean removeCourseFromCatalog(String name, String title){
+	public boolean removeCourseFromCatalog(String name, String section){
 		//create a course using getCourseFromCatalog method
-		Course c = getCourseFromCatalog(name, title);
+		Course c = getCourseFromCatalog(name, section);
 		if(c == null) return false;
 		courseCatalog.remove(courseCatalog.indexOf(c));
 		return true;
