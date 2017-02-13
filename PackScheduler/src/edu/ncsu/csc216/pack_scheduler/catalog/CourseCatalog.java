@@ -69,6 +69,7 @@ public class CourseCatalog {
 		//attempt to create a Course using the parameters passed in.
 		//Errors are allowed to propogate to the client.
 		Course courseToAdd = new Course(name, title, section, credits, prof, meetdays, start, end);
+		if(getCourseFromCatalog(name, section) != null) return false;
 		
 		if(courseCatalog.indexOf(courseToAdd) == -1){
 			//if an index is not found, then add the course and return true.
