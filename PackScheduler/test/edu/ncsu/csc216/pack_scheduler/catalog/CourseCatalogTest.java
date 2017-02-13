@@ -18,7 +18,11 @@ import edu.ncsu.csc216.pack_scheduler.course.Course;
 
 
 
-
+/**
+ * Test the CourseCatalog class and ensures proper functionality is achieved.
+ * 
+ * @author Steven Mayo
+ */
 public class CourseCatalogTest {	
 	/** Valid course records */
 	private final String validTestFile = "test-files/course_records.txt";
@@ -84,7 +88,6 @@ public class CourseCatalogTest {
 		//Attempt to get a course that doesn't exist
 		assertNull(cc.getCourseFromCatalog("CSC492", "001"));
 		//Attempt to get a course that does exist
-		Activity c = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
 		assertEquals(null, cc.getCourseFromCatalog("CSC216", "001"));
 	}
 	
@@ -141,7 +144,7 @@ public class CourseCatalogTest {
 		
 		//add a course and then attempt to remove a different name
 		cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
-		assertFalse(cc.removeCourseFromCatalog("NAME","ALDKFJA"));
+		assertFalse(cc.removeCourseFromCatalog("NAME", "ALDKFJA"));
 		//remove the actual course
 		assertTrue(cc.removeCourseFromCatalog(NAME, SECTION));
 	}

@@ -10,10 +10,13 @@ import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.io.CourseRecordIO;
 
 /**
+ * Creates a Course Catalog for the PackScheduler application. There is 
+ * functionality to add Courses, both in batch and manually, as well as remove
+ * Courses, modify the Course listings, and export the catalog to a file.
+ * 
  * @author Steven Mayo
- *
  */
-public class CourseCatalog{
+public class CourseCatalog {
 	/** List of students in the directory */
 	private SortedList<Course> courseCatalog;
 	
@@ -66,8 +69,7 @@ public class CourseCatalog{
 		//attempt to create a Course using the parameters passed in.
 		//Errors are allowed to propogate to the client.
 		Course courseToAdd = new Course(name, title, section, credits, prof, meetdays, start, end);
-		//Using indexOf() since the catalog is in SortedList.
-		//TODO: Look into using try/catch for the add method, which would propagate a duplicate message
+		
 		if(courseCatalog.indexOf(courseToAdd) == -1){
 			//if an index is not found, then add the course and return true.
 			courseCatalog.add(courseToAdd);
@@ -76,7 +78,13 @@ public class CourseCatalog{
 		return false;
 	}
 	
-	
+	/**
+	 * Attempts to remove a course from the Course Catalog, if the 
+	 * name and section parameters match a Course listed in the catalog.
+	 * @param name Course name.
+	 * @param section Course section.
+	 * @return true if the Course was removed from the CourseCatalog.
+	 */
 	public boolean removeCourseFromCatalog(String name, String section){
 		//create a course using getCourseFromCatalog method
 		Course c = getCourseFromCatalog(name, section);

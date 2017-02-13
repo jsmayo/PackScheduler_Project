@@ -1,7 +1,5 @@
 package edu.ncsu.csc216.pack_scheduler.course;
 
-import edu.ncsu.csc216.pack_scheduler.user.Student;
-
 /**
  * Creates Course Objects for the WolfScheduler application. Each Course Object
  * keeps track of its name, title, section, credit hours, instructor id, meeting

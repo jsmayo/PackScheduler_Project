@@ -19,11 +19,11 @@
         </rule>
         <rule>
             <name>CollapsibleIfStatements</name>
-            <ruleset>Basic</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>EmptyIfStmt</name>
-            <ruleset>Empty Code</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>UnnecessaryParentheses</name>
@@ -35,7 +35,7 @@
         </rule>
         <rule>
             <name>EmptyIfStmt</name>
-            <ruleset>Empty Code</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>EmptyWhileStmt</name>
@@ -91,7 +91,7 @@
         </rule>
         <rule>
             <name>CollapsibleIfStatements</name>
-            <ruleset>Basic</ruleset>
+            <ruleset>Basic Velocity</ruleset>
         </rule>
         <rule>
             <name>ClassCastExceptionWithToArray</name>
@@ -212,30 +212,6 @@
         <rule>
             <name>UnusedPrivateMethod</name>
             <ruleset>Unused Code</ruleset>
-        </rule>
-        <rule>
-            <name>JUnit3ConstantAssertion</name>
-            <ruleset>ncsucscpmd</ruleset>
-        </rule>
-        <rule>
-            <name>JUnit3TestsHaveAssertions</name>
-            <ruleset>ncsucscpmd</ruleset>
-        </rule>
-        <rule>
-            <name>JUnit4ConstantAssertion</name>
-            <ruleset>ncsucscpmd</ruleset>
-        </rule>
-        <rule>
-            <name>JUnitTestClassNeedsTestCase</name>
-            <ruleset>ncsucscpmd</ruleset>
-        </rule>
-        <rule>
-            <name>FormalParametersNeedMeaningfulNames</name>
-            <ruleset>ncsucscpmd</ruleset>
-        </rule>
-        <rule>
-            <name>JUnit4TestsHaveAssertions</name>
-            <ruleset>ncsucscpmd</ruleset>
         </rule>
     </rules>
     <includeDerivedFiles>false</includeDerivedFiles>

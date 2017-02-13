@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import edu.ncsu.csc216.collections.list.SortedList;
-import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 /**
  * Tests the Course class.
