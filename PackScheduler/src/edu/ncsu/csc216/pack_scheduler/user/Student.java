@@ -6,17 +6,7 @@ package edu.ncsu.csc216.pack_scheduler.user;
  * the Student's: first name, last name, id, email, password, and maximum credit hours.
  * @author Steven Mayo with partial skeleton code from Sarah Heckman
  */
-public class Student implements Comparable<Student> {
-	/** String for student's first name */
-	private String firstName;
-	/** String for student's last name */
-	private String lastName;
-	/** String for student's email address */
-	private String email;
-	/** String for student's identification tag */
-	private String id;
-	/** String for student's pre-hashed password */
-	private String hashedPassword;
+public class Student extends User implements Comparable<Student> {
 	/** Integer for the maximum number of credits available to the student */
 	private int maxCredits;
 	/** The default maximum number of credits allowed at NC State */
@@ -32,11 +22,7 @@ public class Student implements Comparable<Student> {
 	 * @param maxCredits The maximum number of credits available to the student. 
 	 */
 	public Student(String firstName, String lastName, String id, String email, String hashedPassword, int maxCredits)  {
-		setFirstName(firstName);
-		setLastName(lastName);
-		setId(id);
-		setEmail(email);
-		setPassword(hashedPassword);
+		super(firstName, lastName, id, email, hashedPassword);
 		setMaxCredits(maxCredits);
 		
 	}
@@ -55,107 +41,11 @@ public class Student implements Comparable<Student> {
 	}
 	
 	/**
-	 * Retrieves the student's first name.
-	 * @return firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-	
-	/**
-	 * Retrieves the student's last name.
-	 * @return lastName
-	 */
-	public String getLastName() {
-	
-		return lastName;
-	}
-	
-	/**
-	 * Retrieves the student's identification tag.
-	 * @return id
-	 */	
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * Retrieves the student's email address.
-	 * @return email
-	 */
-	public String getEmail(){
-		return email;
-	}
-
-	/**
-	 * Retrieves the student's password, which was passed in as a hashed value.
-	 * @return hashedPassword
-	 */
-	public String getPassword(){
-		return hashedPassword;
-	}
-	
-	/**
 	 * Retrieves the maximum number of course available to the student.
 	 * @return maxCredits
 	 */
 	public int getMaxCredits(){
 		return maxCredits;
-	}
-	
-	/**
-	 * Sets the students first name,  which is invalid if it is a null or empty string.
-	 * @param firstName The students first name
-	 * @throws IllegalArgumentException if the first name is invalid
-	 */
-	public void setFirstName(String firstName){
-		if(firstName == null || firstName.isEmpty()) throw new IllegalArgumentException("Invalid first name");
-		this.firstName = firstName;
-	}
-	
-	/**
-	 * Sets the student's last name,  which is invalid if it is a null or empty string.
-	 * @param lastName The students last name.
-	 * @throws IllegalArgumentException if the last name is invalid
-	 */
-	public void setLastName(String lastName){
-		if(lastName == null || lastName.isEmpty()) throw new IllegalArgumentException("Invalid last name");
-		this.lastName = lastName;
-	}
-	
-	/**
-	 * Set's the student's identification tag, which is invalid if it is a null or empty string.
-	 * @param id The student's identification tag.
-	 * @throws IllegalArgumentException if the ID is invalid.
-	 */
-	private void setId(String id){
-		if(id == null || id.isEmpty()) throw new IllegalArgumentException("Invalid id");
-		if(id.contains("@")) throw new IllegalArgumentException("Invalid id");
-		this.id = id;
-	}
-	
-	/**
-	 * Sets the student's email address, which is invalid if it is a null or empty string. Additionally,
-	 * the student's email address must contain the "@" and "." characters with the last index of the "." appearing
-	 * after the "@" character.
-	 * @param email The student's email address
-	 * @throws IllegalArgumentException if the email is invalid.
-	 */
-	public void setEmail(String email){
-		if(email == null || email.isEmpty()) throw new IllegalArgumentException("Invalid email");
-		if( !(email.contains(".")) || !(email.contains("@"))) throw new IllegalArgumentException("Invalid email");
-		if(email.lastIndexOf(".") < email.lastIndexOf("@")) throw new IllegalArgumentException("Invalid email");
-		this.email = email;
-	}
-	
-	/**
-	 * Sets the student's pre-hashed password, which is invalid if it is a null or empty string.
-	 * @param hashedPassword The student's password that was passed in pre-hashed via "SHA-256".
-	 * @throws IllegalArgumentException if the password is invalid.
-	 */
-	public void setPassword(String hashedPassword){
-		if(hashedPassword == null || hashedPassword.isEmpty()) throw new IllegalArgumentException("Invalid password");
-		this.hashedPassword = hashedPassword;
 	}
 	
 	/**
@@ -167,76 +57,6 @@ public class Student implements Comparable<Student> {
 	public void setMaxCredits(int maxCredits){
 		if(maxCredits < 3 || maxCredits > 18) throw new IllegalArgumentException("Invalid max credits");
 		this.maxCredits = maxCredits;
-	}
-
-	/**
-	 * Generates a hashcode for the Student class using all fields.
-	 * @return hashCode for Student class.
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + maxCredits;
-		result = prime * result + ((hashedPassword == null) ? 0 : hashedPassword.hashCode());
-		return result;
-	}
-
-	/**
-	 * Compares a given object to this object for equality on all fields.
-	 * @param obj the object to compare.
-	 * @return will return true if the objects are the same on all fields.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (maxCredits != other.maxCredits)
-			return false;
-		if (hashedPassword == null) {
-			if (other.hashedPassword != null)
-				return false;
-		} else if (!hashedPassword.equals(other.hashedPassword))
-			return false;
-		return true;
-	}
-
-	/**
-	 * Returns a comma separated value String of all student fields/
-	 * @return String representation of Student
-	 */
-	@Override
-	public String toString() {
-		return firstName + "," + lastName + "," + id + "," + email + "," + hashedPassword + "," + maxCredits;
 	}
 
 	@Override
@@ -292,5 +112,48 @@ public class Student implements Comparable<Student> {
 		}
 		return 0;
 	}
+
+	/**
+	 * Generates a hashcode for the Student class using the fields inherited 
+	 * from the abstract User class and the objects defined within the Student class.
+	 * @return hashCode for Student class.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + maxCredits;
+		return result;
+	}
+
+	/**
+	 * Compares a given object to this object for equality on all fields.
+	 * @param obj the object to compare.
+	 * @return will return true if the objects are the same on all fields.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (maxCredits != other.maxCredits)
+			return false;
+		return true;
+	}
+	
+	/**
+	 * Returns a comma separated value String of all student fields/
+	 * @return String representation of Student
+	 */
+	@Override
+	public String toString() {
+		return this.getFirstName() + "," + this.getLastName() + "," + this.getId() + "," + this.getEmail() + "," + this.getPassword() + "," + this.getMaxCredits();
+	}
+
+
 }
 		

@@ -6,6 +6,7 @@ import java.io.*;
 
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
+import edu.ncsu.csc216.pack_scheduler.user.User;
 
 /**
  * Provides methods to read and write student directory files.
@@ -29,7 +30,7 @@ public class StudentRecordIO {
 					Student student = processStudent(fileReader.nextLine());
 					boolean isValid = true;
 					for(int i = 0; i < students.size(); i++){
-						Student s = students.get(i);
+						User s = students.get(i);
 						if(s == null) isValid = false;
 					}
 					if(isValid) students.add(student);

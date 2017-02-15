@@ -326,14 +326,14 @@ public class StudentTest {
 	@Test
 	public void testEqualsObject() {
 		// 6 fields, so test on each field for equals in both directions!
-		Student s1 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s2 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s3 = new Student("testing", LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s4 = new Student(FIRST, "lastname", ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s5 = new Student(FIRST, LAST, ID, "different@gmail.edu", PASSWORD, MAXCREDITS);
-		Student s6 = new Student(FIRST, LAST, ID, EMAIL, "password", MAXCREDITS);
-		Student s7 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, 8);
-		Student s8 = new Student(FIRST, LAST, "different", EMAIL, PASSWORD, MAXCREDITS);
+		User s1 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s2 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s3 = new Student("testing", LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s4 = new Student(FIRST, "lastname", ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s5 = new Student(FIRST, LAST, ID, "different@gmail.edu", PASSWORD, MAXCREDITS);
+		User s6 = new Student(FIRST, LAST, ID, EMAIL, "password", MAXCREDITS);
+		User s7 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, 8);
+		User s8 = new Student(FIRST, LAST, "different", EMAIL, PASSWORD, MAXCREDITS);
 		
 		
 		//testing for equality in both directions.
@@ -354,14 +354,14 @@ public class StudentTest {
 	 */
 	@Test
 	public void testHashCode() {
-		Student s1 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s2 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s3 = new Student("testing", LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s4 = new Student(FIRST, "lastname", ID, EMAIL, PASSWORD, MAXCREDITS);
-		Student s5 = new Student(FIRST, LAST, ID, "different@gmail.com", PASSWORD, MAXCREDITS);
-		Student s6 = new Student(FIRST, LAST, ID, EMAIL, "password", MAXCREDITS);
-		Student s7 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, 8);
-		Student s8 = new Student(FIRST, LAST, "different", EMAIL, PASSWORD, MAXCREDITS);
+		User s1 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s2 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s3 = new Student("testing", LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s4 = new Student(FIRST, "lastname", ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s5 = new Student(FIRST, LAST, ID, "different@gmail.com", PASSWORD, MAXCREDITS);
+		User s6 = new Student(FIRST, LAST, ID, EMAIL, "password", MAXCREDITS);
+		User s7 = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, 8);
+		User s8 = new Student(FIRST, LAST, "different", EMAIL, PASSWORD, MAXCREDITS);
 		
 		//testing for the same hash code in both directions.
 		assertEquals(s1.hashCode(), s2.hashCode());
@@ -381,7 +381,7 @@ public class StudentTest {
 	@Test
 	public void testToString() {
 		//test to see if a call to .toString() is equal to expected string results.
-		Student s = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
+		User s = new Student(FIRST, LAST, ID, EMAIL, PASSWORD, MAXCREDITS);
 		String s1 = "first,last,id,testcase@junit.com,hashedpassword,18";
 		assertEquals(s1, s.toString());
 	}
