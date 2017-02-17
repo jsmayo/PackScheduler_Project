@@ -147,4 +147,13 @@ public class StudentDirectory {
 		}
 	}
 
+	public Student getStudentById(String id) {
+		for(int i = 0; i < studentDirectory.size(); i++){
+			Student s = studentDirectory.get(i);
+			if(s.getId().equals(id)) return s;
+			else continue;
+		}
+		return null;
+	}
+
 }
