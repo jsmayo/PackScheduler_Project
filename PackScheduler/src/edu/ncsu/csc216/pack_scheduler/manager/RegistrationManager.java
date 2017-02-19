@@ -89,22 +89,7 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 		if(currentUser != null) throw new IllegalArgumentException("Cannot login again");
-		
-		Student s = studentDirectory.getStudentById(id);
-		if(s != null && studentDirectory.getStudentById(id) ==  null) throw new IllegalArgumentException();
-			try {
-				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-				digest.update(password.getBytes());
-				String localHashPW = new String(digest.digest());
-				if (s.getPassword().equals(localHashPW)) {
-					currentUser = s;
-					return true;
-				}
-			} catch (NoSuchAlgorithmException e) {
-				throw new IllegalArgumentException();
-			}
-		//}
-
+		Student s = null;
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
 			try {
@@ -120,6 +105,23 @@ public class RegistrationManager {
 			}
 			
 		}
+		
+		if(studentDirectory.getStudentById(id) == null) throw new IllegalArgumentException();
+		s = studentDirectory.getStudentById(id);
+			try {
+				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+				digest.update(password.getBytes());
+				String localHashPW = new String(digest.digest());
+				if (s.getPassword().equals(localHashPW)) {
+					currentUser = s;
+					return true;
+				}
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException();
+			}
+		
+
+		
 		
 		return false;
 	}
