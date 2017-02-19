@@ -47,6 +47,7 @@ public class RegistrationManager {
 		courseCatalog = new CourseCatalog();
 		studentDirectory = new StudentDirectory();
 		registrar = new Registrar();
+		currentUser = null;
 	}
 	
 	/**
