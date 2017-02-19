@@ -89,7 +89,7 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 		if(currentUser != null) throw new IllegalArgumentException("Cannot login again");
-		if(studentDirectory.getStudentById(id) == null && id != "registrar") throw new IllegalArgumentException();
+		
 		Student s = studentDirectory.getStudentById(id);
 		if(s != null){
 			try {
