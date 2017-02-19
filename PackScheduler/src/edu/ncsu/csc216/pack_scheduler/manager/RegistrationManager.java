@@ -91,7 +91,7 @@ public class RegistrationManager {
 		if(currentUser != null) throw new IllegalArgumentException("Cannot login again");
 		
 		Student s = studentDirectory.getStudentById(id);
-		if(s != null && studentDirectory.getStudentById(id) !=  null){
+		if(s != null && studentDirectory.getStudentById(id) ==  null) throw new IllegalArgumentException();
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 				digest.update(password.getBytes());
@@ -103,7 +103,7 @@ public class RegistrationManager {
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
-		}
+		//}
 
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
