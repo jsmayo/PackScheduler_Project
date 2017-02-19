@@ -101,7 +101,9 @@ public class RegistrationManager {
 					currentUser = registrar;
 					return true;
 				}
-				else return false;
+				//else {
+					
+					//return false;
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
