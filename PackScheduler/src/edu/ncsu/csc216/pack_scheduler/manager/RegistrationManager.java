@@ -53,7 +53,7 @@ public class RegistrationManager {
 	}
 
 	public boolean login(String id, String password) {
-
+		if(currentUser != null) throw new IllegalArgumentException("Cannot login again");
 		Student s = studentDirectory.getStudentById(id);
 		if(s != null){
 			try {
@@ -82,24 +82,24 @@ public class RegistrationManager {
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
-			//			catch (NullPointerException npe) {
-			//				throw new IllegalArgumentException();
-			//			}
+			
 		}
 
 		return false;
 	}
-
+	
+	/**
+	 * Logs the currentUser out of the RegistrationManager by setting the field value to null.
+	 */
 	public void logout() {
-		currentUser = registrar; 
+		currentUser = null; 
 	}
 	
 	/**
 	 * @return 
 	 */
 	public User getCurrentUser() {
-		//TODO implement method
-		return null;
+		return currentUser;
 	}
 	
 	public void clearData() {

@@ -56,6 +56,7 @@ public class RegistrationManagerTest {
 		StudentDirectory sd = manager.getStudentDirectory();
 		sd.addStudent("Jake", "TheDog", "jakethedog","jakethedog@ncsu.edu", "pw", "pw", 4);
 		assertTrue(manager.login("jakethedog","pw"));
+		manager.logout();
 		
 		//Tests for an invalid student login attempt
 		assertFalse(manager.login("jakethedog", "notjakethedogspassword"));		
@@ -65,17 +66,34 @@ public class RegistrationManagerTest {
 		
 		//Test for a valid registrar login
 		assertTrue(manager.login("registrar","Regi5tr@r"));
+		manager.logout();
 		
 		//Test for invalid registrar login
 		assertFalse(manager.login("registrar", "nope"));
 		
 	}
 	
-
+	/**
+	 * Test that the logout() method sets the current user to a null value.
+	 */
 	@Test
 	public void testLogout() {
-		fail("Not yet implemented");
+		manager = RegistrationManager.getInstance();
+		//Test logging in and out of a student profile
+		StudentDirectory sd = manager.getStudentDirectory();
+		sd.addStudent("Jake", "TheDog", "jakethedog","jakethedog@ncsu.edu", "pw", "pw", 4);
+		assertTrue(manager.login("jakethedog","pw"));
+		manager.logout();
+		assertEquals(null, manager.getCurrentUser());
+	
+		//Test logging in and out of a registrar profile
+		assertTrue(manager.login("registrar", "Regi5tr@r"));
+		assertTrue(manager.getCurrentUser() != null);
+		manager.logout();
+		assertNull(manager.getCurrentUser());
 	}
+		
+	
 
 	@Test
 	public void testGetCurrentUser() {
