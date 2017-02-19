@@ -2,14 +2,11 @@ package edu.ncsu.csc216.pack_scheduler.manager;
 
 import static org.junit.Assert.*;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
+import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 
 public class RegistrationManagerTest {
@@ -97,7 +94,25 @@ public class RegistrationManagerTest {
 
 	@Test
 	public void testGetCurrentUser() {
-		fail("Not yet implemented");
+		//test for null user value when first started.
+		manager = RegistrationManager.getInstance();
+		assertNull(manager.getCurrentUser());
+		
+		//Test for student login
+		manager.logout();
+		StudentDirectory sd = manager.getStudentDirectory();
+		sd.addStudent("Jake", "TheDog", "jakethedog","jakethedog@ncsu.edu", "pw", "pw", 4);
+		manager.login("jakethedog", "pw");
+		assertTrue(manager.getCurrentUser() instanceof Student);
+		manager.logout();
+		assertEquals(null, manager.getCurrentUser());
+		
+		//Test for registrar login
+		manager.login("registrar", "Regi5tr@r");
+		assertFalse(manager.getCurrentUser() instanceof Student);
+		assertNotNull(manager.getCurrentUser());
+		manager.logout();
+		assertNull(manager.getCurrentUser());
 	}
 
 }
