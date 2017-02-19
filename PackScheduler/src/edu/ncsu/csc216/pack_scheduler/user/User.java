@@ -1,5 +1,13 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
+/**
+ * An abstract class that is inherited by the Student and Registrar
+ * classes. Functionality of this class extends primarily to setting/getting
+ * values for a user's first name, last name, email address, ID, and
+ * password (hashed).
+ * 
+ *@author Steven Mayo
+ */
 public abstract class User {
 
 	/** String for student's first name */
@@ -13,6 +21,14 @@ public abstract class User {
 	/** String for student's pre-hashed password */
 	private String hashedPassword;
 
+	/**
+	 * Constructor for the User object.
+	 * @param firstName The first name of the user.
+	 * @param lastName The last name of the user.
+	 * @param id The id of the user.
+	 * @param email The email of the user.
+	 * @param password The password of the user.
+	 */
 	public User(String firstName, String lastName, String id, String email, String password) {
 		setFirstName(firstName);
 		setLastName(lastName);

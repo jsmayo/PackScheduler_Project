@@ -146,7 +146,14 @@ public class StudentDirectory {
 			throw new IllegalArgumentException("Unable to write to file " + fileName);
 		}
 	}
-
+	
+	/**
+	 * Returns the student object associated with the ID string value that's passed
+	 * in as an argument.
+	 * @param id The id of the student.
+	 * @return null if the id does not match a student within the student directory.
+	 * Otherwise, the Student object will be returned. 
+	 */
 	public Student getStudentById(String id) {
 		for(int i = 0; i < studentDirectory.size(); i++){
 			Student s = studentDirectory.get(i);
