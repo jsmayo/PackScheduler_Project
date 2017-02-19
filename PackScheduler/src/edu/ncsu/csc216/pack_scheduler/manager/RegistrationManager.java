@@ -100,6 +100,7 @@ public class RegistrationManager {
 					currentUser = registrar;
 					return true;
 				}
+				else return false;
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
@@ -119,10 +120,7 @@ public class RegistrationManager {
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
-		
 
-		
-		
 		return false;
 	}
 	
