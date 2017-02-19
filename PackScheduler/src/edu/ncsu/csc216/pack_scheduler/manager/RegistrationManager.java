@@ -107,7 +107,7 @@ public class RegistrationManager {
 			
 		}
 		
-		if(studentDirectory.getStudentById(id) == null) throw new IllegalArgumentException();
+		if(studentDirectory.getStudentById(id) == null) throw new IllegalArgumentException("User doesn't exist.");
 		s = studentDirectory.getStudentById(id);
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
