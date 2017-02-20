@@ -72,10 +72,10 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	private void setName(String name) {
 	    if (name == null) {
-	        throw new IllegalArgumentException();
+	        throw new IllegalArgumentException("Invalid name");
 	    }
 	    if (name.length() < 4 || name.length() > 6) {
-	        throw new IllegalArgumentException();
+	        throw new IllegalArgumentException("Invalid name");
 	    }
 	    this.name = name;
 	}
@@ -94,13 +94,13 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @throws IllegalArgumentException if the section String is null or empty. 
 	 */
 	public void setSection(String section) {
-		if(section == null || section.isEmpty()) throw new IllegalArgumentException();
+		if(section == null || section.isEmpty()) throw new IllegalArgumentException("Invalid section");
 		int charCount = 0;
 		for(char c : section.toCharArray()){
-			if(!Character.isDigit(c)) throw new IllegalArgumentException();
+			if(!Character.isDigit(c)) throw new IllegalArgumentException("Invalid section");
 			charCount++;
 		}
-		if(charCount != 3) throw new IllegalArgumentException();
+		if(charCount != 3) throw new IllegalArgumentException("Invalid section");
 		this.section = section;
 	}
 	
@@ -117,7 +117,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param credits the credits to set
 	 */
 	public void setCredits(int credits) {
-		if(credits < 1 || credits > 5) throw new IllegalArgumentException();
+		if(credits < 1 || credits > 5) throw new IllegalArgumentException("Max credits must be a positive number between 3 and 18.");
 		this.credits = credits;
 	}
 	
@@ -134,7 +134,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param instructorId the instructorId to set
 	 */
 	public void setInstructorId(String instructorId) {
-		if(instructorId == null || instructorId.isEmpty()) throw new IllegalArgumentException();
+		if(instructorId == null || instructorId.isEmpty()) throw new IllegalArgumentException("Invalid instructor id");
 		this.instructorId = instructorId;
 	}
 	
@@ -148,15 +148,15 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	@Override
 	public void setMeetingDays(String meetingDays) {
-		if(meetingDays == null || meetingDays.isEmpty()) throw new IllegalArgumentException();
+		if(meetingDays == null || meetingDays.isEmpty()) throw new IllegalArgumentException("Invalid meeting days");
 		//test to see if AMTWHF are the only characters shown.
 		for(int i = 0; i < meetingDays.length(); i++){
 			char c = meetingDays.charAt(i);
 			if(c == 'A' || c == 'M' || c == 'T' || c == 'W' || c == 'H' || c == 'F') continue;
-			else throw new IllegalArgumentException();
+			else throw new IllegalArgumentException("Invalid meeting days");
 		}
 		//test to see if A is the only character present if Arranged is selected.
-		if(meetingDays.contains("A") && meetingDays.length() != 1) throw new IllegalArgumentException();
+		if(meetingDays.contains("A") && meetingDays.length() != 1) throw new IllegalArgumentException("Invalid meeting days");
 		super.setMeetingDays(meetingDays);
 	}
 

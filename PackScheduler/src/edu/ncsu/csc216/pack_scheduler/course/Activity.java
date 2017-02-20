@@ -109,7 +109,7 @@ public abstract class Activity implements Conflict {
 	 * @throws IllegalArgumentException if the title String is null or empty. 
 	 */
 	public void setTitle(String title) {
-		if(title == null || title.isEmpty()) throw new IllegalArgumentException();
+		if(title == null || title.isEmpty()) throw new IllegalArgumentException("Invalid title");
 		this.title = title;
 	}
 
@@ -140,11 +140,11 @@ public abstract class Activity implements Conflict {
 	 * range is from 0000 - 2359.
 	 */
 	public void setActivityTime(int startTime, int endTime) {
-		if(startTime < 0 || endTime > 2359) throw new IllegalArgumentException();
-		if(startTime > 2359 || endTime < 0) throw new IllegalArgumentException();
-		if(endTime < startTime) throw new IllegalArgumentException();
-		if((startTime % 100) >= 60 || (endTime % 100) >= 60 ) throw new IllegalArgumentException();
-		if( (startTime / 100) >= 24 || (endTime / 100) >= 24) throw new IllegalArgumentException();
+		if(startTime < 0 || endTime > 2359) throw new IllegalArgumentException("Invalid meeting times");
+		if(startTime > 2359 || endTime < 0) throw new IllegalArgumentException("Invalid meeting times");
+		if(endTime < startTime) throw new IllegalArgumentException("Invalid meeting times");
+		if((startTime % 100) >= 60 || (endTime % 100) >= 60 ) throw new IllegalArgumentException("Invalid meeting times");
+		if( (startTime / 100) >= 24 || (endTime / 100) >= 24) throw new IllegalArgumentException("Invalid meeting times");
 		this.startTime = startTime;
 		this.endTime = endTime; 
 	}

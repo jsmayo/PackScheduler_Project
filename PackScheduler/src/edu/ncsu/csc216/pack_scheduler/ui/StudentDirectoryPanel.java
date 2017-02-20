@@ -1,8 +1,8 @@
 package edu.ncsu.csc216.pack_scheduler.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,6 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
+import edu.ncsu.csc216.pack_scheduler.manager.RegistrationManager;
 
 /**
  * Creates a user interface for working with the StudentDirectory.
@@ -36,15 +36,12 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 	
 	/** ID used for object serialization */
 	private static final long serialVersionUID = 1L;
-	/** JFrame for the GUI */
-	private static JFrame gui;
-	/** WolfSchedulerGUI title */
-	private static final String APP_TITLE = "WolfScheduler";
-	/** Button for resetting the schedule */
+
+	/** Button for resetting the directory */
 	private JButton btnNewStudentList;
-	/** Button for resetting the schedule */
+	/** Button for resetting the directory */
 	private JButton btnLoadStudentList;
-	/** Button for displaying the final schedule */
+	/** Button for displaying the final directory */
 	private JButton btnSaveStudentList;
 	/** JTable for displaying the directory of Students */
 	private JTable tableStudentDirectory;
@@ -92,9 +89,9 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 	 * components.
 	 */
 	public StudentDirectoryPanel() {
-		super(new GridLayout(4, 1));
+		super(new GridBagLayout());
 		
-		studentDirectory = new StudentDirectory();
+		studentDirectory = RegistrationManager.getInstance().getStudentDirectory();
 		
 		//Set up Directory buttons
 		btnNewStudentList = new JButton("New Student Directory");
@@ -180,10 +177,38 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 		pnlStudentForm.setBorder(boarder);
 		pnlStudentForm.setToolTipText("Student Information");
 		
-		this.add(pnlDirectoryButton);
-		this.add(scrollStudentDirectory);
-		this.add(pnlStudentButtons);
-		this.add(pnlStudentForm);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.weighty = .2;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(pnlDirectoryButton, c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(scrollStudentDirectory, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		c.weightx = 1;
+		c.weighty = .5;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(pnlStudentButtons, c);
+		
+		c.gridx = 0;
+		c.gridy = 3;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(pnlStudentForm, c);
 		
 	}
 
@@ -198,14 +223,14 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 				scrollStudentDirectory.repaint();
 				studentDirectoryTableModel.fireTableDataChanged();
 			} catch (IllegalArgumentException iae) {
-				JOptionPane.showMessageDialog(gui, iae.getMessage());
+				JOptionPane.showMessageDialog(this, iae.getMessage());
 			}
 		} else if (e.getSource() == btnSaveStudentList) {
 			String fileName = getFileName(false);
 			try {
 				studentDirectory.saveStudentDirectory(fileName);
 			} catch (IllegalArgumentException iae) {
-				JOptionPane.showMessageDialog(gui, iae.getMessage());
+				JOptionPane.showMessageDialog(this, iae.getMessage());
 			}
 		} else if (e.getSource() == btnNewStudentList) {
 			studentDirectory.newStudentDirectory();
@@ -224,7 +249,7 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 			try {
 				maxCredits = Integer.parseInt(txtMaxCredits.getText());
 			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(gui, "Max credits must be a positive number between 3 and 18.");
+				JOptionPane.showMessageDialog(this, "Max credits must be a positive number between 3 and 18.");
 				return;
 			}
 			
@@ -248,28 +273,28 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 					txtRepeatPassword.setText("");
 					txtMaxCredits.setText("");
 				} else {
-					JOptionPane.showMessageDialog(gui, "Student already in system.");
+					JOptionPane.showMessageDialog(this, "Student already in system.");
 				}
 			} catch (IllegalArgumentException iae) {
-				JOptionPane.showMessageDialog(gui, iae.getMessage());
+				JOptionPane.showMessageDialog(this, iae.getMessage());
 			}
 			studentDirectoryTableModel.updateData();
 		} else if (e.getSource() == btnRemoveStudent) {
 			int row = tableStudentDirectory.getSelectedRow();
 			if (row == -1) {
-				JOptionPane.showMessageDialog(gui, "No student selected.");
+				JOptionPane.showMessageDialog(this, "No student selected.");
 			} else {
 				try {
 					studentDirectory.removeStudent(tableStudentDirectory.getValueAt(row, 2).toString());
 				} catch (ArrayIndexOutOfBoundsException aioobe) {
-					JOptionPane.showMessageDialog(gui, "No student selected.");
+					JOptionPane.showMessageDialog(this, "No student selected.");
 				}
 			}
 			studentDirectoryTableModel.updateData();
 		}
 		
-		gui.validate();
-		gui.repaint();
+		this.validate();
+		this.repaint();
 	}
 	
 	/**
@@ -295,23 +320,6 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 		}
 		File catalogFile = fc.getSelectedFile();
 		return catalogFile.getAbsolutePath();
-	}
-	
-	/**
-	 * Starts the Wolf Scheduler program.
-	 * @param args command line arguments
-	 */
-	public static void main(String [] args) {
-		gui = new JFrame();
-		gui.setSize(900, 800);
-		gui.setLocation(50, 50);
-		gui.setTitle(APP_TITLE);
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Container c = gui.getContentPane();
-		c.add(new StudentDirectoryPanel(), BorderLayout.CENTER);
-		
-		gui.setVisible(true);
 	}
 	
 	/**
