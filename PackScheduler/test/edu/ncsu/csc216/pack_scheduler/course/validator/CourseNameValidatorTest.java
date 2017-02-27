@@ -182,11 +182,6 @@ public class CourseNameValidatorTest {
 			assertEquals("Course name can only contain letters and digits.", e.getMessage());
 		}
 		
-		//Test that onOther method throws an exception:
-//		try {
-//			cnv.InitialState.onOther();
-//		} catch (InvalidTransitionException ite) {
-//		}
 	}
 
 }
