@@ -39,6 +39,7 @@ public class CourseNameValidatorTest {
 			fail();
 		} catch (InvalidTransitionException e) {
 			assertEquals("Course name must start with a letter.", e.getMessage());
+			//assertTrue(cnv.currentState == DIGIT_STATE);
 		}
 		
 		//Test that STATE_L returns false

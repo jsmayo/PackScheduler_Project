@@ -77,12 +77,12 @@ public class Course extends Activity implements Comparable<Course> {
 	 * greater than 6
 	 */
 	private void setName(String name) {
-//	    if (name == null) {
-//	        throw new IllegalArgumentException("Invalid name");
-//	    }
-//	    if (name.length() < 4 || name.length() > 6) {
-//	        throw new IllegalArgumentException("Invalid name");
-//	    }
+	    if (name == null) {
+	        throw new IllegalArgumentException("Invalid name");
+	    }
+	    if (name.length() < 4 || name.length() > 6) {
+	        throw new IllegalArgumentException("Invalid name");
+	    }
 		try {
 			if(validator.isValid(name))
 					this.name = name;

@@ -105,8 +105,8 @@ public class CourseNameValidator {
 		}
 		
 		public void onDigit() {
-			digitCount = 0; //put string in from requirements.
-			currentState = DIGIT_STATE;
+			//digitCount = 0; //put string in from requirements.
+			//currentState = DIGIT_STATE;
 			//for tests, add if lettercount < digit count, throw an exception
 		}
 	}
