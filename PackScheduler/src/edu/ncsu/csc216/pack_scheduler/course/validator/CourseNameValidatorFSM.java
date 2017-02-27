@@ -10,31 +10,31 @@ package edu.ncsu.csc216.pack_scheduler.course.validator;
 public class CourseNameValidatorFSM {
 
 	/** Initial state before input is examined */
-	private final int STATE_INITIAL = 0;
+	private final int stateInitialValue = 0;
 	
 	/** State at which one letter has been identified */
-	private final int STATE_L = 1;
+	private final int stateL = 1;
 	
 	/** State at which two letters have been identified */
-	private final int STATE_LL = 2;
+	private final int stateLL = 2;
 	
 	/** State at which three letters have been identified */
-	private final int STATE_LLL = 3;
+	private final int stateLLL = 3;
 	
 	/** State at which four letters have been identified */
-	private final int STATE_LLLL = 4;
+	private final int stateLLLL = 4;
 	
 	/** State at which one digit has been identified */
-	private final int STATE_D = 5;
+	private final int stateD = 5;
 	
 	/** State at which two digits have been identified */
-	private final int STATE_DD = 6;
+	private final int stateDD = 6;
 	
 	/** State at which three digits have been identified */
-	private final int STATE_DDD = 7;
+	private final int stateDDD = 7;
 	
 	/** State at which a suffix letter has been identified */
-	private final int STATE_SUFFIX = 8;
+	private final int stateSuffix = 8;
 	
 	/** The state variable keeps track of the current FSM state we are in */
 	private int state;
@@ -52,7 +52,7 @@ public class CourseNameValidatorFSM {
 	 */
 	public boolean isValid(String courseName) throws InvalidTransitionException {
 		// Set the state field to be the initial FSM state
-		state = STATE_INITIAL;
+		state = stateInitialValue;
 		
 		// Create a variable to track the current character index
 		int charIndex = 0;
@@ -72,79 +72,79 @@ public class CourseNameValidatorFSM {
 			
 			// Use a switch statement for the current character
 			switch(state) {
-				case STATE_INITIAL:
+				case stateInitialValue:
 					if(Character.isLetter(c)) {
-						state = STATE_L;
+						state = stateL;
 					}
 					else if(Character.isDigit(c)) {
 						throw new InvalidTransitionException("Course name must start with a letter.");
 					}
 					break;
 				
-				case STATE_L:
+				case stateL:
 					if(Character.isLetter(c)) {
-						state = STATE_LL;
+						state = stateLL;
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_D;
+						state = stateD;
 					}
 					break;
 					
-				case STATE_LL:
+				case stateLL:
 					if(Character.isLetter(c)) {
-						state = STATE_LLL;
+						state = stateLLL;
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_D;
+						state = stateD;
 					}
 					break;
 					
-				case STATE_LLL:
+				case stateLLL:
 					if(Character.isLetter(c)) {
-						state = STATE_LLLL;
+						state = stateLLLL;
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_D;
+						state = stateD;
 					}
 					break;
 					
-				case STATE_LLLL:
+				case stateLLLL:
 					if(Character.isLetter(c)) {
 						throw new InvalidTransitionException("Course name cannot start with more than 4 letters.");
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_D;
+						state = stateD;
 					}
 					break;					
 				
-				case STATE_D:
+				case stateD:
 					if(Character.isLetter(c)) {
 						throw new InvalidTransitionException("Course name must have 3 digits.");
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_DD;
+						state = stateDD;
 					}
 					break;
 					
-				case STATE_DD:
+				case stateDD:
 					if(Character.isLetter(c)) {
 						throw new InvalidTransitionException("Course name must have 3 digits.");
 					}
 					else if (Character.isDigit(c)) {
-						state = STATE_DDD;
+						state = stateDDD;
 					}
 					break;
 					
-				case STATE_DDD:
+				case stateDDD:
 					if(Character.isLetter(c)) {
-						state = STATE_SUFFIX;
+						state = stateSuffix;
 					}
 					else if (Character.isDigit(c)) {
 						throw new InvalidTransitionException("Course name can only have 3 digits.");
 					}
 					break;
 					
-				case STATE_SUFFIX:
+				case stateSuffix:
 					if(Character.isLetter(c)) {
 						throw new InvalidTransitionException("Course name can only have a 1 letter suffix.");
 					}
@@ -152,13 +152,15 @@ public class CourseNameValidatorFSM {
 						throw new InvalidTransitionException("Course name cannot contain digits after the suffix.");
 					}
 					break;
+					
+					default:
 			}
 			
 			charIndex++;
 
 		}
 		
-		return state == STATE_DDD || state == STATE_SUFFIX;	
+		return state == stateDDD || state == stateSuffix;	
 	}
 
 }

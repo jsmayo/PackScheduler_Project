@@ -21,13 +21,13 @@ public class CourseNameValidator {
 	private int currentState = 0;
 	//final integers because they do not need to change. 
 	/** Integer that represents the initial state of the CourseNameValidator. */
-	private final int INITIAL_STATE = 0;
+	private final int initialStateValue = 0;
 	/** Integer that represents the letter state of the CourseNameValidator. */
-	private final int LETTER_STATE = 1;
+	private final int letterStateValue = 1;
 	/** Integer that represents the digit state of the CourseNameValidator. */
-	private final int DIGIT_STATE = 2;
+	private final int digitStateValue = 2;
 	/** Integer that represents the digit state of the CourseNameValidator. */
-	private final int SUFFIX_STATE = 3;
+	private final int suffixStateValue = 3;
 	/** InitialState object needed for the state pattern. */
 	InitialState initialState;
 	/** LetterState object needed for the state pattern. */
@@ -54,7 +54,7 @@ public class CourseNameValidator {
 	 */
 	public boolean isValid(String courseName) throws InvalidTransitionException  {
 		initialState = new InitialState();
-		currentState = INITIAL_STATE;
+		currentState = initialStateValue;
 		
 		for(int i = 0; i < courseName.length(); i++) {
 			char c = courseName.charAt(i);
@@ -64,11 +64,11 @@ public class CourseNameValidator {
 			//switch based on currentState (int), but let the states be objects that handle their own behaivor.
 			switch(currentState) {
 			//initial state
-			case INITIAL_STATE:
+			case initialStateValue:
 				if(Character.isLetter(c)) initialState.onLetter();
 				else if(Character.isDigit(c)) throw new InvalidTransitionException("Course name must start with a letter.");
 				break;
-			case LETTER_STATE:
+			case letterStateValue:
 				if(Character.isLetter(c) && letterCount >= LetterState.MIN_PREFIX_LETTERS && letterCount <= LetterState.MAX_PREFIX_LETTERS) letterState.onLetter();
 				if(Character.isDigit(c)) {
 					//Can probably delete this next line, since it shouldn't occur (possibly).
@@ -77,7 +77,7 @@ public class CourseNameValidator {
 					letterState.onDigit();
 				}
 				break;
-			case DIGIT_STATE:
+			case digitStateValue:
 				if(Character.isDigit(c)) {
 					if(digitCount < DigitState.REQUIRED_DIGITS) digitState.onDigit();
 					else throw new InvalidTransitionException("Course name can only have 3 digits.");
@@ -87,7 +87,7 @@ public class CourseNameValidator {
 					digitState.onLetter();
 				}
 				break;
-			case SUFFIX_STATE:
+			case suffixStateValue:
 				if(Character.isLetter(c)) {
 					throw new InvalidTransitionException("Course name can only have a 1 letter suffix.");
 				}
@@ -162,7 +162,7 @@ public class CourseNameValidator {
 		 */
 		public void onLetter() {
 			letterCount++;
-			currentState = LETTER_STATE;
+			currentState = letterStateValue;
 		}
 		
 		/**
@@ -204,7 +204,7 @@ public class CourseNameValidator {
 		 */
 		public void onDigit() {
 			digitCount = 1;
-			currentState = DIGIT_STATE;
+			currentState = digitStateValue;
 		}
 	}
 	
@@ -227,7 +227,7 @@ public class CourseNameValidator {
 			//if(digitCount != MAX_DIGITS_ALLOWED) throw new InvalidTransitionException("Course name must have 3 digits.");
 			//else {
 				//suffixCount = 1;
-				currentState = SUFFIX_STATE;
+				currentState = suffixStateValue;
 			}
 		
 		/**
