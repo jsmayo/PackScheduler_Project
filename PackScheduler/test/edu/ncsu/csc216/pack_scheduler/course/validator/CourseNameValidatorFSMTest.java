@@ -16,6 +16,10 @@ public class CourseNameValidatorFSMTest {
 
 	CourseNameValidatorFSM cnv = new CourseNameValidatorFSM();
 	
+	/**
+	 * Test for isValid() method of CourseNameValidator. Ensures that state
+	 * transitions are validated.
+	 */
 	@Test
 	public void testIsValid() {
 		//Test for non-alphanumerics case

@@ -16,6 +16,10 @@ public class CourseNameValidatorTest {
 
 	CourseNameValidator cnv = new CourseNameValidator();
 	
+	/**
+	 * Tests for the isValid() method of CourseNameValidatorFSM that
+	 * ensures only valid course names are processed. 
+	 */
 	@Test
 	public void testIsValid() {
 		//Test for non-alphanumerics case

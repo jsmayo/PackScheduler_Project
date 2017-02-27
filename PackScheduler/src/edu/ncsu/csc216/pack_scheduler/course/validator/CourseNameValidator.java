@@ -4,33 +4,54 @@
 package edu.ncsu.csc216.pack_scheduler.course.validator;
 
 /**
- * 
+ * Checks to see if a course name is valid by implementing the 
+ * state object pattern for its finite state machine design. 
  * 
  *@author Steven Mayo
  */
 public class CourseNameValidator {
-	
+	/** Number of text-characters processed. */
 	private int letterCount = 0;
+	/** Number of digit-characters processed. */
 	private int digitCount = 0;
 	//private int suffixCount = 0;
+	/** Boolean value that represents if a course name is valid or not. */
 	private boolean validEndState = false;
+	/** Integer that represents the current state of the CourseNameValidator. */
 	private int currentState = 0;
 	//final integers because they do not need to change. 
+	/** Integer that represents the initial state of the CourseNameValidator. */
 	private final int INITIAL_STATE = 0;
+	/** Integer that represents the letter state of the CourseNameValidator. */
 	private final int LETTER_STATE = 1;
+	/** Integer that represents the digit state of the CourseNameValidator. */
 	private final int DIGIT_STATE = 2;
+	/** Integer that represents the digit state of the CourseNameValidator. */
 	private final int SUFFIX_STATE = 3;
+	/** InitialState object needed for the state pattern. */
 	InitialState initialState;
+	/** LetterState object needed for the state pattern. */
 	LetterState letterState;
+	/** DigitState object needed for the state pattern. */
 	DigitState digitState;
 
-	
+	/**
+	 * Constructor for the CourseNameValidator class. Once called,
+	 * The letter and digit state objects are initialized.
+	 */
 	public CourseNameValidator() {
 		letterState = new LetterState();
 		digitState = new DigitState();
 	}
 
-	
+	/**
+	 * Checks to see if the provided course name is valid. Characters are 
+	 * analyzed one at a time and passed through a series of state object
+	 * comparisons. 
+	 * @param courseName The course name to be checked for validity.
+	 * @return true if the course name is valid, false otherwise.
+	 * @throws InvalidTransitionException if the course name is invalid. 
+	 */
 	public boolean isValid(String courseName) throws InvalidTransitionException  {
 		initialState = new InitialState();
 		currentState = INITIAL_STATE;
@@ -58,11 +79,11 @@ public class CourseNameValidator {
 				break;
 			case DIGIT_STATE:
 				if(Character.isDigit(c)) {
-					if(digitCount < DigitState.MAX_DIGITS_ALLOWED) digitState.onDigit();
+					if(digitCount < DigitState.REQUIRED_DIGITS) digitState.onDigit();
 					else throw new InvalidTransitionException("Course name can only have 3 digits.");
 				}
 				if(Character.isLetter(c)) {
-					if(digitCount != DigitState.MAX_DIGITS_ALLOWED) throw new InvalidTransitionException("Course name must have 3 digits.");
+					if(digitCount != DigitState.REQUIRED_DIGITS) throw new InvalidTransitionException("Course name must have 3 digits.");
 					digitState.onLetter();
 				}
 				break;
@@ -74,76 +95,145 @@ public class CourseNameValidator {
 					throw new InvalidTransitionException("Course name cannot contain digits after the suffix.");
 				}
 				break;
+				
+			default:
 			}
 		}
-		if(digitCount == DigitState.MAX_DIGITS_ALLOWED) validEndState = true;
+		if(digitCount == DigitState.REQUIRED_DIGITS) validEndState = true;
 		else validEndState = false;
 		return validEndState;
 
 	}
 	
+	/**
+	 * Abstract class that declares methods which should be implemented 
+	 * by all state objects. State objects are used as an implementation 
+	 * of the state pattern, when checking to see if a course name 
+	 * is valid.
+	 * 
+	 * 
+	 *@author Steven Mayo
+	 */
 	public abstract class State {
 		
+		/**
+		 * Abstract method that should handle state validation 
+		 * when processing text characters.
+		 */
 		public abstract void onLetter();
 		
+		/**
+		 * Abstract method that should handle state validation
+		 * when processing digit characters. 
+		 */
 		public abstract void onDigit();
 		
+		/** While processing input, if a character is encountered that is
+		 * not a letter or digit, then a checked exception will be thrown.
+		 * @throws InvalidTransitionException Checked exception thrown when
+		 * encountering an invalid character while processing input.
+		 */
 		public void onOther() throws InvalidTransitionException {
 			throw new InvalidTransitionException("Course name can only contain letters and digits.");
 		}
 	}
 	
+	/**
+	 * State object that represents what the initial state should be for
+	 * implementation of the state pattern.
+	 * 
+	 *@author Steven Mayo
+	 */
 	public class InitialState extends State {
 		
+		/**
+		 * Constructor for the InitialState object that sets
+		 * the letter and digit counts to zero.
+		 */
 		private InitialState(){
 			letterCount = 0;
 			digitCount = 0;
 		}
+		
+		/**
+		 * Called when encountering text, character input. Afterwards,
+		 * the letter count is increased the currentState is
+		 * set to LETTER_STATE. 
+		 */
 		public void onLetter() {
 			letterCount++;
 			currentState = LETTER_STATE;
 		}
 		
+		/**
+		 * Declared, but not defined, since an exception will be thrown if
+		 * digits are encountered while still in the INITIAL_STATE.
+		 */
 		public void onDigit() {
-			//digitCount = 0; //put string in from requirements.
+			//digitCount = 0; 
 			//currentState = DIGIT_STATE;
-			//for tests, add if lettercount < digit count, throw an exception
 		}
 	}
 	
+	/**
+	 * State object that represents what the letter state should be for
+	 * implementation of the state pattern.
+	 * 
+	 *@author Steven Mayo
+	 */
 	public class LetterState extends State {
-		
+		/** Maximum number of characters allowed in a course name. */
 		private static final int MAX_PREFIX_LETTERS = 4;
+		/** Minimum number of characters allowed in a course name. */
 		private static final int MIN_PREFIX_LETTERS = 1;
 		
-		private LetterState() {
-			//letter
-		}
 		
+		/**
+		 * Called when encountering textual character input. Afterwards,
+		 * the letter count is increased the currentState is
+		 * set to LETTER_STATE. 
+		 */
 		public void onLetter() {
 			letterCount++;
 		}
 		
+		/**
+		 * Called when encountering character input that is in digit form.
+		 * Afterwards, the digit count is increased and the currentState is
+		 * set to DIGIT_STATE.
+		 */
 		public void onDigit() {
 			digitCount = 1;
 			currentState = DIGIT_STATE;
 		}
 	}
 	
+	/**
+	 * State object that represents what the digit state should be for
+	 * implementation of the state pattern.
+	 * 
+	 *@author Steven Mayo
+	 */
 	public class DigitState extends State {
-		private static final int MAX_DIGITS_ALLOWED = 3;
+		/** Required number of digits that a course name must have. */
+		private static final int REQUIRED_DIGITS = 3;
 		
-		private DigitState() {
-			//digit
-		}
-		
+		/**
+		 * Called when encountering text, character input. Afterwards,
+		 * the letter count is increased the currentState is
+		 * set to LETTER_STATE. 
+		 */
 		public void onLetter() {
 			//if(digitCount != MAX_DIGITS_ALLOWED) throw new InvalidTransitionException("Course name must have 3 digits.");
 			//else {
 				//suffixCount = 1;
 				currentState = SUFFIX_STATE;
 			}
-				
+		
+		/**
+		 * Called to increase the digit count when numerical/digit characters
+		 * are encountered during input processing.
+		 */
 		public void onDigit() {
 			//if(digitCount < MAX_DIGITS_ALLOWED) 
 			digitCount++;
