@@ -1,5 +1,8 @@
 package edu.ncsu.csc216.pack_scheduler.course;
 
+import edu.ncsu.csc216.pack_scheduler.course.validator.CourseNameValidator;
+import edu.ncsu.csc216.pack_scheduler.course.validator.InvalidTransitionException;
+
 /**
  * Creates Course Objects for the WolfScheduler application. Each Course Object
  * keeps track of its name, title, section, credit hours, instructor id, meeting
@@ -11,6 +14,8 @@ public class Course extends Activity implements Comparable<Course> {
 
 	/** Course's name. */
 	private String name;
+	/** Course name validator */
+	private CourseNameValidator validator;
 	/** Course's section. */
 	private String section;
 	/** Course's credit hours */
@@ -31,6 +36,7 @@ public class Course extends Activity implements Comparable<Course> {
 	public Course(String name, String title, String section, int credits, String instructorId, String meetingDays,
 			int startTime, int endTime) {
 		super(title, meetingDays, startTime, endTime);
+		validator = new CourseNameValidator();
 		setName(name);
 	    //setTitle(title);
 	    setSection(section);
@@ -71,13 +77,18 @@ public class Course extends Activity implements Comparable<Course> {
 	 * greater than 6
 	 */
 	private void setName(String name) {
-	    if (name == null) {
-	        throw new IllegalArgumentException("Invalid name");
-	    }
-	    if (name.length() < 4 || name.length() > 6) {
-	        throw new IllegalArgumentException("Invalid name");
-	    }
-	    this.name = name;
+//	    if (name == null) {
+//	        throw new IllegalArgumentException("Invalid name");
+//	    }
+//	    if (name.length() < 4 || name.length() > 6) {
+//	        throw new IllegalArgumentException("Invalid name");
+//	    }
+		try {
+			if(validator.isValid(name))
+					this.name = name;
+		} catch (InvalidTransitionException e) {
+			throw new IllegalArgumentException("Invalid name");
+		}
 	}
 	
 	/**

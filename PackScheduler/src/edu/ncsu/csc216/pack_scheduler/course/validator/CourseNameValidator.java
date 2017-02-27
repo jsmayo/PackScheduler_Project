@@ -26,13 +26,13 @@ public class CourseNameValidator {
 
 	
 	public CourseNameValidator() {
-		 initialState = new InitialState();
 		letterState = new LetterState();
 		digitState = new DigitState();
 	}
 
 	
 	public boolean isValid(String courseName) throws InvalidTransitionException  {
+		initialState = new InitialState();
 		currentState = INITIAL_STATE;
 		
 		for(int i = 0; i < courseName.length(); i++) {
@@ -44,25 +44,25 @@ public class CourseNameValidator {
 			switch(currentState) {
 			//initial state
 			case INITIAL_STATE:
-				if(Character.isLetter(c)) letterState.onLetter();
-				if(Character.isDigit(c)) throw new InvalidTransitionException("Course name must start with a letter.");
+				if(Character.isLetter(c)) initialState.onLetter();
+				else if(Character.isDigit(c)) throw new InvalidTransitionException("Course name must start with a letter.");
 				break;
 			case LETTER_STATE:
 				if(Character.isLetter(c) && letterCount >= LetterState.MIN_PREFIX_LETTERS && letterCount <= LetterState.MAX_PREFIX_LETTERS) letterState.onLetter();
 				if(Character.isDigit(c)) {
 					//Can probably delete this next line, since it shouldn't occur (possibly).
 					if(letterCount < LetterState.MIN_PREFIX_LETTERS) throw new InvalidTransitionException("Must have at least 1 letter");
-					if(letterCount > LetterState.MAX_PREFIX_LETTERS) throw new InvalidTransitionException("Cannot have more than 4 letters");
+					if(letterCount > LetterState.MAX_PREFIX_LETTERS) throw new InvalidTransitionException("Course name cannot start with more than 4 letters.");
 					letterState.onDigit();
 				}
 				break;
 			case DIGIT_STATE:
 				if(Character.isDigit(c)) {
-					if(digitCount <= DigitState.MAX_DIGITS_ALLOWED) digitState.onDigit();
-					else throw new InvalidTransitionException("Cannot have more than 3 digits.");
+					if(digitCount < DigitState.MAX_DIGITS_ALLOWED) digitState.onDigit();
+					else throw new InvalidTransitionException("Course name can only have 3 digits.");
 				}
 				if(Character.isLetter(c)) {
-					if(digitCount != DigitState.MAX_DIGITS_ALLOWED) throw new InvalidTransitionException("Must have 3 digits.");
+					if(digitCount != DigitState.MAX_DIGITS_ALLOWED) throw new InvalidTransitionException("Course name must have 3 digits.");
 					digitState.onLetter();
 				}
 				break;
@@ -100,12 +100,12 @@ public class CourseNameValidator {
 			digitCount = 0;
 		}
 		public void onLetter() {
-			letterCount = 1;
+			letterCount++;
 			currentState = LETTER_STATE;
 		}
 		
 		public void onDigit() {
-			digitCount = 1; //put string in from requirements.
+			digitCount = 0; //put string in from requirements.
 			currentState = DIGIT_STATE;
 			//for tests, add if lettercount < digit count, throw an exception
 		}
