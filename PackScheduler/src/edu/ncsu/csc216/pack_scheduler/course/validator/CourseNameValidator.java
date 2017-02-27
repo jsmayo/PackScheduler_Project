@@ -59,7 +59,7 @@ public class CourseNameValidator {
 		for(int i = 0; i < courseName.length(); i++) {
 			char c = courseName.charAt(i);
 			
-			if(!Character.isLetter(c) && !Character.isDigit(c)) throw new InvalidTransitionException("Course name can only contain letters and digits.");
+			if(!Character.isLetter(c) && !Character.isDigit(c)) initialState.onOther();
 			
 			//switch based on currentState (int), but let the states be objects that handle their own behaivor.
 			switch(currentState) {
