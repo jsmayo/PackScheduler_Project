@@ -1,7 +1,6 @@
 package edu.ncsu.csc216.pack_scheduler.util;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class ArrayListTest {
@@ -10,7 +9,7 @@ public class ArrayListTest {
 	public void testArrayList() {
 	ArrayList<String> list = new ArrayList<String>();
 	assertEquals(0, list.size());
-	assertNull(list.get(0));
+	//assertNull(list.get(0)); removed after .get was implemented to have OBE.
 	assertEquals(10, list.capacity());
 	}
 	
@@ -51,6 +50,27 @@ public class ArrayListTest {
 		//test that the list correctly placed the values.
 		String[] values = {"z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "lastplace"};
 		for(int i = 0; i < values.length; i++) assertEquals(values[i], list.get(i));
+		
+		//test adding out of bounds
+		try {
+			list.add(20, "20");
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			//test that size did not change
+			assertEquals(12, list.size());
+			//test that values did not change location
+			for(int i = 0; i < values.length; i++) assertEquals(values[i], list.get(i));
+		}
+		
+		//test for adding null 
+		try {
+			list.add(5, null);
+			fail();
+		} catch (NullPointerException e) {
+			//test that size and location of values did not change
+			assertEquals(12, list.size());
+			for(int i = 0; i < values.length; i++) assertEquals(values[i], list.get(i));
+		}
 	
 	}
 	
@@ -73,11 +93,65 @@ public class ArrayListTest {
 		//test only one value not out of bounds
 		list = new ArrayList<>();
 		list.add(0,"zero");
-		System.out.println(list.get(0));
+		//System.out.println(list.get(0));
 		assertEquals(1, list.size());
 		list.remove(0);
-		System.out.println(list.get(0));
+		//System.out.println(list.get(0));
 		assertEquals(0, list.size());
+				
+		//test removing out of bounds
+		try {
+			list.add(0, "0");
+			assertEquals(1, list.size());
+			list.remove(7);
+			fail();
+		} catch (IndexOutOfBoundsException e) {
+			//test that size did not change
+			assertEquals(1, list.size());
+		}
 	}
+	
+	
+	@Test
+	public void testSet() { 
+		ArrayList<String> list = new ArrayList<>();
+		
+		//add an element
+		list.add(0, "1");
+		list.add(1, "2");
+		System.out.println(list.get(0));
+		assertEquals(list.get(0), "1");
+		//test for overwrite
+		list.set(0, "0");
+		list.set(1,"1");
+		assertEquals(list.get(0), "0");
+		assertEquals(list.get(1), "1");
+		
+		//test for duplicate
+		list.add(2, "2");
+		list.add(3, "3");
+		try {
+			list.set(2, "1");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("duplicate", e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testGet() {
+		//test OBE
+		ArrayList<String> list = new ArrayList<> ();
+		list.add(0, "0");
+		assertEquals(1, list.size());
+		try {
+			list.get(1);
+			fail();
+		} catch (IndexOutOfBoundsException e) { 
+			assertEquals(1, list.size());
+		}
+	}
+		
 }
 	

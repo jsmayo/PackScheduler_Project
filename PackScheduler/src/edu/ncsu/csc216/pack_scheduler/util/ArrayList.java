@@ -69,10 +69,6 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 			//E[] tempArray = this.list;
 			//this.list = (E[]) new Object[this.capacity * 2];
 			//for(int i = 0; i < tempArray.length; i++) this.list[i] = tempArray[i];
-			
-			//this.size = (this.capacity) / 2;
-			//TODO: Why out of bounds at 10?
-			//IS this 
 		}
 		
 	}
@@ -101,7 +97,18 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		//}
 		return e;
 	}
-				
+	
+	@Override
+	public E set(int index, E e) {
+		if(e == null) throw new NullPointerException();
+		if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		//Hash set to add values that are not duplicates
+		//HashSet<E> set = new HashSet<>();
+		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("duplicate"); //if(!set.add(arrayElement))
+		return this.list[index] = e;
+		
+		
+	}		
 
 	
 	/**
@@ -110,6 +117,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	 */
 	@Override
 	public E get(int index) {
+		if(index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
 		return list[index];
 		//return arrayList.get(index);
 	}
