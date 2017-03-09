@@ -77,6 +77,33 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		
 	}
 	
+	
+	/**
+	 * Removes the value assigned to the specified index value.
+	 * @param index The index to remove the value from.
+	 * @return 
+	 *@throws IndexOutOfBoundsException if the specified index is out
+	 * of the the boundary limit (0 - size()).
+	 */
+	@Override
+	public E remove(int index) {
+		if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		E e = list[index]; //value to be returned before removal.
+		//if the index is the last position of the list, then just set it to null and decrease the size.
+		//if(index == this.size-1) { 
+			//list[index] = null;
+			//this.size--;
+		//}
+		//else {
+			for(int i = index; i <= this.size - 1; i++) list[i] = list[i+1];
+			list[size-1] = null; //set last value to null to remove the reference (works with size = 1)
+			this.size--; //decrement the size variable
+		//}
+		return e;
+	}
+				
+
+	
 	/**
 	 * Returns the value, of type E, located at the specified index value. 
 	 * @return E Object stored at the specified index value. 

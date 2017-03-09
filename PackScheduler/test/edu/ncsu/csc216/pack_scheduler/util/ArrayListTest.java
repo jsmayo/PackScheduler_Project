@@ -51,8 +51,33 @@ public class ArrayListTest {
 		//test that the list correctly placed the values.
 		String[] values = {"z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "lastplace"};
 		for(int i = 0; i < values.length; i++) assertEquals(values[i], list.get(i));
-		
-		
+	
 	}
-
+	
+	@Test
+	public void testRemove() {
+		ArrayList<String> list = new ArrayList<>();
+		list.add(0, "zero");
+		list.add(1, "one");
+		list.add(2, "two");
+		list.add(3, "three");
+		list.add(4, "four");
+		assertEquals(5, list.size());
+		//for(String s: list) System.out.println(s);
+		list.remove(0);
+		assertEquals(4, list.size());
+		assertEquals("one", list.get(0));
+		assertEquals("two", list.get(1));
+		//for(String s: list) System.out.println(s);
+		
+		//test only one value not out of bounds
+		list = new ArrayList<>();
+		list.add(0,"zero");
+		System.out.println(list.get(0));
+		assertEquals(1, list.size());
+		list.remove(0);
+		System.out.println(list.get(0));
+		assertEquals(0, list.size());
+	}
 }
+	
