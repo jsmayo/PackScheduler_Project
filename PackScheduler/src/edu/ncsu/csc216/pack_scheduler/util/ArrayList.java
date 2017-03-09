@@ -77,8 +77,8 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	/**
 	 * Removes the value assigned to the specified index value.
 	 * @param index The index to remove the value from.
-	 * @return 
-	 *@throws IndexOutOfBoundsException if the specified index is out
+	 * @return E the object removed from the specified index. 
+	 * @throws IndexOutOfBoundsException if the specified index is out
 	 * of the the boundary limit (0 - size()).
 	 */
 	@Override
@@ -98,6 +98,15 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		return e;
 	}
 	
+	/**
+	 * Sets the specified index to the corresponding specified value. 
+	 * @param index The index value to place the object into the ArrayList.
+	 * @param e The object, of type E, to place at the specified index. 
+	 * @throws IndexOutOfBoundsException if the specified index is outside of
+	 * the array boundaries
+	 * @throws IllegalArgumnetException if the specified value is a duplicate already
+	 * found within the list.
+	 */
 	@Override
 	public E set(int index, E e) {
 		if(e == null) throw new NullPointerException();
@@ -114,6 +123,8 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	/**
 	 * Returns the value, of type E, located at the specified index value. 
 	 * @return E Object stored at the specified index value. 
+	 * @throws IndexOutOfBoundsException if the specified index is out
+	 * of the array boundaries.
 	 */
 	@Override
 	public E get(int index) {
@@ -123,8 +134,9 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	}
 	
 	/**
-	 * Returns the size of the list.
-	 * @return int Size of the list. 
+	 * Returns the size, which corresponds to the number of elements
+	 * contained within the ArrayList object.
+	 * @return int Size of the ArrayList. 
 	 */
 	@Override
 	public int size() {
@@ -133,7 +145,10 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	}
 	
 	/**
-	 * Returns the capacity of the list. Mainly used to ensure proper functionality.
+	 * Getter method that returns the capacity of the list. 
+	 * Mainly used to ensure proper functionality:
+	 * Initial capacity is 10 and automatically doubled when capacity and size
+	 * are equivalent. 
 	 * @return int Capacity of the list. 
 	 */
 	public int capacity(){

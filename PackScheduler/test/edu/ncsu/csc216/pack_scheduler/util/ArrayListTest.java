@@ -3,6 +3,11 @@ package edu.ncsu.csc216.pack_scheduler.util;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+/**
+ * Tests for the ArrayList implementation.
+ * 
+ *@author Steven Mayo
+ */
 public class ArrayListTest {
 
 	@Test
@@ -13,6 +18,9 @@ public class ArrayListTest {
 	assertEquals(10, list.capacity());
 	}
 	
+	/**
+	 * Test that the add() method functions correctly.
+	 */
 	@Test
 	public void testAdd(){
 		ArrayList<String> list = new ArrayList<String>();
@@ -74,6 +82,9 @@ public class ArrayListTest {
 	
 	}
 	
+	/**
+	 * Test the remove() method functionality.
+	 */
 	@Test
 	public void testRemove() {
 		ArrayList<String> list = new ArrayList<>();
@@ -111,7 +122,9 @@ public class ArrayListTest {
 		}
 	}
 	
-	
+	/**
+	 * Tests that the set() method functions correctly.
+	 */
 	@Test
 	public void testSet() { 
 		ArrayList<String> list = new ArrayList<>();
@@ -139,6 +152,9 @@ public class ArrayListTest {
 		
 	}
 	
+	/**
+	 * Tests that the get method functions correctly.
+	 */
 	@Test
 	public void testGet() {
 		//test OBE
