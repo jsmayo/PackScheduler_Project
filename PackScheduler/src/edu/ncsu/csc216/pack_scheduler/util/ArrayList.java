@@ -53,7 +53,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		//if the size is 0, just add the value.
 		else {
 			if(index == 0) {
-				for(int i = this.size(); i > 0; i--) list[i] = list[i-1];
+				for(int i = this.size(); i > 0; i--) list[i] = list[i - 1];
 				list[0] = e;
 			}
 			else {
@@ -91,8 +91,8 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 			//this.size--;
 		//}
 		//else {
-			for(int i = index; i <= this.size - 1; i++) list[i] = list[i+1];
-			list[size-1] = null; //set last value to null to remove the reference (works with size = 1)
+			for(int i = index; i <= this.size - 1; i++) list[i] = list[i + 1];
+			list[size - 1] = null; //set last value to null to remove the reference (works with size = 1)
 			this.size--; //decrement the size variable
 		//}
 		return e;
@@ -110,7 +110,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	@Override
 	public E set(int index, E e) {
 		if(e == null) throw new NullPointerException();
-		if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		if((this.size == 0 && index == 0) || index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
 		//Hash set to add values that are not duplicates
 		//HashSet<E> set = new HashSet<>();
 		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("duplicate"); //if(!set.add(arrayElement))

@@ -32,7 +32,7 @@ public class Schedule {
 	public boolean addCourseToSchedule(Course c) {
 		//attempting to add to the students schedule. Return false if the same name appears already.
 		//Course toSchedule = c; //new course to test.
-		if(c == null) return false; //takes care of second requirement
+		if(c == null) throw new NullPointerException(); //takes care of second requirement
 		for(int i = 0; i < schedule.size(); i++){
 			////go through whole schedule and check duplicates
 			if(c.isDuplicate(schedule.get(i))) throw new IllegalArgumentException("You are already enrolled in " + c.getName());

@@ -94,7 +94,16 @@ public class ScheduleTest {
 		}
 		
 		//test adding a null course
-		assertFalse(schedule.addCourseToSchedule(null));
+		try {
+			schedule.addCourseToSchedule(null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals(3, schedule.getScheduledCourses().length);
+			scheduledC = schedule.getScheduledCourses();
+			assertTrue(scheduledC[0][0].equals("MSE300"));
+			assertTrue(scheduledC[1][0].equals(courses[0][0]));
+			assertTrue(scheduledC[2][0].equals(courses[3][0]));
+		}
 
 	}
 	
