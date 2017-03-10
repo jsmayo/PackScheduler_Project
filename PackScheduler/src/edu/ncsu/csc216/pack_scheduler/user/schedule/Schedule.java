@@ -5,6 +5,13 @@ import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
 import edu.ncsu.csc216.pack_scheduler.course.ConflictException;
 
+/**
+ * Gives a student the ability to track what courses they have scheduled,
+ * as well as, the ability to add, remove, and replace the courses within
+ * their schedule, and the ability to rename the schedule's title. 
+ * 
+ *@author Steven Mayo
+ */
 public class Schedule {
 
 	/** Title of the schedule */
@@ -12,7 +19,12 @@ public class Schedule {
 	/** Custom ArrayList of courses */
 	private ArrayList<Course> schedule;
 	
-	
+	/**
+	 * Constructs the Schedule object, which is used to keep track of
+	 * what Courses the Student has scheduled. The title is set to
+	 * a default of "My Schedule" and an empty array list is created to
+	 * hold Course objects. 
+	 */
 	public Schedule() {
 		//default call to set title to My Schedule.
 		setTitle("My Schedule");
@@ -22,12 +34,12 @@ public class Schedule {
 	/** 
 	 * Attempts to add a course to the student's schedule, but does not 
 	 * allow duplicate or invalid courses.
-	 * @param name name of the Course.
-	 * @param section number of the course.
+	 * @param c The course to be added to the schedule.
 	 * @return true if the course can be added or false if not.
 	 * @throws IllegalArgumentException if a course has the same name as 
 	 * one already in the students schedule. An exception is also thrown 
 	 * if the Course time conflicts with a previously scheduled activity.
+	 * @throws NullPointerException if the course parameter is null.
 	 */
 	public boolean addCourseToSchedule(Course c) {
 		//attempting to add to the students schedule. Return false if the same name appears already.
@@ -46,7 +58,13 @@ public class Schedule {
 		return true; //returning true if it was added.
 	}
 		
-	
+	/**
+	 * Removes a course from the student's schedule. The course to be
+	 * removed is passed in as a parameter, which will conditionally 
+	 * trigger a boolean return value.
+	 * @param c The course to be removed from the student's schedule.
+	 * @return True if the course was removed.
+	 */
 	public boolean removeCourseFromSchedule(Course c) {
 		int courseFinder = schedule.lastIndexOf(c);
 		if(courseFinder != -1) {
@@ -82,12 +100,21 @@ public class Schedule {
 		return schedule2d;
 	}
 	
-	
+	/**
+	 * Rename's the student's schedule to that of the passed in String
+	 * parameter.
+	 * @param title The new title of the schedule
+	 * @throws IllegalArgumentException if the new title is null or empty.
+	 */
 	public void setTitle(String title) {
 		if(title == null || title.isEmpty()) throw new IllegalArgumentException();
 		this.title = title;
 	}
 	
+	/**
+	 * Getter method to return the schedule's title.
+	 * @return The current title of the schedule.
+	 */
 	public String getTitle() {
 		return this.title;
 	}

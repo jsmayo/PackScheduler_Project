@@ -63,6 +63,10 @@ public class Student extends User implements Comparable<Student> {
 		this.maxCredits = maxCredits;
 	}
 	
+	/**
+	 * Getter method for the student's schedule. 
+	 * @return Schedule the student's schedule.
+	 */
 	public Schedule getSchedule() {
 		return this.schedule;
 	}

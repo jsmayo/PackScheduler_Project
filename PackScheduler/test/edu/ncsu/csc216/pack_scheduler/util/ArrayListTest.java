@@ -10,6 +10,9 @@ import org.junit.Test;
  */
 public class ArrayListTest {
 
+	/**
+	 * Test for the ArrayList constructor.
+	 */
 	@Test
 	public void testArrayList() {
 	ArrayList<String> list = new ArrayList<String>();
@@ -103,7 +106,7 @@ public class ArrayListTest {
 		
 		//test only one value not out of bounds
 		list = new ArrayList<>();
-		list.add(0,"zero");
+		list.add(0, "zero");
 		//System.out.println(list.get(0));
 		assertEquals(1, list.size());
 		list.remove(0);
@@ -136,12 +139,12 @@ public class ArrayListTest {
 		assertEquals(list.get(0), "1");
 		//test for overwrite
 		list.set(0, "0");
-		list.set(1,"1");
+		list.set(1, "1");
 		assertEquals(list.get(0), "0");
 		assertEquals(list.get(1), "1");
 		
 		//test for correct return
-		String s = list.set(1,"4");
+		String s = list.set(1, "4");
 		assertTrue(s.equals("1"));
 		
 		//test for duplicate

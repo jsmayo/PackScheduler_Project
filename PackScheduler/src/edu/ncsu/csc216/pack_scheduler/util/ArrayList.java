@@ -2,10 +2,11 @@ package edu.ncsu.csc216.pack_scheduler.util;
 
 import java.util.Arrays;
 
-
 /**
  * Generic version of the AbstractList class.
- * @param <E> the element of the value being placed inside the arraylist.
+ * 
+ * @param <E> the element of the value being placed inside the ArrayList.
+ * @author Steven Mayo
  */
 public class ArrayList<E> extends java.util.AbstractList<E> {
 	
@@ -40,7 +41,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	 * @param e The object, of type E, to place at the specified index. 
 	 * @throws IndexOutOfBoundsException if the index is outside of the array
 	 * boundaries
-	 * @throws IllegalArgumnetException if the specified value is a duplicate already
+	 * @throws IllegalArgumentException if the specified value is a duplicate already
 	 * found within the list.
 	 */
 	@Override
@@ -104,7 +105,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	 * @param e The object, of type E, to place at the specified index. 
 	 * @throws IndexOutOfBoundsException if the specified index is outside of
 	 * the array boundaries
-	 * @throws IllegalArgumnetException if the specified value is a duplicate already
+	 * @throws IllegalArgumentException if the specified value is a duplicate already
 	 * found within the list.
 	 */
 	@Override
@@ -116,7 +117,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("Cannot add duplicate values"); //if(!set.add(arrayElement))
 		E overWrite = this.list[index];
 		this.list[index] = e;
-		return (overWrite);
+		return overWrite;
 		
 		
 	}		

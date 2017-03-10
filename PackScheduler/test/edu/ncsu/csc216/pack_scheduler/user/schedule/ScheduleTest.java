@@ -12,6 +12,13 @@ import java.nio.file.Path;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class that is used to ensure proper functionality of the
+ * Schedule class, as well as, ensure that the implementation does not
+ * result in any form of regression.
+ * 
+ *@author Steven Mayo
+ */
 public class ScheduleTest {
 
 	private Schedule schedule;
@@ -151,7 +158,7 @@ public class ScheduleTest {
 		schedule = new Schedule();
 		//tested default title prior
 		schedule.setTitle("Awesomeness");
-		assertTrue(("Awesomeness").equals(schedule.getTitle()));
+		assertTrue("Awesomeness".equals(schedule.getTitle()));
 		
 		//try to set title to null
 		try {
@@ -159,7 +166,7 @@ public class ScheduleTest {
 			fail();
 		} catch (IllegalArgumentException e) {
 			//test that the title did not change.
-			assertTrue(("Awesomeness").equals(schedule.getTitle()));
+			assertTrue("Awesomeness".equals(schedule.getTitle()));
 		}
 		
 		//try to set title to empty string
@@ -168,7 +175,7 @@ public class ScheduleTest {
 			fail();
 		} catch (IllegalArgumentException e) {
 			//test that the title did not change.
-			assertTrue(("Awesomeness").equals(schedule.getTitle()));
+			assertTrue("Awesomeness".equals(schedule.getTitle()));
 		}
 	}
 	
