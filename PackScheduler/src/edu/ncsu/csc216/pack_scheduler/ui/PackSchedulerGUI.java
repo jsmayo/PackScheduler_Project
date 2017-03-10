@@ -42,7 +42,7 @@ public class PackSchedulerGUI {
 	/** RegistrarPanel */
 	private RegistrarPanel pnlRegistrar;
 	/** StudentPanel */
-	private StudentPanel pnlStudent;
+	private StudentRegistrationPanel pnlStudent;
 	/** CardLayout for GUI */
 	private CardLayout cardLayout;
 	/** Panel that will contain all of the application views */
@@ -53,14 +53,14 @@ public class PackSchedulerGUI {
 	 */
 	public PackSchedulerGUI() {
 		gui = new JFrame();
-		gui.setSize(800, 700);
+		gui.setSize(800, 800);
 		gui.setLocation(50, 50);
 		gui.setTitle(APP_TITLE);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		pnlLogin = new LoginPanel();
 		pnlRegistrar = new RegistrarPanel();
-		pnlStudent = new StudentPanel();
+		pnlStudent = new StudentRegistrationPanel();
 		
 		panel = new JPanel();
 		cardLayout = new CardLayout();
@@ -195,6 +195,7 @@ public class PackSchedulerGUI {
 					txtPassword.setText("");
 					if (manager.getCurrentUser() instanceof Student) {
 						cardLayout.show(panel, STUDENT_PANEL);
+						pnlStudent.updateTables();
 					} else {
 						cardLayout.show(panel, REGISTRAR_PANEL);
 					}
@@ -300,41 +301,6 @@ public class PackSchedulerGUI {
 			}
 		}
 		
-	}
-	
-	/**
-	 * Creates a panel for students to register for classes.
-	 * @author Sarah Heckman
-	 */
-	private class StudentPanel extends JPanel implements ActionListener {
-
-		/** ID number used for object serialization. */
-		private static final long serialVersionUID = 1L;
-		/** Button to logout */
-		private JButton btnLogout;
-		
-		/**
-		 * Temporary class for the StudentPanel until we implement
-		 * that functionality.
-		 */
-		public StudentPanel() {
-			btnLogout = new JButton("Logout");
-			btnLogout.addActionListener(this);
-			
-			add(btnLogout);
-		}
-		
-		/**
-		 * Performs actions when any component with an action listener is selected.
-		 * @param e ActionEvent representing the user action
-		 */
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnLogout) {
-				RegistrationManager.getInstance().logout();
-				cardLayout.show(panel, LOGIN_PANEL);
-			}
-		}
 	}
 
 }
