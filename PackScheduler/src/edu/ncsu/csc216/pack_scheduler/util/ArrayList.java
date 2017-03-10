@@ -83,7 +83,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	 */
 	@Override
 	public E remove(int index) {
-		if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		if(index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
 		E e = list[index]; //value to be returned before removal.
 		//if the index is the last position of the list, then just set it to null and decrease the size.
 		//if(index == this.size-1) { 

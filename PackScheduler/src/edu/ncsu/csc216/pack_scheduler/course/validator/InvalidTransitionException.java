@@ -17,7 +17,7 @@ public class InvalidTransitionException extends Exception {
 	 * FSM Transition." 
 	 */
 	public InvalidTransitionException() {
-		this("Invalid FSM Transition");
+		this("Invalid FSM Transition.");
 	}
 	
 	/**

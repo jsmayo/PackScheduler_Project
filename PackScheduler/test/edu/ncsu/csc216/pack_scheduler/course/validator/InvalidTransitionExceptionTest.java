@@ -16,7 +16,7 @@ public class InvalidTransitionExceptionTest {
 	@Test
 	public void testInvalidTransitionException() {
 	    InvalidTransitionException ite = new InvalidTransitionException();
-	    assertEquals("Invalid FSM Transition", ite.getMessage());
+	    assertEquals("Invalid FSM Transition.", ite.getMessage());
 	}
 	
 	
