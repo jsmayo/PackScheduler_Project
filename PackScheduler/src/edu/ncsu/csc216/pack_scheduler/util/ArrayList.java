@@ -47,7 +47,7 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 	public void add(int index, E e){
 		if(e == null) throw new NullPointerException();
 		if(index > this.size || index < 0 ) throw new IndexOutOfBoundsException();
-		for(int i = 0; i < this.size; i++) if(e.equals(list[i])) throw new IllegalArgumentException("duplicate found");
+		for(int i = 0; i < this.size; i++) if(e.equals(list[i])) throw new IllegalArgumentException("Cannot add duplicate values.");
 		//size is last place of value (NOT INDEXED).
 		if(this.size == 0) list[0] = e;
 		//if the size is 0, just add the value.
@@ -113,8 +113,10 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		if((this.size == 0 && index == 0) || index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
 		//Hash set to add values that are not duplicates
 		//HashSet<E> set = new HashSet<>();
-		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("duplicate"); //if(!set.add(arrayElement))
-		return this.list[index] = e;
+		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("Cannot add duplicate values"); //if(!set.add(arrayElement))
+		E overWrite = this.list[index];
+		this.list[index] = e;
+		return (overWrite);
 		
 		
 	}		

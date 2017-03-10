@@ -132,7 +132,7 @@ public class ArrayListTest {
 		//add an element
 		list.add(0, "1");
 		list.add(1, "2");
-		System.out.println(list.get(0));
+		//System.out.println(list.get(0));
 		assertEquals(list.get(0), "1");
 		//test for overwrite
 		list.set(0, "0");
@@ -140,14 +140,19 @@ public class ArrayListTest {
 		assertEquals(list.get(0), "0");
 		assertEquals(list.get(1), "1");
 		
+		//test for correct return
+		String s = list.set(1,"4");
+		assertTrue(s.equals("1"));
+		
 		//test for duplicate
 		list.add(2, "2");
 		list.add(3, "3");
 		try {
-			list.set(2, "1");
+			list.set(2, "3");
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("duplicate", e.getMessage());
+			assertEquals("exception message", "Cannot add duplicate values", e.getMessage());
+			
 		}
 		
 	}
