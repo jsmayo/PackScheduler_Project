@@ -52,6 +52,7 @@ public class StudentRecordIO {
 	 */
 	private static Student processStudent(String record) throws IllegalArgumentException{
 		Student processedStudent;
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(record).useDelimiter(",");
 		String fname = scanner.next();
 		String lname = scanner.next();

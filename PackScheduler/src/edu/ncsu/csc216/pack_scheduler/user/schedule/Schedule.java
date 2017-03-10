@@ -1,6 +1,6 @@
 package edu.ncsu.csc216.pack_scheduler.user.schedule;
 
-import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
+
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
 import edu.ncsu.csc216.pack_scheduler.course.ConflictException;
@@ -11,13 +11,12 @@ public class Schedule {
 	private String title; 
 	/** Custom ArrayList of courses */
 	private ArrayList<Course> schedule;
-	private CourseCatalog catalog;
+	
 	
 	public Schedule() {
 		//default call to set title to My Schedule.
 		setTitle("My Schedule");
 		this.schedule = new ArrayList<>();
-		this.catalog = new CourseCatalog(); //TODO failing because no courses loaded
 	}
 	
 	/** 
@@ -32,21 +31,21 @@ public class Schedule {
 	 */
 	public boolean addCourseToSchedule(Course c) {
 		//attempting to add to the students schedule. Return false if the same name appears already.
-		Course toSchedule = catalog.getCourseFromCatalog(c.getName(), c.getSection()); //new course to test.
-		if(toSchedule == null) return false; //takes care of second requirement
+		//Course toSchedule = c; //new course to test.
+		if(c == null) return false; //takes care of second requirement
 		for(int i = 0; i < schedule.size(); i++){
 			////go through whole schedule and check duplicates
-			if((schedule.get(i) instanceof Course) && (toSchedule.isDuplicate((Course)schedule.get(i)))) 
-				throw new IllegalArgumentException("You are already enrolled in " + c.getName());
+			if(c.isDuplicate(schedule.get(i))) throw new IllegalArgumentException("You are already enrolled in " + c.getName());
 			try {
-				toSchedule.checkConflict(schedule.get(i));
+				c.checkConflict(schedule.get(i));
 			} catch (ConflictException ce) {
 				throw new IllegalArgumentException("The course cannot be added due to a conflict.");
 			}
 		}
-		schedule.add(toSchedule); //if no error > course exists in catalog & not already enrolled > add it to schedule.
+		schedule.add(schedule.size(), c); //if no error > course exists in catalog & not already enrolled > add it to schedule.
 		return true; //returning true if it was added.
 	}
+		
 	
 	public boolean removeCourseFromSchedule(Course c) {
 		int courseFinder = schedule.lastIndexOf(c);
@@ -57,10 +56,11 @@ public class Schedule {
 		return false;
 	}
 	
+	/**
+	 * Resets the user's schedule, but keeps the current title.
+	 */
 	public void resetSchedule() {
-		//TODO: Call the constructor?
-		schedule = new ArrayList<>();
-		
+		this.schedule = new ArrayList<>();
 	}
 	
 	/**
@@ -81,6 +81,7 @@ public class Schedule {
 		}
 		return schedule2d;
 	}
+	
 	
 	public void setTitle(String title) {
 		if(title == null || title.isEmpty()) throw new IllegalArgumentException();

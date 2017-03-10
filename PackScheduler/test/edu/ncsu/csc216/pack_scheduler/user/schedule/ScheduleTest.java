@@ -2,7 +2,6 @@ package edu.ncsu.csc216.pack_scheduler.user.schedule;
 
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
-import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -16,32 +15,12 @@ import org.junit.Test;
 public class ScheduleTest {
 
 	private Schedule schedule;
-	private String title;
 	private CourseCatalog catalog = new CourseCatalog();
 	
 	
 	/** Valid course records */
 	private final String validTestFile = "test-files/course_records.txt";
-	/** Invalid course records */
-	private final String invalidTestFile = "test-files/invalid_course_records.txt";
-	
-	/** Course name */
-	private static final String NAME = "CSC216";
-	/** Course title */
-	private static final String TITLE = "Programming Concepts - Java";
-	/** Course section */
-	private static final String SECTION = "001";
-	/** Course credits */
-	private static final int CREDITS = 4;
-	/** Course instructor id */
-	private static final String INSTRUCTOR_ID = "sesmith5";
-	/** Course meeting days */
-	private static final String MEETING_DAYS = "TH";
-	/** Course start time */
-	private static final int START_TIME = 1330;
-	/** Course end time */
-	private static final int END_TIME = 1445;
-	
+
 		
 	/**
 	 * Resets course_records.txt for use in other tests.
@@ -78,30 +57,129 @@ public class ScheduleTest {
 	 */
 	@Test
 	public void testAddCourseToSchedule() {
-		this.schedule = new Schedule();
-		//place valid courses in CourseCatalog
-		this.catalog.loadCoursesFromFile(validTestFile);
+		//make a new schedule object
+		schedule = new Schedule();
 		
-		//test valid course addition.
-		assert(schedule.addCourseToSchedule(new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME)));
+		//load valid courses using catalog (dont have to do)
+		catalog.loadCoursesFromFile(validTestFile);
 		
-		//test duplicate addition
+		//make my own course and add to catalog, then attempt to add.
+		if(catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811))
+			assertTrue(schedule.addCourseToSchedule(catalog.getCourseFromCatalog("MSE300", "300")));
+		//get courses from catalog
+		String[][] courses = catalog.getCourseCatalog();
+		Course c1 = catalog.getCourseFromCatalog(courses[0][0], courses[0][1]);
+		Course c2 = catalog.getCourseFromCatalog(courses[3][0], courses[3][1]);
+		//try adding valid courses
+		assertTrue(schedule.addCourseToSchedule(c1));
+		assertTrue(schedule.addCourseToSchedule(c2));
+		
+		//test ordering (added to end of schedule)
+		String[][] scheduledC = schedule.getScheduledCourses();
+		assertTrue(scheduledC[0][0].equals("MSE300"));
+		assertTrue(scheduledC[1][0].equals(courses[0][0]));
+		assertTrue(scheduledC[2][0].equals(courses[3][0]));
+		
+		//test adding a duplicate
 		try {
-			schedule.addCourseToSchedule(new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME));
+			schedule.addCourseToSchedule(c1);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("You are already enrolled in " + NAME, e.getMessage());
-			assertEquals(1, schedule.getScheduledCourses().length);
+			//test that length did not change and ordering stayed the same.
+			assertEquals(3, schedule.getScheduledCourses().length);
+			scheduledC = schedule.getScheduledCourses();
+			assertTrue(scheduledC[0][0].equals("MSE300"));
+			assertTrue(scheduledC[1][0].equals(courses[0][0]));
+			assertTrue(scheduledC[2][0].equals(courses[3][0]));
 		}
 		
-		
-		//test that new courses are added to the end of the catalog.
-		assertTrue(schedule.addCourseToSchedule(new Course("MSE", TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME)));
-		String[][] coursesAdded = new String[2][4];
-		//courseAdded[0][0] = NAME;
-		//courseAdded[1][0] = "MSE";
-		assertTrue(schedule.getScheduledCourses()[0][0].equals(NAME));
-		assertTrue(schedule.getScheduledCourses()[1][0].equals("MSE"));
+		//test adding a null course
+		assertFalse(schedule.addCourseToSchedule(null));
+
 	}
+	
+	/**
+	 * Test for proper functionality of removeCourseFromSchedule()
+	 */
+	@Test
+	public void testRemoveCourseFromCatalog() {
+		//make a new schedule object
+		schedule = new Schedule();
+		
+		//test removing from empty schedule
+		assertFalse(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+
+		//load valid courses using catalog
+		catalog.loadCoursesFromFile(validTestFile);
+		catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811);
+		assertTrue(schedule.addCourseToSchedule(catalog.getCourseFromCatalog("MSE300", "300")));
+		//get courses from catalog
+		String[][] courses = catalog.getCourseCatalog();
+		Course c1 = catalog.getCourseFromCatalog(courses[0][0], courses[0][1]);
+		Course c2 = catalog.getCourseFromCatalog(courses[3][0], courses[3][1]);
+		//Add valid courses to schedule
+		assertTrue(schedule.addCourseToSchedule(c1));
+		assertTrue(schedule.addCourseToSchedule(c2));
+		String[][] scheduledC = schedule.getScheduledCourses();
+		assertTrue(scheduledC[0][0].equals("MSE300"));
+		assertTrue(scheduledC[1][0].equals(courses[0][0]));
+		assertTrue(scheduledC[2][0].equals(courses[3][0]));
+		
+		//test removing valid courses from the schedule
+		assertTrue(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+		scheduledC = schedule.getScheduledCourses();
+		//test that the first course was removed and contents shifted correctly.
+		assertTrue(scheduledC[0][0].equals(courses[0][0]));
+		assertTrue(scheduledC[1][0].equals(courses[3][0]));
+		
+	}
+	
+	/**
+	 * Test to ensure the schedule title changes
+	 */
+	@Test
+	public void testSetTitle() {
+		schedule = new Schedule();
+		//tested default title prior
+		schedule.setTitle("Awesomeness");
+		assertTrue(("Awesomeness").equals(schedule.getTitle()));
+		
+		//try to set title to null
+		try {
+			schedule.setTitle(null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			//test that the title did not change.
+			assertTrue(("Awesomeness").equals(schedule.getTitle()));
+		}
+		
+		//try to set title to empty string
+		try {
+			schedule.setTitle("");
+			fail();
+		} catch (IllegalArgumentException e) {
+			//test that the title did not change.
+			assertTrue(("Awesomeness").equals(schedule.getTitle()));
+		}
+	}
+	
+	/**
+	 * Test resetting the schedule using resetSchedule()
+	 */
+	@Test
+	public void testResetSchedule() {
+		schedule = new Schedule();
+		//change the title and add a course to the schedule.
+		schedule.setTitle("CatsAreNotAlwaysSoNice");
+		assertTrue(schedule.addCourseToSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+		
+		//test resetting the schedule does NOT revert to default title
+		schedule.resetSchedule();
+		assertFalse(schedule.getTitle().equals("My Schedule"));
+		assertTrue(schedule.getTitle().equals("CatsAreNotAlwaysSoNice"));
+		//test that the schedule is empty
+		assertTrue(schedule.getScheduledCourses().length == 0);
+	}
+
 	
 }

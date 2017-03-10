@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
+import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
+
 /**
  * Creates a Student Object to be used with the StudentRecordIO class.
  * Students are only created if the input is valid. Conditions exist for
@@ -11,6 +13,7 @@ public class Student extends User implements Comparable<Student> {
 	private int maxCredits;
 	/** The default maximum number of credits allowed at NC State */
 	public static final int MAX_CREDITS = 18;
+	private Schedule schedule;
 
 	/**
 	 * Student constructor that creates a new student object from passed in parameters using setter methods.
@@ -24,6 +27,7 @@ public class Student extends User implements Comparable<Student> {
 	public Student(String firstName, String lastName, String id, String email, String hashedPassword, int maxCredits)  {
 		super(firstName, lastName, id, email, hashedPassword);
 		setMaxCredits(maxCredits);
+		this.schedule = new Schedule();
 		
 	}
 	
@@ -57,6 +61,10 @@ public class Student extends User implements Comparable<Student> {
 	public void setMaxCredits(int maxCredits){
 		if(maxCredits < 3 || maxCredits > 18) throw new IllegalArgumentException("Invalid max credits");
 		this.maxCredits = maxCredits;
+	}
+	
+	public Schedule getSchedule() {
+		return this.schedule;
 	}
 
 	@Override
