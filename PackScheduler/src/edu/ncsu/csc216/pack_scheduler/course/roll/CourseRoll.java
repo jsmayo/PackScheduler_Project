@@ -23,9 +23,9 @@ public class CourseRoll {
 		if(capacity < MIN_ENROLLMENT || capacity > MAX_ENROLLMENT)
 			throw new IllegalArgumentException();
 		//if not constructed, put the cap at passed in value.
-		if(roll == null) this.enrollmentCap = capacity;
+		if(this.roll == null) this.enrollmentCap = capacity;
 		//if constructed, only allow changes by increasing the cap.
-		if(roll != null && capacity >= roll.size())
+		else if(roll != null && capacity >= roll.size())
 			this.enrollmentCap = capacity;
 	}
 	

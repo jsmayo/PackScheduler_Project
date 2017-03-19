@@ -117,7 +117,33 @@ public class CourseRollTest {
 		} catch (Exception e) {
 			fail("Should be able to add all student_records.txt");
 		}
+		
+		sd.addStudent("FirstName", "LastName", "myidisthis", "myidisthis@ncsu.edu", "pw", "pw", 8);
+		try {
+			roll.enroll(sd.getStudentById("myidisthis"));
+			assertEquals("seats should remain 9", 9, roll.getOpenSeats());
+			//System.out.println(roll.getEnrollmentCap() + "");
+			roll.setEnrollmentCap(10);
+			//uncomment if IAE is expected later on.
+			//fail("Should not be able to set enrollment cap below the size of enrolled students");
+		} catch (IllegalArgumentException e) {
+			assertEquals("cap should remain at 20", 20, roll.getEnrollmentCap());
+			
+		}
+		
+		try {
+			s = sd.getStudentById(dir[0][2]);
+			roll.drop(s);
+			assertTrue("Ensure proper student retreival", s.getId().equals("daustin"));
+			assertEquals("Open seats should be 10", 10, roll.getOpenSeats());
+			assertTrue("Make sure the student can enroll again", roll.canEnroll(s));
+		} catch (Exception e) {
+			fail("Should be able to drop student" + s.getId());
+		}
+	
+	
 	}
+	
 	
 	
 
