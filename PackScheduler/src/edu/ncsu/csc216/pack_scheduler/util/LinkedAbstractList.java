@@ -29,7 +29,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	 */
 	@Override
 	public E get(int index) {
-		if(index >= this.size()) throw new IndexOutOfBoundsException();
+		if(index < 0 || index >= this.size()) throw new IndexOutOfBoundsException();
 		if(index == 0) return this.front.data;
 		//counter for index
 		int counter = 0;
@@ -70,7 +70,8 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	public void add(int index, E e){
 		if(this.size == this.capacity) throw new IllegalArgumentException("Cannot add any more values");
 		if(e == null) throw new NullPointerException();
-		if((index > this.size  && this.size != 0 ) || index < 0 ) throw new IndexOutOfBoundsException();
+		if((this.size == 0 && index != 0) || index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		//if((index > this.size  && this.size == 0 ) || index < 0 ) throw new IndexOutOfBoundsException();
 		ListNode current = front;
 		//if p==null, then the next node does not exist. Check for equality and continue to next node.
 		while(current != null) {

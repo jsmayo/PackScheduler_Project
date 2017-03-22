@@ -116,8 +116,8 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		//HashSet<E> set = new HashSet<>();
 		for(int i = 0; i < this.size; i++) if(list[i].equals(e)) throw new IllegalArgumentException("Cannot add duplicate values"); //if(!set.add(arrayElement))
 		E overWrite = this.list[index];
-		return this.list[index] = e;
-		//return overWrite;
+		this.list[index] = e;
+		return overWrite;
 		
 		
 	}		
