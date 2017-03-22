@@ -1,5 +1,6 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
 
 /**
@@ -164,6 +165,20 @@ public class Student extends User implements Comparable<Student> {
 	@Override
 	public String toString() {
 		return this.getFirstName() + "," + this.getLastName() + "," + this.getId() + "," + this.getEmail() + "," + this.getPassword() + "," + this.getMaxCredits();
+	}
+	
+	/**
+	 * Checks to see if a course can be added to the student's schedule.
+	 * If the course is null, already present, conflicts with another scheduled
+	 * course, or will exceed the maximum credits alloted to the student, then
+	 * false is returned. 
+	 * @param course Course to check for scheduling.
+	 * @return True if the course can be added to the schedule.
+	 */
+	public boolean canAdd(Course course) {
+		if(schedule.canAdd(course) == true && ((schedule.getScheduleCredits() + course.getCredits()) <= this.getMaxCredits())) 
+			return true;
+		else return false;
 	}
 
 

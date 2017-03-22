@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import edu.ncsu.csc216.collections.list.SortedList;
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 
 
 /**
@@ -416,5 +417,18 @@ public class StudentTest {
 		}
 	}
 	
+	/**
+	 * Test that the canAdd() method correctly returns true when
+	 * a course can be added and false otherwise.
+	 * @return True If a course can be added to the student's schedule.
+	 */
+	@Test
+	public void testCanAdd() {
+		Student s1 = new Student("Shelby", "Anderson", "slander", "slander@ncsu.edu", "pw", 3);
+		assertFalse("Should not be able to add a null course", s1.canAdd(null));
+		assertFalse("Should not be able to add a course outside student's max credits", 
+				s1.canAdd(new Course("CSC001", "Course Test 1", "001", 5, "ID", 30, "M", 800, 915)));
+		assertTrue("Should be able to add a course under max credits", s1.canAdd(new Course("CSC001", "Course Test 1", "001", 3, "ID", 30, "M", 800, 915)));
+	}
 		
 }

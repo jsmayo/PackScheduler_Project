@@ -78,7 +78,9 @@ public class ScheduleTest {
 		Course c1 = catalog.getCourseFromCatalog(courses[0][0], courses[0][1]);
 		Course c2 = catalog.getCourseFromCatalog(courses[3][0], courses[3][1]);
 		//try adding valid courses
+		assertTrue(schedule.canAdd(c1));
 		assertTrue(schedule.addCourseToSchedule(c1));
+		assertTrue(schedule.canAdd(c2));
 		assertTrue(schedule.addCourseToSchedule(c2));
 		
 		//test ordering (added to end of schedule)
@@ -89,6 +91,7 @@ public class ScheduleTest {
 		
 		//test adding a duplicate
 		try {
+			assertFalse(schedule.canAdd(c1));
 			schedule.addCourseToSchedule(c1);
 			fail();
 		} catch (IllegalArgumentException e) {
@@ -102,6 +105,7 @@ public class ScheduleTest {
 		
 		//test adding a null course
 		try {
+			assertFalse(schedule.canAdd(null));
 			schedule.addCourseToSchedule(null);
 			fail();
 		} catch (NullPointerException e) {
@@ -195,6 +199,7 @@ public class ScheduleTest {
 		assertTrue(schedule.getTitle().equals("CatsAreNotAlwaysSoNice"));
 		//test that the schedule is empty
 		assertTrue(schedule.getScheduledCourses().length == 0);
+		assertTrue(schedule.canAdd(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811)));
 	}
 
 	

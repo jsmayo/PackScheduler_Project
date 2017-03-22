@@ -89,7 +89,7 @@ public class Schedule {
 	 * is empty, an empty String[][] is returned.
 	 */
 	public String[][] getScheduledCourses() {
-		String[][] schedule2d = new String[schedule.size()][4];
+		String[][] schedule2d = new String[schedule.size()][5];
 		if(schedule.size() == 0) return schedule2d;
 		for(int i = 0; i < schedule.size(); i++){
 			String[] details = schedule.get(i).getShortDisplayArray();
@@ -118,6 +118,41 @@ public class Schedule {
 	public String getTitle() {
 		return this.title;
 	}
-		
+	
+	/**
+	 * Returns the total number of credits within the student's
+	 * schedule.
+	 * @return totalCredits the total number of credits scheduled. 
+	 */
+	public int getScheduleCredits() {
+		int totalCredits = 0;
+		for(int i = 0; i < schedule.size(); i++){
+			totalCredits += schedule.get(i).getCredits();
+		}
+		return totalCredits;
+	}
+	
+	/**
+	 * Checks to see if a Course can be added to a student's schedule.
+	 * If the course is null, already present in the schedule, or
+	 * has a time conflict with another course, then false is returned.
+	 * @param c Course to check if available to add to schedule. 
+	 * @return True if the course can be added to the student's schedule.
+	 */
+	public boolean canAdd(Course c) {
+		//attempting to add to the students schedule. Return false if the same name appears already.
+		//Course toSchedule = c; //new course to test.
+		if(c == null) return false;
+		for(int i = 0; i < schedule.size(); i++){
+			////go through whole schedule and check duplicates
+			if(c.isDuplicate(schedule.get(i))) return false;
+			try {
+				c.checkConflict(schedule.get(i));
+			} catch (ConflictException ce) {
+				return false;
+			}
+		}
+		return true; //returning true if it can added.
+	}
 		
 }
