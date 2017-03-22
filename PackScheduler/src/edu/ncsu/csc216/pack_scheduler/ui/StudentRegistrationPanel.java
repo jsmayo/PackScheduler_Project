@@ -78,6 +78,10 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 	private JLabel lblCreditsTitle = new JLabel("Credits: ");
 	/** Label for Course Details meeting title */
 	private JLabel lblMeetingTitle = new JLabel("Meeting: ");
+	/** Label for Course Details enrollment cap title */
+	private JLabel lblEnrollmentCapTitle = new JLabel("Enrollment Cap: ");
+	/** Label for Course Details open seats title */
+	private JLabel lblOpenSeatsTitle = new JLabel("Open Seats: ");
 	/** Label for Course Details name */
 	private JLabel lblName = new JLabel("");
 	/** Label for Course Details section */
@@ -90,6 +94,10 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 	private JLabel lblCredits = new JLabel("");
 	/** Label for Course Details meeting */
 	private JLabel lblMeeting = new JLabel("");
+	/** Label for Course Details enrollment cap */
+	private JLabel lblEnrollmentCap = new JLabel("");
+	/** Label for Course Details open seats */
+	private JLabel lblOpenSeats = new JLabel("");
 	/** Current user */
 	private Student currentUser;
 	/** Course catalog */
@@ -204,7 +212,7 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 		
 		//Set up the course details panel
 		pnlCourseDetails = new JPanel();
-		pnlCourseDetails.setLayout(new GridLayout(4, 1));
+		pnlCourseDetails.setLayout(new GridLayout(5, 1));
 		JPanel pnlName = new JPanel(new GridLayout(1, 4));
 		pnlName.add(lblNameTitle);
 		pnlName.add(lblName);
@@ -225,10 +233,17 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 		pnlMeeting.add(lblMeetingTitle);
 		pnlMeeting.add(lblMeeting);
 		
+		JPanel pnlEnrollment = new JPanel(new GridLayout(1, 4));
+		pnlEnrollment.add(lblEnrollmentCapTitle);
+		pnlEnrollment.add(lblEnrollmentCap);
+		pnlEnrollment.add(lblOpenSeatsTitle);
+		pnlEnrollment.add(lblOpenSeats);
+		
 		pnlCourseDetails.add(pnlName);
 		pnlCourseDetails.add(pnlTitle);
 		pnlCourseDetails.add(pnlInstructor);
 		pnlCourseDetails.add(pnlMeeting);
+		pnlCourseDetails.add(pnlEnrollment);
 		
 		TitledBorder borderCourseDetails = BorderFactory.createTitledBorder(lowerEtched, "Course Details");
 		pnlCourseDetails.setBorder(borderCourseDetails);
@@ -283,8 +298,8 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 				JOptionPane.showMessageDialog(this, "No course selected in the catalog.");
 			} else {
 				try {
-					if (!schedule.addCourseToSchedule(catalog.getCourseFromCatalog(tableCatalog.getValueAt(row, 0).toString(), tableCatalog.getValueAt(row, 1).toString()))) {
-						JOptionPane.showMessageDialog(this, "Course doesn't exist.");
+					if (!RegistrationManager.getInstance().enrollStudentInCourse(catalog.getCourseFromCatalog(tableCatalog.getValueAt(row, 0).toString(), tableCatalog.getValueAt(row, 1).toString()))) {
+						JOptionPane.showMessageDialog(this, "Course cannot be added to schedule.");
 					}
 				} catch (IllegalArgumentException iae) {
 					JOptionPane.showMessageDialog(this, iae.getMessage());
@@ -296,11 +311,13 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 			if (row == -1) {
 				JOptionPane.showMessageDialog(this, "No item selected in the schedule.");
 			} else {
-				schedule.removeCourseFromSchedule(catalog.getCourseFromCatalog(tableSchedule.getValueAt(row, 0).toString(), tableSchedule.getValueAt(row, 1).toString()));
+				if (!RegistrationManager.getInstance().dropStudentFromCourse(catalog.getCourseFromCatalog(tableSchedule.getValueAt(row, 0).toString(), tableSchedule.getValueAt(row, 1).toString()))) {
+					JOptionPane.showMessageDialog(this, "Cannot drop student from " + tableSchedule.getValueAt(row, 0).toString());
+				}
 			}
 			updateTables();
 		} else if (e.getSource() == btnReset) {
-			schedule.resetSchedule();
+			RegistrationManager.getInstance().resetSchedule();
 			updateTables();
 		} else if (e.getSource() == btnSetScheduleTitle) {
 			try {
@@ -335,6 +352,8 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 			lblInstructor.setText(c.getInstructorId());
 			lblCredits.setText("" + c.getCredits());
 			lblMeeting.setText(c.getMeetingString());
+			lblEnrollmentCap.setText("" + c.getCourseRoll().getEnrollmentCap());
+			lblOpenSeats.setText("" + c.getCourseRoll().getOpenSeats());
 		}
 	}
 	
@@ -348,7 +367,7 @@ public class StudentRegistrationPanel  extends JPanel implements ActionListener 
 		/** ID number used for object serialization. */
 		private static final long serialVersionUID = 1L;
 		/** Column names for the table */
-		private String [] columnNames = {"Name", "Section", "Title", "Meeting Days"};
+		private String [] columnNames = {"Name", "Section", "Title", "Meeting Days", "Open Seats"};
 		/** Data stored in the table */
 		private Object [][] data;
 		/** Boolean flag if the model applies to the catalog or schedule */

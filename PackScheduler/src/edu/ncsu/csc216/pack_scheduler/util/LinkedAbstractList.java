@@ -179,7 +179,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 				current = current.next;
 			}
 			//current should point to the spot needing replacement
-			E oldValue = current.data;
+			E oldValue = previous.next.data; //current.data;
 			current.data = e;
 			return oldValue;
 		}

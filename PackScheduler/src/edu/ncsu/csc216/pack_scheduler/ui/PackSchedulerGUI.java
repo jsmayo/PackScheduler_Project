@@ -42,7 +42,7 @@ public class PackSchedulerGUI {
 	/** RegistrarPanel */
 	private RegistrarPanel pnlRegistrar;
 	/** StudentPanel */
-	private StudentRegistrationPanel pnlStudent;
+	private StudentPanel pnlStudent;
 	/** CardLayout for GUI */
 	private CardLayout cardLayout;
 	/** Panel that will contain all of the application views */
@@ -60,7 +60,7 @@ public class PackSchedulerGUI {
 		
 		pnlLogin = new LoginPanel();
 		pnlRegistrar = new RegistrarPanel();
-		pnlStudent = new StudentRegistrationPanel();
+		pnlStudent = new StudentPanel();
 		
 		panel = new JPanel();
 		cardLayout = new CardLayout();
@@ -299,6 +299,70 @@ public class PackSchedulerGUI {
 				RegistrationManager.getInstance().logout();
 				cardLayout.show(panel, LOGIN_PANEL);
 			}
+		}
+		
+	}
+	
+	/**
+	 * Creates a panel for student registration.
+	 * @author SarahHeckman
+	 */
+	private class StudentPanel extends JPanel implements ActionListener {
+
+		/** ID number used for object serialization. */
+		private static final long serialVersionUID = 1L;
+		/** Button to logout */
+		private JButton btnLogout;
+		/** StudentRegistrationPanel */
+		private StudentRegistrationPanel studentRegPanel;
+		
+		public StudentPanel() {
+			super(new GridBagLayout());
+			
+			JPanel pnlButtons = new JPanel();
+			pnlButtons.setLayout(new GridLayout(1, 1));
+			btnLogout = new JButton("Logout");
+			btnLogout.addActionListener(this);
+			pnlButtons.add(btnLogout);
+			
+			studentRegPanel = new StudentRegistrationPanel();
+	
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = 0;
+			c.gridwidth = 1;
+			c.weightx = 1;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			c.fill = GridBagConstraints.RELATIVE;
+			add(pnlButtons, c);
+			
+			c.gridx = 0;
+			c.gridy = 1;
+			c.gridwidth = 1;
+			c.weightx = 1;
+			c.weighty = 1;
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			c.fill = GridBagConstraints.BOTH;
+			add(studentRegPanel, c);
+		}
+		
+		/**
+		 * Performs actions when any component with an action listener is selected.
+		 * @param e ActionEvent representing the user action
+		 */
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnLogout) {
+				RegistrationManager.getInstance().logout();
+				cardLayout.show(panel, LOGIN_PANEL);
+			}
+		}
+		
+		/**
+		 * Updates tables
+		 */
+		public void updateTables() {
+			studentRegPanel.updateTables();
 		}
 		
 	}
