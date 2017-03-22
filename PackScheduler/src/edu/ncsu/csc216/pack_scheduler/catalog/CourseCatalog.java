@@ -62,8 +62,7 @@ public class CourseCatalog {
 	 * @param end The time in standard military that the Course is set to end.
 	 * @return true if the Course can be added to the course catalog.
 	 */
-	public boolean addCourseToCatalog(String name, String title, String section, int credits, 
-			String prof, int enrollmentCap, String meetdays, int start, int end){
+	public boolean addCourseToCatalog(String name, String title, String section, int credits, String prof, int enrollmentCap, String meetdays, int start, int end){
 		//attempt to create a Course using the parameters passed in.
 		//Errors are allowed to propogate to the client.
 		Course courseToAdd = new Course(name, title, section, credits, prof, enrollmentCap, meetdays, start, end);
@@ -122,8 +121,7 @@ public class CourseCatalog {
 			course2d[i][0] = courseCatalog.get(i).getName();
 			course2d[i][1] = courseCatalog.get(i).getSection();
 			course2d[i][2] = courseCatalog.get(i).getTitle();
-			//course2d[i][3] = courseCatalog.get(i).getMeetingString();
-			//course2d[i][4] = courseCatalog.get(i).getCourseRoll()
+
 		}
 		return course2d;
 	}

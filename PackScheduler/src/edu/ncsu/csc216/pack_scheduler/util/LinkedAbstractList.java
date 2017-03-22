@@ -70,54 +70,32 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	public void add(int index, E e){
 		if(this.size == this.capacity) throw new IllegalArgumentException("Cannot add any more values");
 		if(e == null) throw new NullPointerException();
-		if((this.size == 0 && index != 0) || index < 0 || index > this.size) throw new IndexOutOfBoundsException();
-		//if((index > this.size  && this.size == 0 ) || index < 0 ) throw new IndexOutOfBoundsException();
-		ListNode current = front;
-		//if p==null, then the next node does not exist. Check for equality and continue to next node.
-		while(current != null) {
-			if(current.equals(e)) throw new IllegalArgumentException("Cannot add duplicate values.");
-			current = current.next;
+		if(index > size()  || index < 0) throw new IndexOutOfBoundsException();
+		if(index == 0 && size() == 0) {
+			this.front = new ListNode(e);
+			this.size++;
+			return;
 		}
-		//size is last place of value (NOT INDEXED).
-		if(this.size == 0) front = new ListNode(e);
-		//if the size is 0, just add the value.
-		else {
-			if(index == 0) {
-				ListNode newHead = new ListNode(e, this.front);
-				this.front = newHead;
-//				for(int i = this.size(); i > 0; i--) list[i] = list[i - 1];
-//				list[0] = e;
-			}
-			else {
-				//counter for index
-				int counter = 0;
-				//E node to keep track of the current node.
-				current = front;
-				//E node to keep track of the previous node.
-				ListNode previous = null;
-				//While look to transverse the list. 
-				while(counter != index) {
-					//make previous point to the current node
-					previous = current;
-					//make the current node point to the next node.
-					current = current.next;
-					counter++;
-				}
-				//counter == index if exited, so set the previous to point to new and new to current.
-				previous.next = new ListNode(e, current);
-				
-			}
+		else if(index == 0 && size() > 0) {
+			ListNode newHead = new ListNode(e, this.front);
+			this.front = newHead;
+			this.size++;
+			return;
 		}
-		this.size++;
-		//if the size of the array is reaching the capacity, double the capacity.
-//		if(this.size >= this.capacity) {
-//			this.capacity *= 2;
-//			this.list = Arrays.copyOf(this.list, this.capacity);
-//			//E[] tempArray = this.list;
-//			//this.list = (E[]) new Object[this.capacity * 2];
-//			//for(int i = 0; i < tempArray.length; i++) this.list[i] = tempArray[i];
-//		}
 		
+		else {
+			ListNode previous = null;
+			ListNode current = this.front;
+			int counter = 0;
+			while(counter < index) {
+				previous = current; //current is front -> data
+				current = current.next;// is link -> next
+				counter++;
+			}
+			previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
+			this.size++;
+			return;
+		}
 	}
 	
 	@Override
