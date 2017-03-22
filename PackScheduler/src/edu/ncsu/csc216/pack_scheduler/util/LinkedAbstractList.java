@@ -76,7 +76,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		//if p==null, then the next node does not exist. Check for equality and continue to next node.
 		while(current != null) {
 			if(current.equals(e)) throw new IllegalArgumentException("Cannot add duplicate values.");
-			else current = current.next;
+			current = current.next;
 		}
 		//size is last place of value (NOT INDEXED).
 		if(this.size == 0) front = new ListNode(e);
@@ -180,9 +180,9 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 				current = current.next;
 			}
 			//current should point to the spot needing replacement
-			E oldValue = previous.next.data; //current.data;
-			current.data = e;
-			return oldValue;
+			//E oldValue = previous.next.data; //current.data;
+			return current.data = e;
+			//return oldValue;
 		}
 		
 	}

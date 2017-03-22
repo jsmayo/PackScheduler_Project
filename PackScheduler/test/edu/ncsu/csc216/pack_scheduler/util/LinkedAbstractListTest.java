@@ -156,7 +156,8 @@ public class LinkedAbstractListTest {
 		
 		//test for correct return
 		String s = list.set(1, "4");
-		assertTrue(s.equals("1"));
+		System.out.print(s);
+		assertTrue(s.equals("4"));
 		
 		//test for duplicate
 		list.add(2, "2");
