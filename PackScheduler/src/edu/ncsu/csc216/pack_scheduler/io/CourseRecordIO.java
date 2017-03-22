@@ -68,14 +68,15 @@ public class CourseRecordIO {
 			String csection = scanner.next();
 			int ccredits = Integer.parseInt(scanner.next());
 			String cid = scanner.next();
+			int cenrollmentCap = Integer.parseInt(scanner.next());
 			String cmeetingDays = scanner.next();
 			if(cmeetingDays.equals("A") && scanner.hasNext()) throw new IllegalArgumentException("Invalid Argument");
 			if(scanner.hasNext()){
 				int cstartTime = Integer.parseInt(scanner.next());
 				int cendTime = Integer.parseInt(scanner.next());
-				return new Course(cname, ctitle, csection, ccredits, cid, cmeetingDays, cstartTime, cendTime);
+				return new Course(cname, ctitle, csection, ccredits, cid, cenrollmentCap, cmeetingDays, cstartTime, cendTime);
 			}
-			else return new Course(cname, ctitle, csection, ccredits, cid, cmeetingDays);
+			else return new Course(cname, ctitle, csection, ccredits, cid, cenrollmentCap, cmeetingDays);
 		} catch (NoSuchElementException e){
 			throw new IllegalArgumentException("Invalid argument");
 		}

@@ -60,6 +60,8 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 	private JLabel lblCredits;
 	/** JLabel for instructorId */
 	private JLabel lblInstructorId;
+	/** JLabel for enrollmentCap */
+	private JLabel lblEnrollmentCap;
 	/** Label for meeting days */
 	private JLabel lblMeetingDays = new JLabel("Meeting Days: ");
 	/** Label for start time */
@@ -74,6 +76,8 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 	private JTextField txtSection;
 	/** JTextField for instructorId */
 	private JTextField txtInstructorId;
+	/** JTextField for enrollmentCap */
+	private JTextField txtEnrollmentCap;
 	/** Check box for Monday */
 	private JCheckBox cbMonday;
 	/** Check box for Tuesday */
@@ -131,8 +135,8 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		pnlCatalogButton.add(btnSaveCourseCatalog);
 		
 		Border lowerEtched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-		TitledBorder boarder = BorderFactory.createTitledBorder(lowerEtched, "Catalog Buttons");
-		pnlCatalogButton.setBorder(boarder);
+		TitledBorder border = BorderFactory.createTitledBorder(lowerEtched, "Catalog Buttons");
+		pnlCatalogButton.setBorder(border);
 		pnlCatalogButton.setToolTipText("Catalog Buttons");
 		
 		//Set up Catalog table
@@ -144,8 +148,8 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		
 		scrollCourseCatalog = new JScrollPane(tableCourseCatalog, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		boarder = BorderFactory.createTitledBorder(lowerEtched, "Course Catalog");
-		scrollCourseCatalog.setBorder(boarder);
+		border = BorderFactory.createTitledBorder(lowerEtched, "Course Catalog");
+		scrollCourseCatalog.setBorder(border);
 		scrollCourseCatalog.setToolTipText("Course Catalog");
 		
 		//Set up Course buttons
@@ -159,8 +163,8 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		pnlCourseButtons.add(btnAddCourse);
 		pnlCourseButtons.add(btnRemoveCourse);
 		
-		boarder = BorderFactory.createTitledBorder(lowerEtched, "Course Controls");
-		pnlCourseButtons.setBorder(boarder);
+		border = BorderFactory.createTitledBorder(lowerEtched, "Course Controls");
+		pnlCourseButtons.setBorder(border);
 		pnlCourseButtons.setToolTipText("Course Controls");
 		
 		//Set up Course form
@@ -169,10 +173,12 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		lblSection = new JLabel("Section");
 		lblCredits = new JLabel("Credits");
 		lblInstructorId = new JLabel("Instructor Id");
+		lblEnrollmentCap = new JLabel("Enrollment Cap");
 		txtName = new JTextField(20);
 		txtTitle = new JTextField(20);
 		txtSection = new JTextField(20);
 		txtInstructorId = new JTextField(20);
+		txtEnrollmentCap = new JTextField(20);
 		comboCredits = new JComboBox<Integer>();
 		comboCredits.addItem(Integer.valueOf(1));
 		comboCredits.addItem(Integer.valueOf(2));
@@ -279,7 +285,7 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		pnlTime.add(pnlEndTime);
 		
 		JPanel pnlCourseForm = new JPanel();
-		pnlCourseForm.setLayout(new GridLayout(7, 2));
+		pnlCourseForm.setLayout(new GridLayout(8, 2));
 		pnlCourseForm.add(lblName);
 		pnlCourseForm.add(txtName);
 		pnlCourseForm.add(lblTitle);
@@ -290,13 +296,15 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		pnlCourseForm.add(comboCredits);
 		pnlCourseForm.add(lblInstructorId);
 		pnlCourseForm.add(txtInstructorId);
+		pnlCourseForm.add(lblEnrollmentCap);
+		pnlCourseForm.add(txtEnrollmentCap);
 		pnlCourseForm.add(pnlStartTime);
 		pnlCourseForm.add(pnlEndTime);
 		pnlCourseForm.add(lblMeetingDays);
 		pnlCourseForm.add(pnlDays);
 		
-		boarder = BorderFactory.createTitledBorder(lowerEtched, "Course Information");
-		pnlCourseForm.setBorder(boarder);
+		border = BorderFactory.createTitledBorder(lowerEtched, "Course Information");
+		pnlCourseForm.setBorder(border);
 		pnlCourseForm.setToolTipText("Course Information");
 		
 		GridBagConstraints c = new GridBagConstraints();
@@ -365,6 +373,12 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 			String title = txtTitle.getText();
 			String section = txtSection.getText();
 			String instructorId = txtInstructorId.getText();
+			int enrollmentCap = 0;
+			try {
+				enrollmentCap = Integer.parseInt(txtEnrollmentCap.getText());
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(this, "Enrollment capacity must be a number between 10 and 250.");
+			}
 			int credits = 0;
 			int creditsIdx = comboCredits.getSelectedIndex();
 			if (creditsIdx == -1) {
@@ -437,7 +451,7 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 			}
 			
 			try {
-				if (catalog.addCourseToCatalog(name, title, section, credits, instructorId, meetingDays, startTime, endTime)) {
+				if (catalog.addCourseToCatalog(name, title, section, credits, instructorId, enrollmentCap, meetingDays, startTime, endTime)) {
 					txtName.setText("");
 					txtTitle.setText("");
 					txtSection.setText("");
@@ -502,7 +516,7 @@ public class CourseCatalogPanel extends JPanel implements ActionListener {
 		/** ID number used for object serialization. */
 		private static final long serialVersionUID = 1L;
 		/** Column names for the table */
-		private String [] columnNames = {"Name", "Section", "Title", "Meeting Information"};
+		private String [] columnNames = {"Name", "Section", "Title", "Meeting Information", "Open Seats"};
 		/** Data stored in the table */
 		private Object [][] data;
 		

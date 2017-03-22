@@ -71,7 +71,7 @@ public class ScheduleTest {
 		catalog.loadCoursesFromFile(validTestFile);
 		
 		//make my own course and add to catalog, then attempt to add.
-		if(catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811))
+		if(catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811))
 			assertTrue(schedule.addCourseToSchedule(catalog.getCourseFromCatalog("MSE300", "300")));
 		//get courses from catalog
 		String[][] courses = catalog.getCourseCatalog();
@@ -123,11 +123,11 @@ public class ScheduleTest {
 		schedule = new Schedule();
 		
 		//test removing from empty schedule
-		assertFalse(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+		assertFalse(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811)));
 
 		//load valid courses using catalog
 		catalog.loadCoursesFromFile(validTestFile);
-		catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811);
+		catalog.addCourseToCatalog("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811);
 		assertTrue(schedule.addCourseToSchedule(catalog.getCourseFromCatalog("MSE300", "300")));
 		//get courses from catalog
 		String[][] courses = catalog.getCourseCatalog();
@@ -142,7 +142,7 @@ public class ScheduleTest {
 		assertTrue(scheduledC[2][0].equals(courses[3][0]));
 		
 		//test removing valid courses from the schedule
-		assertTrue(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+		assertTrue(schedule.removeCourseFromSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811)));
 		scheduledC = schedule.getScheduledCourses();
 		//test that the first course was removed and contents shifted correctly.
 		assertTrue(scheduledC[0][0].equals(courses[0][0]));
@@ -187,7 +187,7 @@ public class ScheduleTest {
 		schedule = new Schedule();
 		//change the title and add a course to the schedule.
 		schedule.setTitle("CatsAreNotAlwaysSoNice");
-		assertTrue(schedule.addCourseToSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", "M", 810, 811)));
+		assertTrue(schedule.addCourseToSchedule(new Course("MSE300", "MaterialScienceEngineering", "300", 3, "lburg", 10, "M", 810, 811)));
 		
 		//test resetting the schedule does NOT revert to default title
 		schedule.resetSchedule();

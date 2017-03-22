@@ -18,10 +18,10 @@ public class ActivityTest {
 	 */
 	@Test
 	public void testCheckConflict() {
-	    Activity a1 = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", "MW", 1330, 1445);
-	    Activity a2 = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", "TH", 1330, 1445);
-	    Activity e1 = new Course("CSC500", "All Things CSC", "601", 5, "veryname", "MTW", 900, 1000);
-	    Activity e2 = new Course("CSC501", "All Things CSC and More", "602", 3, "veryname", "TH", 1100, 1200);
+	    Activity a1 = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 100,  "MW", 1330, 1445);
+	    Activity a2 = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 100, "TH", 1330, 1445);
+	    Activity e1 = new Course("CSC500", "All Things CSC", "601", 5, "veryname", 100, "MTW", 900, 1000);
+	    Activity e2 = new Course("CSC501", "All Things CSC and More", "602", 3, "veryname", 100, "TH", 1100, 1200);
 	   
 	    //Test for no conflict.
 	    try {

@@ -39,6 +39,8 @@ public class CourseCatalogTest {
 	private static final int CREDITS = 4;
 	/** Course instructor id */
 	private static final String INSTRUCTOR_ID = "sesmith5";
+	/** Course enrollment cap */
+	private static final int ENROLLMENT_CAP = 10;
 	/** Course meeting days */
 	private static final String MEETING_DAYS = "TH";
 	/** Course start time */
@@ -126,10 +128,10 @@ public class CourseCatalogTest {
 		//Attempt to add an invalid course 
 		
 		//Attempt to add a new course that does exist
-		assertTrue(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME));
+		assertTrue(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME));
 		
 		//Attempt to add a course that already exists in the catalog
-		assertFalse(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME));
+		assertFalse(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME));
 		
 	}
 	
@@ -143,7 +145,7 @@ public class CourseCatalogTest {
 		assertFalse(cc.removeCourseFromCatalog("NAME", "SECTION"));
 		
 		//add a course and then attempt to remove a different name
-		cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
+		cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME);
 		assertFalse(cc.removeCourseFromCatalog("NAME", "ALDKFJA"));
 		//remove the actual course
 		assertTrue(cc.removeCourseFromCatalog(NAME, SECTION));
@@ -156,8 +158,8 @@ public class CourseCatalogTest {
 	public void testGetCourseCatalog(){
 		//test valid course retrieval
 		CourseCatalog cc = new CourseCatalog();
-		Activity course = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
-		cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME, END_TIME);
+		Activity course = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME);
+		cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME);
 		String[][] course2d = cc.getCourseCatalog();
 		assertEquals(NAME, course2d[0][0]);
 		assertEquals(SECTION, course2d[0][1]);

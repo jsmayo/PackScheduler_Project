@@ -3,8 +3,6 @@ package edu.ncsu.csc216.pack_scheduler.catalog;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.io.CourseRecordIO;
@@ -65,10 +63,10 @@ public class CourseCatalog {
 	 * @return true if the Course can be added to the course catalog.
 	 */
 	public boolean addCourseToCatalog(String name, String title, String section, int credits, 
-			String prof, String meetdays, int start, int end){
+			String prof, int enrollmentCap, String meetdays, int start, int end){
 		//attempt to create a Course using the parameters passed in.
 		//Errors are allowed to propogate to the client.
-		Course courseToAdd = new Course(name, title, section, credits, prof, meetdays, start, end);
+		Course courseToAdd = new Course(name, title, section, credits, prof, enrollmentCap, meetdays, start, end);
 		if(getCourseFromCatalog(name, section) != null) return false;
 		
 		if(courseCatalog.indexOf(courseToAdd) == -1){
