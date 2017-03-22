@@ -111,7 +111,7 @@ public class CourseCatalog {
 	/**
 	 * Constructs a 2D array containing the course catalog information. There is a row for
 	 * each course within the catalog and 3 columns for: the course name, the course section,
-	 * and the course title. 
+	 * the course title, and available seats left for enrollment. 
 	 * @return courseCatalog2d String[][] object containing the name, section, and title for 
 	 * all courses within the course catalog.
 	 */
@@ -123,7 +123,6 @@ public class CourseCatalog {
 			course2d[i][1] = courseCatalog.get(i).getSection();
 			course2d[i][2] = courseCatalog.get(i).getTitle();
 			course2d[i][3] = courseCatalog.get(i).getMeetingString();
-			course2d[i][4] = courseCatalog.get(i).getCourseRoll().getOpenSeats() + "";
 		}
 		return course2d;
 	}
