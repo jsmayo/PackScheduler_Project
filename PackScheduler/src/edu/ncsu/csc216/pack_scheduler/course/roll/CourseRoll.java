@@ -20,13 +20,13 @@ public class CourseRoll {
 	}
 	
 	public void setEnrollmentCap(int capacity) {
-		if(capacity < MIN_ENROLLMENT || capacity > MAX_ENROLLMENT)
+		if(capacity < MIN_ENROLLMENT || capacity > MAX_ENROLLMENT )
 			throw new IllegalArgumentException();
 		//if not constructed, put the cap at passed in value.
 		if(this.roll == null) this.enrollmentCap = capacity;
 		//if constructed, only allow changes by increasing the cap.
-		else if(roll != null && capacity >= roll.size())
-			this.enrollmentCap = capacity;
+		if(roll != null && capacity < roll.size()) throw new IllegalArgumentException();
+		else this.enrollmentCap = capacity;
 	}
 	
 	public int getEnrollmentCap() {

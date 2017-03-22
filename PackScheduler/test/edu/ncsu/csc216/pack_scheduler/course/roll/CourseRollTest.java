@@ -71,12 +71,12 @@ public class CourseRollTest {
 			assertEquals("seats should not have changed", 20, roll.getOpenSeats());
 		}
 
-
-		//TODO: add students before testing this roll.setEnrollmentCap(12);
 		assertEquals("Cap should only change by increasing below maximum allowed.", 20, roll.getEnrollmentCap());
 		roll.setEnrollmentCap(30);
 		assertEquals("Cap should have changed to 30", 30, roll.getEnrollmentCap());
-	}
+		}
+		
+	
 	
 	@Test
 	public void testEnroll() {
@@ -125,7 +125,7 @@ public class CourseRollTest {
 			//System.out.println(roll.getEnrollmentCap() + "");
 			roll.setEnrollmentCap(10);
 			//uncomment if IAE is expected later on.
-			//fail("Should not be able to set enrollment cap below the size of enrolled students");
+			fail("Should not be able to set enrollment cap below the size of enrolled students");
 		} catch (IllegalArgumentException e) {
 			assertEquals("cap should remain at 20", 20, roll.getEnrollmentCap());
 			
