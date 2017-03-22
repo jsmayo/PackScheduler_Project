@@ -45,7 +45,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			//make the current node point to the next node.
 			current = current.next;
 		}
-		return previous.next.data;
+		return current.data;
 		
 		//if the loop exits, then the index was found or the end was reached.
 		//overwrite the previous.next to a new reference (previous.next was the pointer to the last compared node)

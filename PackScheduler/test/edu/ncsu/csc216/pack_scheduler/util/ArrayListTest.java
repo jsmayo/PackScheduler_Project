@@ -147,7 +147,7 @@ public class ArrayListTest {
 		
 		//test for correct return
 		String s = list.set(1, "4");
-		assertTrue(s.equals("1"));
+		assertTrue(s.equals("4"));
 		
 		//test for duplicate
 		list.add(2, "2");
