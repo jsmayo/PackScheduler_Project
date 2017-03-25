@@ -45,7 +45,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			//make the current node point to the next node.
 			current = current.next;
 		}
-		return current.data;
+		return previous.next.data;
 		
 		//if the loop exits, then the index was found or the end was reached.
 		//overwrite the previous.next to a new reference (previous.next was the pointer to the last compared node)
@@ -71,8 +71,12 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		if(this.size == this.capacity) throw new IllegalArgumentException("Cannot add any more values");
 		if(e == null) throw new NullPointerException();
 		if(index > size()  || index < 0) throw new IndexOutOfBoundsException();
+		for(int i = 0; i < this.size(); i++) 
+			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
+		//TODO: test above
 		if(index == 0 && size() == 0) {
 			this.front = new ListNode(e);
+			front.next= null;
 			this.size++;
 			return;
 		}
@@ -130,40 +134,40 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		return this.capacity;
 	}
 	
-
+	/**
+	 * Return the old node data.
+	 * @param index 
+	 */
 	@Override
 	public E set(int index, E e){
-		ListNode current = front;
-		//if p==null, then the next node does not exist. Check for equality and continue to next node.
-		while(current != null) {
-			if(current.data.equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
-			else current = current.next;
-		}
 		if(e == null) throw new NullPointerException();
-		if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
-		if(index == 0 || size == 1) return this.front.data = e;
-		else {
-			//counter for index
-			int counter = 0;
-			//E node to keep track of the current node.
-			current = front;
-			//E node to keep track of the previous node.
-			ListNode previous = null;
-			//While look to transverse the list. 
-			while(counter < index) {
-				counter++;
-				//make previous point to the current node
-				previous = current;
-				//make the current node point to the next node.
-				current = current.next;
-			}
-			//current should point to the spot needing replacement
-			//E oldValue = previous.next.data; //current.data;
-			return current.data = e;
-			//return oldValue;
+		if(index >= size()  || index < 0) throw new IndexOutOfBoundsException();
+		for(int i = 0; i < this.size(); i++) 
+			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
+		//TODO: test above
+		if(index == 0) { //have to be less than size, so at least 1 node in list by this point.
+			E replaced = this.get(0);
+			front = new ListNode(e, front.next);
+			return replaced;
 		}
+
+	else {
+		ListNode previous = null;
+		ListNode current = this.front;
+		int counter = 0;
+		while(counter < index) {
+			previous = current; //current is front -> data
+			current = current.next;// is link -> next
+			counter++;
+		}
+		E replaced = this.get(index); // = current.next.data;
 		
+		previous.next = new ListNode(e,current);
+		//previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
+		
+		return replaced;
 	}
+}
 
 	@Override
 	public int size() {

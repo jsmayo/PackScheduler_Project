@@ -154,10 +154,23 @@ public class LinkedAbstractListTest {
 		assertEquals(list.get(0), "0");
 		assertEquals(list.get(1), "1");
 		
-		//test for correct return
-		String s = list.set(1, "4");
-		System.out.print(s);
-		assertTrue(s.equals("4"));
+//		list = new LinkedAbstractList<>(5);
+//		list.add("0");
+//		list.add("1");
+//		list.add("2");
+//		list.add("3");
+//		list.add("4");
+		for(String s: list) {
+			System.out.println(s);
+		}
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		
+		System.out.println();
+		
+		//assertTrue(new String("4") == new String(list.set(1, "3")));
+		
 		
 		//test for duplicate
 		list.add(2, "2");
