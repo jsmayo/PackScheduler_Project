@@ -154,24 +154,6 @@ public class LinkedAbstractListTest {
 		assertEquals(list.get(0), "0");
 		assertEquals(list.get(1), "1");
 		
-//		list = new LinkedAbstractList<>(5);
-//		list.add("0");
-//		list.add("1");
-//		list.add("2");
-//		list.add("3");
-//		list.add("4");
-		for(String s: list) {
-			System.out.println(s);
-		}
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		
-		System.out.println();
-		
-		//assertTrue(new String("4") == new String(list.set(1, "3")));
-		
-		
 		//test for duplicate
 		list.add(2, "2");
 		list.add(3, "3");
@@ -183,6 +165,50 @@ public class LinkedAbstractListTest {
 			
 		}
 		
+		//test for correct ordering after set is called
+		LinkedAbstractList<String> list2 = new LinkedAbstractList<>(4);
+		list2.add(0, "orange");
+		list2.add(1, "banana");
+		list2.add(2, "apple");
+		list2.add(3, "kiwi");
+		LinkedAbstractList<String> list3 = new LinkedAbstractList<>(4);
+		list3.add(0, "orange");
+		list3.add(1, "banana");
+		list3.add(2, "apple");
+		list3.add(3, "kiwi");
+		LinkedAbstractList<String> list4 = new LinkedAbstractList<>(4);
+		list4.add(0, "orange");
+		list4.add(1, "strawberry");
+		list4.add(2, "apple");
+		list4.add(3, "kiwi");
+		//comparing ordering of 2 lists unmodified by set
+		for(int i = 0; i < list2.size(); i++) {
+			assertTrue(list2.get(i).equals(list3.get(i)));
+		}
+		
+		list2.set(1, "strawberry");
+		
+		//comparing list2 modified by set call.
+		for(int i = 0; i < list2.size(); i++) {
+			System.out.println(list2);
+			//assertTrue(list2.get(i).equals(list4.get(i)));
+		}
+		
+		
+//		list = new LinkedAbstractList<>(5);
+//		list.add("0");
+//		list.add("1");
+//		list.add("2");
+//		list.add("3");
+//		list.add("4");
+//		for(String s: list) {
+//			System.out.println(s);
+//		}
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i));
+//		}
+		
+
 	}
 	
 	/**

@@ -145,7 +145,8 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		for(int i = 0; i < this.size(); i++) 
 			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
 		//TODO: test above
-		if(index == 0) { //have to be less than size, so at least 1 node in list by this point.
+		//have to be less than size, so at least 1 node in list by this point.
+		if(index == 0) { 
 			E replaced = this.get(0);
 			front = new ListNode(e, front.next);
 			return replaced;
@@ -162,7 +163,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		}
 		E replaced = this.get(index); // = current.next.data;
 		
-		previous.next = new ListNode(e,current);
+		previous.next = new ListNode(e,current.next);
 		//previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
 		
 		return replaced;
