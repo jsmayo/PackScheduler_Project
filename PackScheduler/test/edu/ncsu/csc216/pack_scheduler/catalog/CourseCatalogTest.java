@@ -164,7 +164,7 @@ public class CourseCatalogTest {
 		assertEquals(NAME, course2d[0][0]);
 		assertEquals(SECTION, course2d[0][1]);
 		assertEquals(TITLE, course2d[0][2]);
-		//assertEquals(course.getMeetingString(), course2d[0][3]);
+		assertEquals(course.getMeetingString(), course2d[0][3]);
 	}
 	
 

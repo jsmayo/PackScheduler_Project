@@ -115,13 +115,13 @@ public class CourseCatalog {
 	 * all courses within the course catalog.
 	 */
 	public String[][] getCourseCatalog() {
-		String[][] course2d = new String[courseCatalog.size()][3];
+		String[][] course2d = new String[courseCatalog.size()][4];
 		if(courseCatalog.size() == 0) return course2d;
 		for(int i = 0; i < courseCatalog.size(); i++){
 			course2d[i][0] = courseCatalog.get(i).getName();
 			course2d[i][1] = courseCatalog.get(i).getSection();
 			course2d[i][2] = courseCatalog.get(i).getTitle();
-
+			course2d[i][3] = courseCatalog.get(i).getMeetingString();
 		}
 		return course2d;
 	}
