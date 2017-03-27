@@ -59,17 +59,17 @@ public class ArrayList<E> extends java.util.AbstractList<E> {
 		if(index == 0 && this.size > 0) {
 			//Capacity is doubled when approaching the limit at size + 1 >= capacity
 			//shift everything right
-			for(int i = this.size; i >= 0; i--) list[i+1] = list[i];
+			for(int i = this.size; i >= 0; i--) list[i + 1] = list[i];
 			list[0] = e;
 		}
 		else if (index > 0 && this.size > 0) {
-				for(int i = this.size; i >= index; i--) list[i+1] = list[i];
+				for(int i = this.size; i >= index; i--) list[i + 1] = list[i];
 				list[index] =  e;
 		}
 		this.size++;
 		//handle capacity checks
 		//if the size of the array is reaching the capacity, double the capacity.	
-		if(this.size +1 >= this.capacity) {
+		if(this.size + 1 >= this.capacity) {
 			this.capacity *= 2;
 			this.list = Arrays.copyOf(this.list, this.capacity);
 		}

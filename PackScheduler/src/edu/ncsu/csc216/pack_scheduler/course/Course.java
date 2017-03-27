@@ -35,6 +35,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param section section of Course
 	 * @param credits credit hours of Course
 	 * @param instructorId Instructor's unity id
+	 * @param enrollmentCap Enrollment cap for the Course.
 	 * @param meetingDays meeting days for Course as series of chars
 	 * @param startTime start time for Course
 	 * @param endTime end time for Course
@@ -61,6 +62,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param section section of Course
 	 * @param credits credit hours of Course
 	 * @param instructorId Instructor's unity id
+	 * @param enrollmentCap Enrollment cap for the Course.
 	 * @param meetingDays meeting days for Course as series of chars
 	 */
 	public Course(String name, String title, String section, int credits, String instructorId, int enrollmentCap, String meetingDays) {
@@ -178,6 +180,10 @@ public class Course extends Activity implements Comparable<Course> {
 		super.setMeetingDays(meetingDays);
 	}
 
+	/**
+	 * Getter method that returns the Course roll.
+	 * @return roll The current Course roll. 
+	 */
 	public CourseRoll getCourseRoll() {
 		return roll;
 	}

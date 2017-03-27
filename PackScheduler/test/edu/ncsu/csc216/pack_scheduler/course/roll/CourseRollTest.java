@@ -12,10 +12,14 @@ import java.nio.file.Path;
 import org.junit.Before;
 import org.junit.Test;
 
+/** Tests for proper functionality of the CourseRoll class. 
+ * 
+ * @author Steven Mayo
+ */
 public class CourseRollTest {
-	
+	/**Valid list of students who can add/drop a Course object*/
 	StudentDirectory sd = new StudentDirectory();
-	
+	/** String that represents the path of valid student records */
 	private final String validTestFile = "test-files/student_records.txt";
 	
 	/**
@@ -53,6 +57,9 @@ public class CourseRollTest {
 		}
 	}
 	
+	/**
+	 * Tests for setting the enrollment cap of a Course object.
+	 */
 	@Test
 	public void testSetEnrollmentCap() {
 		CourseRoll roll = new CourseRoll(20);	
@@ -76,8 +83,11 @@ public class CourseRollTest {
 		assertEquals("Cap should have changed to 30", 30, roll.getEnrollmentCap());
 		}
 		
-	
-	
+	/**
+	 * Tests that a student can be enrolled into the current Course object if
+	 * there is open seating within the course roll, and if there is available 
+	 * hours within the Student's schedule.
+	 */
 	@Test
 	public void testEnroll() {
 		sd.loadStudentsFromFile(validTestFile);

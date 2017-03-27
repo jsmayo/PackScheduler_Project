@@ -420,7 +420,6 @@ public class StudentTest {
 	/**
 	 * Test that the canAdd() method correctly returns true when
 	 * a course can be added and false otherwise.
-	 * @return True If a course can be added to the student's schedule.
 	 */
 	@Test
 	public void testCanAdd() {

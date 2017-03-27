@@ -56,6 +56,7 @@ public class CourseCatalog {
 	 * @param section The Course section 
 	 * @param credits The Course credit hours
 	 * @param prof The instructor's ID
+	 * @param enrollmentCap Enrollment cap of the course.
 	 * @param meetdays The meeting days of the Course
 	 * @param start The time in standard military that the Course is set to begin.
 	 * @param end The time in standard military that the Course is set to end.

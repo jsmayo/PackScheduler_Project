@@ -4,8 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Test for proper functionality of the LinkedList class.
+ * 
+ * @author Steven Mayo
+ */
 public class LinkedAbstractListTest {
 	
+	/** LinkedList object for testing ListNode functionality. */
 	LinkedAbstractList<String> list;
 
 	/**
@@ -101,7 +107,7 @@ public class LinkedAbstractListTest {
 	 */
 	@Test
 	public void testRemove() {
-		LinkedAbstractList<String> list = new LinkedAbstractList<>(10);
+		list = new LinkedAbstractList<>(10);
 		list.add(0, "zero");
 		list.add(1, "one");
 		list.add(2, "two");
@@ -141,7 +147,7 @@ public class LinkedAbstractListTest {
 	 */
 	@Test
 	public void testSet() { 
-		LinkedAbstractList<String> list = new LinkedAbstractList<>(5);
+		list = new LinkedAbstractList<>(5);
 		
 		//add an element
 		list.add(0, "1");
@@ -217,7 +223,7 @@ public class LinkedAbstractListTest {
 	@Test
 	public void testGet() {
 		//test OBE
-		LinkedAbstractList<String> list = new LinkedAbstractList<> (5);
+		list = new LinkedAbstractList<> (5);
 		list.add(0, "0");
 		assertEquals(1, list.size());
 		try {

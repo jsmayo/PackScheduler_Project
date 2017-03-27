@@ -176,7 +176,7 @@ public class Student extends User implements Comparable<Student> {
 	 * @return True if the course can be added to the schedule.
 	 */
 	public boolean canAdd(Course course) {
-		if(schedule.canAdd(course) == true && ((schedule.getScheduleCredits() + course.getCredits()) <= this.getMaxCredits())) 
+		if(schedule.canAdd(course) && ((schedule.getScheduleCredits() + course.getCredits()) <= this.getMaxCredits())) 
 			return true;
 		else return false;
 	}

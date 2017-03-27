@@ -2,7 +2,15 @@ package edu.ncsu.csc216.pack_scheduler.util;
 
 import java.util.AbstractList;
 
-
+/**
+ * LinkedAbstractList represents a customized LinkedList to be used
+ * within the PackScheduler application. More specifically, a LinkedList
+ * will be used to contain the CourseRoll Object of each Course Object within
+ * the CourseCatalog class.
+ * 
+ * @author Steven Mayo
+ * @param <E> Generic parameter of type E.
+ */
 public class LinkedAbstractList<E> extends AbstractList <E> {
 	/** A ListNode of type E. */
 	ListNode front;
@@ -12,8 +20,13 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	private int capacity;
 
 
-	
-	
+	/**
+	 * Constructor for the LinkedList Object that's used to represent
+	 * the course roll of each Course within the Course Catalog. 	
+	 * @param capacity The maximum number of objects that the LinkedList
+	 * can contain.
+	 * @throws IllegalArgumentException if the specified capacity is less than zero.
+	 */
 	public LinkedAbstractList(int capacity) {
 		if(capacity < 0) throw new IllegalArgumentException("Capacity must be greater than 0");
 		this.front = null;
@@ -73,10 +86,9 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		if(index > size()  || index < 0) throw new IndexOutOfBoundsException();
 		for(int i = 0; i < this.size(); i++) 
 			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
-		//TODO: test above
-		if(index == 0 && size() == 0) {
+			if(index == 0 && size() == 0) {
 			this.front = new ListNode(e);
-			front.next= null;
+			front.next = null;
 			this.size++;
 			return;
 		}
@@ -102,6 +114,13 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		}
 	}
 	
+	/**
+	 * Removes an object from the LinkedList using the specified index
+	 * parameter.
+	 * @param index Index of the object to remove.
+	 * @throws IndexOutOfBoundsException if the index is outside of the 
+	 * LinkedList boundary.
+	 */
 	@Override
 	public E remove(int index) {
 		if(index >= this.size || index < 0 ) throw new IndexOutOfBoundsException();
@@ -130,13 +149,24 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		return current.data;
 	}
 
+	/**
+	 * Returns the capacity of the LinkedList Object. 
+	 * @return Capacity of the LinkedList.
+	 */
 	protected int getCapacity() {
 		return this.capacity;
 	}
 	
 	/**
-	 * Return the old node data.
-	 * @param index 
+	 * Set's the specified index of the LinkedList to that of the Object
+	 * passed in as the second parameter.
+	 * @param index Index of the Object to overwrite within the LinkedList.
+	 * @param e Object to overwrite the current Object at the specified index
+	 * with.
+	 * @throws IndexOutOfBoundsException if the specified index is outside of the
+	 * LinkedList boundaries.
+	 * @throws IllegalArgumnetException if the specified object is a duplicate of 
+	 * an object already within the LinkedList.
 	 */
 	@Override
 	public E set(int index, E e){
@@ -144,7 +174,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		if(index >= size()  || index < 0) throw new IndexOutOfBoundsException();
 		for(int i = 0; i < this.size(); i++) 
 			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
-		//TODO: test above
+
 		//have to be less than size, so at least 1 node in list by this point.
 		if(index == 0) { 
 			E replaced = this.get(0);
@@ -158,7 +188,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		int counter = 0;
 		while(counter < index) {
 			previous = current; //current is front -> data
-			current = current.next;// is link -> next
+			current = current.next; // is link -> next
 			counter++;
 		}
 		E replaced = this.get(index); // = current.next.data;
@@ -170,20 +200,42 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	}
 }
 
+	/**
+	 * Returns the number of objects currently within the LinkedList.
+	 * @return The number of objects within the LinkedList.
+	 */
 	@Override
 	public int size() {
 		return this.size;
 	}
 	
+	/**
+	 * Private class representing an individual Node within the LinkedList.
+	 * 
+	 * @author Steven Mayo
+	 */
 	private class ListNode {
 		
+		/** Object to insert into the LinkedList */
 		private E data;
+		/** Link to the next Object within the LinkedList */
 		private ListNode next;
 		
+		/**
+		 * Constructor for the first ListNode within the LinkedList.
+		 * @param data Object to insert into the LinkedList.
+		 */
 		public ListNode(E data) {
 			this.data = data;
 		}
 		
+		/**
+		 * Constructor for a ListNode Object with reference to the next
+		 * ListNode within the LinkedList.
+		 * @param data Object to insert into the LinkedList.
+		 * @param next Reference to the next LinkedList Object within the
+		 * LinkedList.
+		 */
 		public ListNode(E data, ListNode next) {
 			this.data = data;
 			this.next = next;
