@@ -105,7 +105,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			int counter = 0;
 			while(counter < index) {
 				previous = current; //current is front -> data
-				current = current.next;// is link -> next
+				current = current.next; // is link -> next
 				counter++;
 			}
 			previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
@@ -165,7 +165,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	 * with.
 	 * @throws IndexOutOfBoundsException if the specified index is outside of the
 	 * LinkedList boundaries.
-	 * @throws IllegalArgumnetException if the specified object is a duplicate of 
+	 * @throws IllegalArgumentException if the specified object is a duplicate of 
 	 * an object already within the LinkedList.
 	 */
 	@Override
@@ -193,7 +193,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		}
 		E replaced = this.get(index); // = current.next.data;
 		
-		previous.next = new ListNode(e,current.next);
+		previous.next = new ListNode(e, current.next);
 		//previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
 		
 		return replaced;
