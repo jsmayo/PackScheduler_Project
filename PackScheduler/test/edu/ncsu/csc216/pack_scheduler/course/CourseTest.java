@@ -103,7 +103,7 @@ public class CourseTest {
 		//Test a valid construction and make sure values are correct
 		Course c = null;
 		try {
-			c = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,   "A");
+			c = new Course(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP, "A");
 			assertEquals(NAME, c.getName());
 			assertEquals(TITLE, c.getTitle());
 			assertEquals(SECTION, c.getSection());

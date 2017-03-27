@@ -121,6 +121,7 @@ public class CourseCatalog {
 			course2d[i][1] = courseCatalog.get(i).getSection();
 			course2d[i][2] = courseCatalog.get(i).getTitle();
 			course2d[i][3] = courseCatalog.get(i).getMeetingString();
+			course2d[i][4] = courseCatalog.get(i).getShortDisplayArray()[4];
 		}
 		return course2d;
 	}

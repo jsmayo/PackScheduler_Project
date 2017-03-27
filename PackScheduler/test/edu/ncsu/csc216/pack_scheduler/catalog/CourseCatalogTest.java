@@ -130,6 +130,7 @@ public class CourseCatalogTest {
 		//Attempt to add a new course that does exist
 		assertTrue(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME));
 		
+		
 		//Attempt to add a course that already exists in the catalog
 		assertFalse(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP,  MEETING_DAYS, START_TIME, END_TIME));
 		
