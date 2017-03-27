@@ -19,28 +19,28 @@ import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
  *@author StevenMayo
  */
 public class RegistrationManager {
-	
+
 	private static RegistrationManager instance;
-	  private CourseCatalog courseCatalog;
+	private CourseCatalog courseCatalog;
 	private StudentDirectory studentDirectory;
-	  private User registrar;
-	   private User currentUser;
+	private User registrar;
+	private User currentUser;
 	/** Hashing algorithm */
 	private static final String HASH_ALGORITHM = "SHA-256";
-	   private static final String PW = "Regi5tr@r";
-	  private static String hashPW;
-	
+	private static final String PW = "Regi5tr@r";
+	private static String hashPW;
+
 	//Static code block for hashing the registrar user's password
 	{
 		try {
-			  MessageDigest digest1 = MessageDigest.getInstance(HASH_ALGORITHM);
-			  digest1.update(PW.getBytes());
-			 hashPW = new String(digest1.digest());
+			MessageDigest digest1 = MessageDigest.getInstance(HASH_ALGORITHM);
+			digest1.update(PW.getBytes());
+			hashPW = new String(digest1.digest());
 		} catch (NoSuchAlgorithmException e) {
-				throw new IllegalArgumentException("Cannot hash password");
+			throw new IllegalArgumentException("Cannot hash password");
 		}
 	}
-	
+
 	/**
 	 * Private constructor for the RegistrationManger class. When called, the
 	 * RegistrationManager class instantiates the courseCatalog, StudentDirectory,
@@ -52,19 +52,19 @@ public class RegistrationManager {
 		registrar = new Registrar();
 		currentUser = null;
 	}
-	
+
 	/**
 	 * Attempts to get the current instance of the RegistrationManager object, which
 	 * if is not active, will then create a new instance. 
 	 * @return instance The current RegistrationManager instance.
 	 */
 	public static RegistrationManager getInstance() {
-		  if (instance == null) {
+		if (instance == null) {
 			instance = new RegistrationManager();
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Returns the CourseCatalog instance assigned to courseCatalog.
 	 * @return courseCatalog The course catalog.
@@ -72,7 +72,7 @@ public class RegistrationManager {
 	public CourseCatalog getCourseCatalog() {
 		return courseCatalog;
 	}
-	
+
 	/**
 	 * Returns the StudentDirectory instance assigned to studentDirectory. 
 	 * @return studentDirectory The student directory. 
@@ -111,33 +111,33 @@ public class RegistrationManager {
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
-			
+
 		}
-		
+
 		if(studentDirectory.getStudentById(id) == null) throw new IllegalArgumentException("User doesn't exist.");
 		s = studentDirectory.getStudentById(id);
-			try {
-				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-				digest.update(password.getBytes());
-				String localHashPW = new String(digest.digest());
-				if (s.getPassword().equals(localHashPW)) {
-					currentUser = s;
-					return true;
-				}
-			} catch (NoSuchAlgorithmException e) {
-				throw new IllegalArgumentException();
+		try {
+			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+			digest.update(password.getBytes());
+			String localHashPW = new String(digest.digest());
+			if (s.getPassword().equals(localHashPW)) {
+				currentUser = s;
+				return true;
 			}
-			currentUser = null;
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException();
+		}
+		currentUser = null;
 		return false;
 	}
-	
+
 	/**
 	 * Logs the currentUser out of the RegistrationManager by setting the field value to null.
 	 */
 	public void logout() {
 		currentUser = null; 
 	}
-	
+
 	/**
 	 * Returns the value assigned as the currentUser.
 	 * @return currentUser The current user who is logged into the RegistrationManager
@@ -145,7 +145,7 @@ public class RegistrationManager {
 	public User getCurrentUser() {
 		return currentUser;
 	}
-	
+
 	/**
 	 * Clears the courseCatalog and studentDirectory fields by 
 	 * calling the newCourseCatalog() and newStudentDirectory() methods.
@@ -154,7 +154,7 @@ public class RegistrationManager {
 		courseCatalog.newCourseCatalog();
 		studentDirectory.newStudentDirectory();
 	}
-	
+
 	/**
 	 * Creates a private instance of the Registrar class with hard-coded
 	 * values for the creation and login values.
@@ -162,12 +162,12 @@ public class RegistrationManager {
 	 *@author Steven Mayo
 	 */
 	private static class Registrar extends User {
-		
-		  private static final String FIRST_NAME = "Wolf";
-		  private static final String LAST_NAME = "Scheduler";
-		 private static final String ID = "registrar";
-		 	private static final String EMAIL = "registrar@ncsu.edu";
-		
+
+		private static final String FIRST_NAME = "Wolf";
+		private static final String LAST_NAME = "Scheduler";
+		private static final String ID = "registrar";
+		private static final String EMAIL = "registrar@ncsu.edu";
+
 		/**
 		 * Create a registrar user with the user id of registrar and
 		 * password of Regi5tr@r.  Note that hard coding passwords in a 
@@ -178,31 +178,31 @@ public class RegistrationManager {
 			super(FIRST_NAME, LAST_NAME, ID, EMAIL, hashPW);
 		}
 	}
-	
-	 /**
+
+	/**
 	 * Returns true if the logged in student can enroll in the given course.
 	 * @param c Course to enroll in
 	 * @return true if enrolled
 	 */
 	public boolean enrollStudentInCourse(Course c) {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        Schedule schedule = s.getSchedule();
-	        CourseRoll roll = c.getCourseRoll();
-	        
-	        if (s.canAdd(c) && roll.canEnroll(s)) {
-	            schedule.addCourseToSchedule(c);
-	            roll.enroll(s);
-	            return true;
-	        }
-	        
-	    } catch (IllegalArgumentException e) {
-	        return false;
-	    }
-	    return false;
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student)currentUser;
+			Schedule schedule = s.getSchedule();
+			CourseRoll roll = c.getCourseRoll();
+
+			if (s.canAdd(c) && roll.canEnroll(s)) {
+				schedule.addCourseToSchedule(c);
+				roll.enroll(s);
+				return true;
+			}
+
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+		return false;
 	}
 
 	/**
@@ -211,16 +211,16 @@ public class RegistrationManager {
 	 * @return true if dropped
 	 */
 	public boolean dropStudentFromCourse(Course c) {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        c.getCourseRoll().drop(s);
-	        return s.getSchedule().removeCourseFromSchedule(c);
-	    } catch (IllegalArgumentException e) {
-	        return false; 
-	    }
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student)currentUser;
+			c.getCourseRoll().drop(s);
+			return s.getSchedule().removeCourseFromSchedule(c);
+		} catch (IllegalArgumentException e) {
+			return false; 
+		}
 	}
 
 	/**
@@ -228,20 +228,20 @@ public class RegistrationManager {
 	 * from every course and then resetting the schedule.
 	 */
 	public void resetSchedule() {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        Schedule schedule = s.getSchedule();
-	        String [][] scheduleArray = schedule.getScheduledCourses();
-	        for (int i = 0; i < scheduleArray.length; i++) {
-	            Course c = courseCatalog.getCourseFromCatalog(scheduleArray[i][0], scheduleArray[i][1]);
-	            c.getCourseRoll().drop(s);
-	        }
-	        schedule.resetSchedule();
-	    } catch (IllegalArgumentException e) {
-	        //do nothing 
-	    }
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student)currentUser;
+			Schedule schedule = s.getSchedule();
+			String [][] scheduleArray = schedule.getScheduledCourses();
+			for (int i = 0; i < scheduleArray.length; i++) {
+				Course c = courseCatalog.getCourseFromCatalog(scheduleArray[i][0], scheduleArray[i][1]);
+				c.getCourseRoll().drop(s);
+			}
+			schedule.resetSchedule();
+		} catch (IllegalArgumentException e) {
+			//do nothing 
+		}
 	}
 }

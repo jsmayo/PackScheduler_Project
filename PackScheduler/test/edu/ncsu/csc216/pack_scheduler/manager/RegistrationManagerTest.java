@@ -137,7 +137,7 @@ public class RegistrationManagerTest {
 		assertNull(manager.getCurrentUser());
 	}
 	
-	 /**
+	  /**
 	 * Tests RegistrationManager.enrollStudentInCourse()
 	 */
 	@Test
@@ -411,5 +411,4 @@ public class RegistrationManagerTest {
 	    
 	    manager.logout();
 	}
-
 }
