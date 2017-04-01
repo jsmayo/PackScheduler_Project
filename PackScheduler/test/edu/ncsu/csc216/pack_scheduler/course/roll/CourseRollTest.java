@@ -81,7 +81,11 @@ public class CourseRollTest {
 		assertEquals("Cap should only change by increasing below maximum allowed.", 20, roll.getEnrollmentCap());
 		roll.setEnrollmentCap(30);
 		assertEquals("Cap should have changed to 30", 30, roll.getEnrollmentCap());
-		}
+
+	
+	}
+	
+		
 		
 	/**
 	 * Tests that a student can be enrolled into the current Course object if

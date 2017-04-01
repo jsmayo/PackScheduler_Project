@@ -233,5 +233,15 @@ public class LinkedAbstractListTest {
 			assertEquals(1, list.size());
 		}
 	}
-		
+	
+	/**
+	 * Tests for setCapacity
+	 */
+	@Test
+	public void setCapacity() {
+		list = new LinkedAbstractList<> (4);
+		assertTrue(4 == list.getCapacity());
+		list.setCapacity(5);
+		assertTrue(list.getCapacity() == 5);
+	}
 }
