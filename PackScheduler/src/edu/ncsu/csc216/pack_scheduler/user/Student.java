@@ -15,6 +15,7 @@ public class Student extends User implements Comparable<Student> {
 	/** The default maximum number of credits allowed at NC State */
 	public static final int MAX_CREDITS = 18;
 	private Schedule schedule;
+	
 
 	/**
 	 * Student constructor that creates a new student object from passed in parameters using setter methods.

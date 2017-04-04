@@ -14,6 +14,8 @@ import java.util.AbstractList;
 public class LinkedAbstractList<E> extends AbstractList <E> {
 	/** A ListNode of type E. */
 	ListNode front;
+	/** A ListNode of Type E */
+	ListNode back;
 	/** The size of the list */
 	private int size;
 	/** The capacity of the list */
@@ -59,13 +61,13 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			current = current.next;
 		}
 		return previous.next.data;
-		
+
 		//if the loop exits, then the index was found or the end was reached.
 		//overwrite the previous.next to a new reference (previous.next was the pointer to the last compared node)
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Adds an object of type E to this objects Array at the specified index value. 
 	 * If the size of the Array is approaching the capacity, then the Array will 
@@ -84,24 +86,34 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		if(this.size == this.capacity) throw new IllegalArgumentException("Cannot add any more values");
 		if(e == null) throw new NullPointerException();
 		if(index > size()  || index < 0) throw new IndexOutOfBoundsException();
-		for(int i = 0; i < this.size(); i++) 
+		for(int i = 0; i < this.size(); i++)  
 			if(this.get(i).equals(e)) throw new IllegalArgumentException("Cannot add duplicate values");
-			if(index == 0 && size() == 0) {
+		if(index == 0 && size() == 0) {
 			this.front = new ListNode(e);
 			front.next = null;
+			this.back = front.next; //back references the last in the list.
 			this.size++;
 			return;
+		}	
+		//this will run as long as index != 0, but that's taken care of above.
+		ListNode previous = null;
+		ListNode current = this.front;
+		while(current != null) {
+			previous = current;
+			current = current.next;
 		}
-		else if(index == 0 && size() > 0) {
+		this.back = previous; //make back point to last node;
+
+		if(index == 0 && size() > 0) {
 			ListNode newHead = new ListNode(e, this.front);
 			this.front = newHead;
 			this.size++;
 			return;
 		}
-		
+
 		else {
-			ListNode previous = null;
-			ListNode current = this.front;
+			previous = null;
+			current = this.front;
 			int counter = 0;
 			while(counter < index) {
 				previous = current; //current is front -> data
@@ -113,7 +125,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			return;
 		}
 	}
-	
+
 	/**
 	 * Removes an object from the LinkedList using the specified index
 	 * parameter.
@@ -126,14 +138,23 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		if(index >= this.size || index < 0 ) throw new IndexOutOfBoundsException();
 		//counter for index
 		int counter = 0;
-		//E node to keep track of the current node.
-		ListNode current = front;
+		//E node to keep track of the current node.	
+		//this will run as long as index != 0, but that's taken care of above.
+		ListNode previous = null;
+		ListNode current = this.front;
+		while(current != null) {
+			previous = current;
+			current = current.next;
+		}
+		this.back = previous; //make back point to last node;
+
+		current = front;
 		if(index == 0) {
 			this.front = front.next;
 		}
 		else {
 			//E node to keep track of the previous node.
-			ListNode previous = null;
+			 previous = null;
 			//While look to transverse the list. 
 			while(counter != index) {
 				//make previous point to the current node
@@ -145,6 +166,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			//counter == index if exited, so set the previous to point to new and new to current.
 			previous.next = current.next;
 		}
+
 		this.size--;
 		return current.data;
 	}
@@ -156,12 +178,12 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	protected int getCapacity() {
 		return this.capacity;
 	}
-	
+
 	public void setCapacity(int capacity) {
 		if(capacity < 0 || capacity < this.size()) throw new IllegalArgumentException();
 		this.capacity = capacity;
 	}
-	
+
 	/**
 	 * Set's the specified index of the LinkedList to that of the Object
 	 * passed in as the second parameter.
@@ -187,23 +209,23 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 			return replaced;
 		}
 
-	else {
-		ListNode previous = null;
-		ListNode current = this.front;
-		int counter = 0;
-		while(counter < index) {
-			previous = current; //current is front -> data
-			current = current.next; // is link -> next
-			counter++;
+		else {
+			ListNode previous = null;
+			ListNode current = this.front;
+			int counter = 0;
+			while(counter < index) {
+				previous = current; //current is front -> data
+				current = current.next; // is link -> next
+				counter++;
+			}
+			E replaced = this.get(index); // = current.next.data;
+
+			previous.next = new ListNode(e, current.next);
+			//previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
+
+			return replaced;
 		}
-		E replaced = this.get(index); // = current.next.data;
-		
-		previous.next = new ListNode(e, current.next);
-		//previous.next = new ListNode(e, current); //point insert from previous=current -> current.next=link
-		
-		return replaced;
 	}
-}
 
 	/**
 	 * Returns the number of objects currently within the LinkedList.
@@ -213,19 +235,19 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	public int size() {
 		return this.size;
 	}
-	
+
 	/**
 	 * Private class representing an individual Node within the LinkedList.
 	 * 
 	 * @author Steven Mayo
 	 */
 	private class ListNode {
-		
+
 		/** Object to insert into the LinkedList */
 		private E data;
 		/** Link to the next Object within the LinkedList */
 		private ListNode next;
-		
+
 		/**
 		 * Constructor for the first ListNode within the LinkedList.
 		 * @param data Object to insert into the LinkedList.
@@ -233,7 +255,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		public ListNode(E data) {
 			this.data = data;
 		}
-		
+
 		/**
 		 * Constructor for a ListNode Object with reference to the next
 		 * ListNode within the LinkedList.

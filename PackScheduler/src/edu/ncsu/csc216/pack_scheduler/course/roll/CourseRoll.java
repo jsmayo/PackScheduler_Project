@@ -1,6 +1,9 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
+import java.util.ArrayList; 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
+import edu.ncsu.csc216.pack_scheduler.util.ArrayQueue;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
 
 /**
@@ -22,6 +25,13 @@ public class CourseRoll {
 	private static final int MIN_ENROLLMENT = 10;
 	/** The largest class size allowed */ 
 	private static final int MAX_ENROLLMENT = 250;
+	/** Waitlist size */
+	private static final int WAITLIST_SIZE = 10;
+	/** The waitlist for the current course */
+	private ArrayQueue<Student> waitlist;
+	private ArrayList<Student> waitListCopy;
+	private boolean isWaitListed = false;
+	
 	
 	
 	/**
@@ -30,9 +40,11 @@ public class CourseRoll {
 	 * @param capacity Capacity of the LinkedList, which corresponds to the 
 	 * enrollmentCap of the Course object.
 	 */
-	public CourseRoll(int capacity) {
+	public CourseRoll(Course c, int capacity) {
+		if(c == null) throw new IllegalArgumentException();
 		setEnrollmentCap(capacity);
 		roll = new LinkedAbstractList<>(capacity);
+		waitlist = new ArrayQueue<Student>(WAITLIST_SIZE); //defaults to capacity of 10;
 	}
 	
 	/**
@@ -92,8 +104,12 @@ public class CourseRoll {
 	 * a Student to current CourseRoll, then it is propagated to the user.
 	 */
 	public void enroll(Student student) {
-		if(student == null || getOpenSeats() < 1 || !canEnroll(student)) throw new IllegalArgumentException();
-		//propagating exception to IAE
+		if(student == null || waitlist.size() == CourseRoll.WAITLIST_SIZE || !canEnroll(student)) throw new IllegalArgumentException();
+		if(this.getOpenSeats() < 1 && waitlist.size() < WAITLIST_SIZE) {
+			waitlist.enqueue(student);
+			isWaitListed = true;
+			//add return here if not wantint to check for duplicates!
+		}
 		try {
 			roll.add(student);
 		} catch (Exception e) {
@@ -110,12 +126,27 @@ public class CourseRoll {
 	 */
 	public void drop(Student student) {
 		if(student == null) throw new IllegalArgumentException();
-		//propagating exception to IAE
-		try {
-			roll.remove(student);
-		} catch (Exception e) {
-			throw new IllegalArgumentException(e);
+		if(waitlist.size() < 1) {
+			try {
+				roll.remove(student);
+			} catch (Exception e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
+		else if(waitlist.size() > 0) {
+			Student waitlisted = null;
+			waitListCopy = new ArrayList<Student>();
+			for(int i = 0; i < waitlist.size(); i++) {
+				waitlisted = waitlist.dequeue();
+				if(waitlisted == student) {
+					isWaitListed = false;
+					continue; //skip the student if a match is found
+				}
+				else waitListCopy.add(waitlisted); //add non matches to the copy
+			}
+			for(int i = 0; i < waitListCopy.size(); i++) waitlist.enqueue(waitListCopy.get(i)); //re-queue the list from the copy
+		}
+
 	}
 	
 	/**
@@ -126,9 +157,14 @@ public class CourseRoll {
 	 * occupy.
 	 */
 	public boolean canEnroll(Student student) {
-		if(getOpenSeats() < 1) return false;
+		if(getOpenSeats() < 1 && waitlist.size() == WAITLIST_SIZE) return false;
 		for(int i = 0; i < roll.size(); i++) 
-			if(roll.get(i) == student) return false;
+			if(roll.get(i) == student || isWaitListed == true) return false;
 		return true;
 	}
+	
+	public int getNumberOnWaitList() {
+		return waitlist.size();
+	}
+			
 }

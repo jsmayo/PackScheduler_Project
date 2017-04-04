@@ -109,6 +109,7 @@ public class LinkedAbstractListTest {
 	public void testRemove() {
 		list = new LinkedAbstractList<>(10);
 		list.add(0, "zero");
+		
 		list.add(1, "one");
 		list.add(2, "two");
 		list.add(3, "three");
@@ -195,10 +196,10 @@ public class LinkedAbstractListTest {
 		list2.set(1, "strawberry");
 		
 		//comparing list2 modified by set call.
-		for(int i = 0; i < list2.size(); i++) {
-			System.out.println(list2);
+		//for(int i = 0; i < list2.size(); i++) {
+			//System.out.println(list2);
 			//assertTrue(list2.get(i).equals(list4.get(i)));
-		}
+		//}
 		
 		
 //		list = new LinkedAbstractList<>(5);

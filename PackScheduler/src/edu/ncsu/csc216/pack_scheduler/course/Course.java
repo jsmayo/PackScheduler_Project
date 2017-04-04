@@ -49,7 +49,7 @@ public class Course extends Activity implements Comparable<Course> {
 	    setSection(section);
 	    setCredits(credits);
 	    setInstructorId(instructorId);
-	    this.roll = new CourseRoll(enrollmentCap);
+	    this.roll = new CourseRoll(this, enrollmentCap);
 	    //setMeetingDays(meetingDays);
 	    //setCourseTime(startTime, endTime);
 	}
@@ -69,6 +69,7 @@ public class Course extends Activity implements Comparable<Course> {
 		this(name, title, section, credits, instructorId, enrollmentCap, meetingDays, 0, 0); 
 		//created to reduce redundancy and have a one path constructor. 
 	}
+	
 
 	/**
 	 * Returns the Course name.
@@ -185,7 +186,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @return roll The current Course roll. 
 	 */
 	public CourseRoll getCourseRoll() {
-		return roll;
+		return this.roll;
 	}
 	/** 
 	 * Generates a hashCode for Course using all fields.
