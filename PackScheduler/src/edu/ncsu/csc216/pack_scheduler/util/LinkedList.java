@@ -2,16 +2,16 @@ package edu.ncsu.csc216.pack_scheduler.util;
 
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList.ListNode;
+
 
 //TODO: TEST AND FIX TYPE CAST ERRORS
 
 public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 	/**Front of the LinkedList */
-	private ListNode<E> front;
+	private ListNode front;
 	/**Last node of the LinkedList */
-	private ListNode<E> back;
+	private ListNode back;
 	/**Size of the LinkedList */
 	private int size;
 	
@@ -22,10 +22,12 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 	 */
 	public LinkedList() {
 		this.size = 0;
-		this.front = new ListNode<>(null);
-		this.back = new ListNode<>(null);
-		this.front.next = this.back;
-		this.back.prev = this.front;
+		this.front = new ListNode(null); //null data on front
+		front.prev = null; // null node to previous
+		this.back = new ListNode(null); //null data on back
+		this.front.next = this.back; //pointer to back data with empty list
+		this.back.prev = this.front; //points to data on front
+		this.back.next = null; //points to null with next call on back
 	}
 	
 	/**
@@ -38,7 +40,7 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 	 */
 	@Override
 	public ListIterator<E> listIterator(int index) {
-		return new LinkedListIterator<>(index);
+		return new LinkedListIterator(index);
 		
 	}
 
@@ -48,18 +50,18 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 	}
 	
 	
-	private class LinkedListIterator<E> implements ListIterator<E> {
+	private class LinkedListIterator implements ListIterator<E> {
 		
 		/**ListNode that is returned on previous() method calls. */
-		private ListNode<E> previous;
+		private ListNode previous;
 		/**ListNode that is returned on next() method calls. */
-		private ListNode<E> next;
+		private ListNode next;
 		/**Integer that is returned on previousIndex() method calls. */
-		private int previousIndex;
+		public int previousIndex;
 		/**Integer that is returned on nextIndex() method calls. */
-		private int nextIndex;
+		public int nextIndex;
 		/**ListNode that represents the last ListNode returned via the ListIterator. */
-		private ListNode<E> lastRetrieved;
+		private ListNode lastRetrieved;
 		
 		/**
 		 * Constructor for the LinkedListIterator. This method accepts an
@@ -72,9 +74,9 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			//counter for index
 			int counter = 0;
 			//E node to keep track of the current node.
-			this.next = front;
+			this.next = front.next;
 			//E node to keep track of the previous node.
-			this.previous = null;
+			this.previous = front.prev;
 			//While look to transverse the list. 
 			while(counter < index) {
 				counter++;
@@ -83,7 +85,7 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 				this.previousIndex = counter - 1;
 				//make the current node point to the next node.
 				this.next = this.next.next;
-				nextIndex = counter + 1;
+				nextIndex = counter;
 			}
 			this.lastRetrieved = null;
 		}
@@ -130,7 +132,7 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 		@Override
 		public int previousIndex() {
-			return this.previousIndex - 1;
+			return this.previousIndex;
 		}
 
 		@Override
@@ -153,17 +155,23 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 		@Override
 		public void add(E e) {
-		//either stop before null or before size()
-			previous = front;
-			next = front.next; // at index -1
-			for(int i = 0; i < size(); i++){
-				previous = next;
-				next = next.next;
-			}
-			//should stop right before size, so next points to size
-			previous.next = new ListNode(e, previous, previous.next);
-			//change the link to previous.next to reference the new node.
-			//new node should point to previous and previous.next. 
+//				//either stop before null or before size()
+//			previous = front;
+//			next = front.next; // at index -1
+//			for(int i = 0; i < size(); i++){
+//				previous = next;
+//				next = next.next;
+//			}
+//				//should stop right before size, so next points to size
+//			previous.next = new ListNode(e, previous, previous.next);
+//				//change the link to previous.next to reference the new node.
+//				//new node should point to previous and previous.next. 
+			
+			
+			ListNode addToBack = new ListNode(e, back.prev, back); //new node pointing to back's current prev link and to back
+			back.prev.next = new ListNode(e, back.prev, back); //change link of back.prev.next
+			back.prev = addToBack;
+			size++;
 			
 		}
 		
@@ -171,17 +179,17 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 	
 	
 	//BEGIN LISTNODE CLASS
-	private class ListNode<E> {
+	private class ListNode{
 		
 		private E data;
-		private ListNode<E> next;
-		private ListNode<E> prev;
+		private ListNode next;
+		private ListNode prev;
 		
 		public ListNode(E data) {
 			this.data = data;
 		}
 		
-		public ListNode(E data, ListNode<E> prev, ListNode<E> next) {
+		public ListNode(E data, ListNode prev, ListNode next) {
 			this.data = data;
 			this.prev = prev;
 			this.next = next;

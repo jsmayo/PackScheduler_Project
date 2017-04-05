@@ -17,7 +17,8 @@ public class LinkedQueue<E> implements Queue<E> {
 	
 	@Override
 	public void enqueue(E element) {
-		//LinkedAbstractList should delegate if capacity == size.
+		//LinkedAbstractList should delegate if capacity == size, but put code in to remove checkstyle warning.
+		if(this.size() == this.capacity) throw new IllegalArgumentException();
 		if(isEmpty()) queue.add(0, element); //add to front if empty
 		else queue.add(size(), element); //add to last position if not empty
 		size++;
