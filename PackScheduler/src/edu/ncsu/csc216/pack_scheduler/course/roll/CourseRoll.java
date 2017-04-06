@@ -37,6 +37,7 @@ public class CourseRoll {
 	/**
 	 * Constructor for the CourseRoll object. An empty LinkedList is created
 	 * with the provided capacity parameter.
+	 * @param c Course to construct the CourseRoll object for.
 	 * @param capacity Capacity of the LinkedList, which corresponds to the 
 	 * enrollmentCap of the Course object.
 	 */

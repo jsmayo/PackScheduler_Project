@@ -9,14 +9,15 @@ public interface Queue<E> {
 	public void enqueue(E element);
 	
 	/**
-	 * Removes the front element from the queue.
-	 * @throws NoSuchElementException if the queue is empty.
+	 * Removes the front element from the queue and throws 
+	 * a NoSuchElementException if the queue is empty.
 	 * @return E element at the front of the queue.
 	 */
 	public E dequeue();
 	
 	/**
-	 * Checks to see if the queue contains elements.
+	 * Checks to see if the queue contains elements. If attempted 
+	 * on an empty queue, then a NoSuchElementException will be thrown. 
 	 * @return True if the queue is empty.
 	 */
 	public boolean isEmpty();

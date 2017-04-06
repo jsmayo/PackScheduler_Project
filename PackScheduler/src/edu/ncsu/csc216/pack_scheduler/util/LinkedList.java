@@ -46,7 +46,7 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 	@Override
 	public int size() {
-		return this.size();
+		return this.size;
 	}
 	
 	

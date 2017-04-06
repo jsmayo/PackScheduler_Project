@@ -4,10 +4,8 @@ public interface Stack<E> {
 
 	/**
 	 * Adds the element to the top of the Stack, if there is no room,
-	 * then an illegalArgumentException will be thrown.
+	 * then an IllegalArgumentException will be thrown.
 	 * @param element Element to add to the stack
-	 * @throws IllegalArgumentException if the capacity of the stack
-	 * has been reached.
 	 */
 	public void push(E element);
 
@@ -16,8 +14,7 @@ public interface Stack<E> {
 	 * Removes and returns the elements at the top of the Stack.
 	 * If the stack is empty, then an EmptyStackException will be
 	 * thrown.
-	 * @throws EmptyStackException thrown when the stack is empty and
-	 * a pop() method call is attempted.
+	 * @return E Value of the element at the top of the Stack.
 	 */
 	public E pop();
 	
