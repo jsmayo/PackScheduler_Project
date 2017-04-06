@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.course.roll.CourseRoll;
+import edu.ncsu.csc216.pack_scheduler.directory.FacultyDirectory;
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.User;
@@ -29,6 +30,7 @@ public class RegistrationManager {
 	private static final String HASH_ALGORITHM = "SHA-256";
 	private static final String PW = "Regi5tr@r";
 	private static String hashPW;
+	private FacultyDirectory facultyDirectory;
 
 	//Static code block for hashing the registrar user's password
 	{
@@ -51,6 +53,7 @@ public class RegistrationManager {
 		studentDirectory = new StudentDirectory();
 		registrar = new Registrar();
 		currentUser = null;
+		facultyDirectory = new FacultyDirectory();
 	}
 
 	/**
@@ -79,6 +82,14 @@ public class RegistrationManager {
 	 */
 	public StudentDirectory getStudentDirectory() {
 		return studentDirectory;
+	}
+	
+	/**
+	 * Returns the FacultyDirectory instance assigned to facultyDirectory
+	 * @return facultyDirectory The faculty directory.
+	 */
+	public FacultyDirectory getFacultyDirectory() {
+		return facultyDirectory;
 	}
 
 	/**
