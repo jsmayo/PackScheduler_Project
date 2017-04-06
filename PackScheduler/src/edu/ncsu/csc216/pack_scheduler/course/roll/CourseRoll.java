@@ -1,8 +1,9 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
-import java.util.ArrayList; 
+
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
+import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
 import edu.ncsu.csc216.pack_scheduler.util.ArrayQueue;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
 
