@@ -47,11 +47,14 @@ public class Faculty extends User {
 		return true;
 	}
 
+	/**
+	 * Returns a comma separated value String of all faculty fields/
+	 * @return String representation of Faculty
+	 */
 	@Override
 	public String toString() {
-		return "Faculty [maxCourses=" + maxCourses + "]";
+		return this.getFirstName() + "," + this.getLastName() + "," + this.getId() + "," + this.getEmail() + "," + this.getPassword() + "," + this.getMaxCourses();
 	}
-
 	
 
 	
