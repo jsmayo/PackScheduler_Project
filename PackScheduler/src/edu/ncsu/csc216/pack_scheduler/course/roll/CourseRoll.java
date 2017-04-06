@@ -165,7 +165,7 @@ public class CourseRoll {
 		return true;
 	}
 	
-	public int getNumberOnWaitList() {
+	public int getNumberOnWaitlist() {
 		return waitlist.size();
 	}
 			
