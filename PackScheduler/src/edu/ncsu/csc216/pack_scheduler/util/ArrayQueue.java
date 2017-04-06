@@ -16,14 +16,14 @@ public class ArrayQueue<E> implements Queue<E> {
 
 	@Override
 	public void enqueue(E element) {
-		if(size() == capacity) throw new IllegalArgumentException();
+		if(size() <= capacity) throw new IllegalArgumentException();
 		queue.add(element);
 		this.size++;		
 	}
 
 	@Override
 	public E dequeue() {
-		if(size() == 0) throw new NoSuchElementException();
+		if(size() <= 0) throw new NoSuchElementException();
 		this.size--;
 		return queue.remove(0);
 	}

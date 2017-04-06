@@ -106,11 +106,11 @@ public class CourseRoll {
 	 * a Student to current CourseRoll, then it is propagated to the user.
 	 */
 	public void enroll(Student student) {
-		if(student == null || waitlist.size() == CourseRoll.WAITLIST_SIZE || !canEnroll(student)) throw new IllegalArgumentException();
+		if(student == null || waitlist.size() >= CourseRoll.WAITLIST_SIZE || !canEnroll(student)) throw new IllegalArgumentException();
 		if(this.getOpenSeats() < 1 && waitlist.size() < WAITLIST_SIZE) {
 			waitlist.enqueue(student);
 			isWaitListed = true;
-			//add return here if not wantint to check for duplicates!
+			//add return here if not wanting to check for duplicates!
 		}
 		try {
 			roll.add(student);
