@@ -6,11 +6,11 @@ import org.junit.Test;
 
 public class LinkedListTest<E> {
 
-	private LinkedList<E> list;
+	private LinkedList<String> list;
 	
 	@Test
 	public void testLinkedList() {
-		list = new LinkedList<E>();
+		list = new LinkedList<String>();
 		assertEquals(0, list.size());
 		//assertNull(list.get(0)); removed after .get was implemented to have OBE.
 		//assertEquals(10, list.capacity());
@@ -20,17 +20,17 @@ public class LinkedListTest<E> {
 	 */
 	@Test
 	public void testAdd(){
-		ArrayList<String> list = new ArrayList<String>();
+	    list = new LinkedList<String>();
 		list.add(0, "Bleh");
 		//test that the size increased by 1 
 		assertEquals(1, list.size());
 		//test that the capacity did not change
-		assertEquals(10, list.capacity());
+		//assertEquals(10, list.capacity());
 		//test that the object was added to the correct index
 		assertEquals(list.get(0), "Bleh");
 		
 		//test adding to list less than capacity.
-		list = new ArrayList<String>();
+		list = new LinkedList<String>();
 		list.add(0, "a");
 		list.add(1, "b");
 		list.add(2, "c");
@@ -43,7 +43,7 @@ public class LinkedListTest<E> {
 		list.add(9, "j");
 		//test that the capacity has not changed
 		assertEquals(10, list.size());
-		assertEquals(20, list.capacity());
+		//assertEquals(20, list.capacity());
 		list.add(10, "lastplace");
 		
 		//test adding at zero index
@@ -51,7 +51,7 @@ public class LinkedListTest<E> {
 		//test that the size increased
 		assertEquals(12, list.size());
 		//test that the capacity did not double
-		assertEquals(20, list.capacity());
+		//assertEquals(20, list.capacity());
 		//test that the list correctly placed the values.
 		String[] values = {"z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "lastplace"};
 		for(int i = 0; i < values.length; i++) assertEquals(values[i], list.get(i));
@@ -84,7 +84,7 @@ public class LinkedListTest<E> {
 	 */
 	@Test
 	public void testRemove() {
-		ArrayList<String> list = new ArrayList<>();
+		list = new LinkedList<>();
 		list.add(0, "zero");
 		list.add(1, "one");
 		list.add(2, "two");
@@ -99,7 +99,7 @@ public class LinkedListTest<E> {
 		//for(String s: list) System.out.println(s);
 		
 		//test only one value not out of bounds
-		list = new ArrayList<>();
+		list = new LinkedList<>();
 		list.add(0, "zero");
 		//System.out.println(list.get(0));
 		assertEquals(1, list.size());
@@ -124,7 +124,7 @@ public class LinkedListTest<E> {
 	 */
 	@Test
 	public void testSet() { 
-		ArrayList<String> list = new ArrayList<>();
+		list = new LinkedList<>();
 		
 		//add an element
 		list.add(0, "1");
@@ -148,7 +148,7 @@ public class LinkedListTest<E> {
 			list.set(2, "3");
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("exception message", "Cannot add duplicate values", e.getMessage());
+			assertEquals("should be 2", "2", list.get(2));
 			
 		}
 		
@@ -160,8 +160,8 @@ public class LinkedListTest<E> {
 	@Test
 	public void testGet() {
 		//test OBE
-		ArrayList<String> list = new ArrayList<> ();
-		list.add(0, "0");
+		list = new LinkedList<> ();
+		list.add(0,"0");
 		assertEquals(1, list.size());
 		try {
 			list.get(1);
@@ -170,4 +170,22 @@ public class LinkedListTest<E> {
 			assertEquals(1, list.size());
 		}
 	}
+	
+	/**
+	 * Tests for listIterator()
+	 */
+	@Test
+	public void testListIterator() {
+		list = new LinkedList<>();
+		list.add("0");
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		
+		
+		//ListIterator iterator = list.listIterator(2);
+
+	}
+	
 }

@@ -44,7 +44,7 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 	 */
 	@Override
 	public E get(int index) {
-		if(index < 0 || index >= this.size()) throw new IndexOutOfBoundsException();
+		if(index < 0 || index >= size()) throw new IndexOutOfBoundsException();
 		if(index == 0) return this.front.data;
 		//counter for index
 		int counter = 0;
