@@ -164,7 +164,7 @@ public class LinkedListTest<E> {
 		list.add(0,"0");
 		assertEquals(1, list.size());
 		try {
-			list.get(1);
+			list.get(3);
 			fail();
 		} catch (IndexOutOfBoundsException e) { 
 			assertEquals(1, list.size());
