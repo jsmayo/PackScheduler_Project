@@ -3,6 +3,12 @@ package edu.ncsu.csc216.pack_scheduler.util;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Linked List that has been custom tailored for the PackScheduler application.
+ * @author Steven Mayo
+ *
+ * @param <E>
+ */
 public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 	/**Front of the LinkedList */
@@ -80,7 +86,11 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 
 
 
-
+/**
+ * Iterator for the LinkedList class.
+ * @author Steven
+ *
+ */
 	private class LinkedListIterator implements ListIterator<E> {
 		
 		/**ListNode that is returned on previous() method calls. */
@@ -124,12 +134,20 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			   
 			
 
+		/**
+		 * Checks to see if there is another element on the linked list.
+		 * @return true if the list is not empty. 
+		 */
 		@Override
 		public boolean hasNext() {
 			if(next != null) return true; // if next node is not null
 			return false;
 		}
 
+		/**
+		 * Returns the next elment on the LinkedList.
+		 * @return Next Element on the linked list.
+		 */
 		@Override
 		public E next() {
 			if(hasNext()) {
@@ -143,6 +161,10 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			else throw new NoSuchElementException();
 		}
 
+		/**
+		 * Checks to see if there is a previous element on the LinkedList.
+		 * @return true if the previous element is not empty.
+		 */
 		@Override
 		public boolean hasPrevious() {
 			if(previous != null) return true;
@@ -150,6 +172,10 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			
 		}
 
+		/**
+		 * Returns the previous element on the LinkedList.
+		 * @return E Previous element on the LinkedList.
+		 */
 		@Override
 		public E previous() {
 			if(hasPrevious()) { //TODO check to see if this is right.. going off of the assumption next = index - 1 (from iterator)
@@ -163,16 +189,27 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			else throw new NoSuchElementException();
 		}
 
+		/**
+		 * Returns the next index number of the list iterator. 
+		 * @return next index number
+		 */
 		@Override
 		public int nextIndex() {
 			return this.nextIndex;
 		}
 
+		/**
+		 * Returns the previous index number for the list iterator.
+		 * @return previous index number.
+		 */
 		@Override
 		public int previousIndex() {
 			return this.previousIndex;
 		}
 
+		/**
+		 * Removes the last element called via next() or previous() from the LinkedList.
+		 */
 		@Override
 		public void remove() {
 			if(lastRetrieved == null) throw new IllegalStateException();
@@ -193,6 +230,9 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 				        
 		}
 
+		/**
+		 * Sets the value of the Element on the LinkedList at the index of the ListIterator
+		 */
 		@Override
 		public void set(E e) { 
 			if(e == null) throw new NullPointerException();
@@ -206,6 +246,11 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 			
 		}
 
+		/**
+		 * Adds an element to the linked list.
+		 * @throws NullPointerException if passed in parameter is null.
+		 * 
+		 */
 		@Override
 		public void add(E e) {
 			if(e == null) throw new NullPointerException();

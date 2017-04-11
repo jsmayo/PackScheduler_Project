@@ -151,7 +151,7 @@ public class FacultyDirectoryTest {
 		FacultyDirectory fd = new FacultyDirectory();
 		
 		//Add a faculty member
-		fd.addFaculty("Ashely","Witt","awitt","mollis@Fuscealiquetmagna.net","pw", "pw",2);
+		fd.addFaculty("Ashely", "Witt", "awitt", "mollis@Fuscealiquetmagna.net", "pw", "pw", 2);
 		assertEquals(1, fd.getFacultyDirectory().length);
 		fd.saveFacultyDirectory("test-files/actual_faculty_records.txt");
 		checkFiles("test-files/expected_faculty_records.txt", "test-files/actual_faculty_records.txt");

@@ -1,5 +1,11 @@
 package edu.ncsu.csc216.pack_scheduler.util;
 
+/**
+ * Customized implmentation of ArrayStack for the PackScheduler application.
+ * @author Steven
+ *
+ * @param <E>
+ */
 public class ArrayStack<E> implements Stack<E> {
 	/**ArrayList to hold elements */
 	ArrayList<E> stack = new ArrayList<>();

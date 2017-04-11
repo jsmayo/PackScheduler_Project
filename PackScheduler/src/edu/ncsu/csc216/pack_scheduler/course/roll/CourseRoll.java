@@ -161,10 +161,14 @@ public class CourseRoll {
 	public boolean canEnroll(Student student) {
 		if(getOpenSeats() < 1 && waitlist.size() == WAITLIST_SIZE) return false;
 		for(int i = 0; i < roll.size(); i++) 
-			if(roll.get(i) == student || isWaitListed == true) return false;
+			if(roll.get(i) == student || isWaitListed) return false;
 		return true;
 	}
 	
+	/**
+	 * Returns the current number of students on the wait list
+	 * @return Number of students on the wait list.
+	 */
 	public int getNumberOnWaitlist() {
 		return waitlist.size();
 	}
