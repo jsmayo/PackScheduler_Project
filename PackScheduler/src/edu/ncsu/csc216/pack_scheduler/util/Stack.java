@@ -1,5 +1,12 @@
 package edu.ncsu.csc216.pack_scheduler.util;
 
+/**
+ * Interface used to declare the behavior that all classes must define
+ * when implementing Stack as one of their container classes.
+ * @author Steven Mayo
+ *
+ * @param <E> Generic of Type E.
+ */
 public interface Stack<E> {
 
 	/**

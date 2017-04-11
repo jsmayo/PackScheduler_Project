@@ -6,17 +6,27 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+/**
+ * Test class for LinkedQueue
+ * 
+ * @author Steven Mayo
+ *
+ */
 public class LinkedQueueTest {
 
+	/** Queue element to hold elements for testing */
 	LinkedQueue<String> queue;
 	
+	/**
+	 * Tests for constructor of LinkedQueue
+	 */
 	@Test
 	public void testLinkedQueue() {
 
 		queue = new LinkedQueue<>(20);
 		assertEquals("size should be 0", 0, queue.size());
 		queue.enqueue("first queue");
-		assertEquals("size should be 1",1, queue.size());
+		assertEquals("size should be 1", 1, queue.size());
 		assertTrue("first queue".equals(queue.dequeue()));
 		assertEquals("size should be 0", 0, queue.size());
 		queue.enqueue("one");

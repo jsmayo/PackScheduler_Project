@@ -179,6 +179,13 @@ public class LinkedAbstractList<E> extends AbstractList <E> {
 		return this.capacity;
 	}
 
+	/**
+	 * Sets the capacity of the LinkedList to that of the parameter
+	 * passed in.
+	 * @throws IllegalArgumentException if the new capacity is below zero
+	 * or less than the current size of the LinkedList.
+	 * @param capacity Capacity of the LinkedList
+	 */
 	public void setCapacity(int capacity) {
 		if(capacity < 0 || capacity < this.size()) throw new IllegalArgumentException();
 		this.capacity = capacity;

@@ -4,10 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests for the LinkedStack class.
+ * 
+ * @author Steven Mayo
+ *
+ */
 public class LinkedStackTest {
 
 	LinkedStack<String> stack;
 	
+	/**
+	 * Tests for LinkedStack constructor.
+	 */
 	@Test
 	public void testLinkedStack() {
 		stack = new LinkedStack<String>(20);

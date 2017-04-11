@@ -63,7 +63,7 @@ public class StudentRecordIOTest {
 			Files.deleteIfExists(destinationPath);
 			Files.copy(sourcePath, destinationPath);
 		} catch (IOException e) {
-			fail("Unable to reset files");
+			fail("Unable to reset files" + e.getMessage());
 		}
 
 		try {

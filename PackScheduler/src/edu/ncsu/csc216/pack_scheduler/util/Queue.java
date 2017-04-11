@@ -1,5 +1,12 @@
 package edu.ncsu.csc216.pack_scheduler.util;
 
+/**
+ * Interface used to declare behavior for all classes implementing
+ * Objects that need Queue behaivor.
+ * @author Steven Mayo
+ *
+ * @param <E> Generic element of Type E.
+ */
 public interface Queue<E> {
 
 	/**

@@ -4,10 +4,21 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Test class for LinkedList
+ * 
+ * @author Steven Mayo
+ *
+ * @param <E> Generic Type of E for LinkedList
+ */
 public class LinkedListTest<E> {
 
+	/** LinkedList object for testing. */
 	private LinkedList<String> list;
 	
+	/**
+	 * Tests for LinkedListConstructor
+	 */
 	@Test
 	public void testLinkedList() {
 		list = new LinkedList<String>();
@@ -161,7 +172,7 @@ public class LinkedListTest<E> {
 	public void testGet() {
 		//test OBE
 		list = new LinkedList<> ();
-		list.add(0,"0");
+		list.add(0, "0");
 		assertEquals(1, list.size());
 		try {
 			list.get(3);

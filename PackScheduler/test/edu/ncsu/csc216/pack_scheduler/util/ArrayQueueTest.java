@@ -6,17 +6,27 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+/**
+ * Tests for ArrayQueue class of PackScheduler
+ *
+ * @author Steven Mayo
+ *
+ */
 public class ArrayQueueTest {
 
+	/** Queue for ArrayQueue testing */
 	ArrayQueue<String> queue;
 	
+	/**
+	 * Tests for constructor of ArrrayQueue.
+	 */
 	@Test
 	public void testArrayQueue() {
 		
 		queue = new ArrayQueue<>(20);
 		assertEquals("size should be 0", 0, queue.size());
 		queue.enqueue("first queue");
-		assertEquals("size should be 1",1, queue.size());
+		assertEquals("size should be 1", 1, queue.size());
 		assertTrue("first queue".equals(queue.dequeue()));
 		assertEquals("size should be 0", 0, queue.size());
 		queue.enqueue("one");

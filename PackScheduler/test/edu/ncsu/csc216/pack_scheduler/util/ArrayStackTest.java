@@ -4,11 +4,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests for ArrayStack
+ * 
+ * @author Steven Mayo
+ *
+ */
 public class ArrayStackTest {
 	
 	/**ArrayStack object to hold elements */
 	ArrayStack<String> stack;
 
+	/**
+	 * Tests for ArrayStack constructor
+	 */
 	@Test
 	public void testArrayStack() {
 		stack = new ArrayStack<String>(20);

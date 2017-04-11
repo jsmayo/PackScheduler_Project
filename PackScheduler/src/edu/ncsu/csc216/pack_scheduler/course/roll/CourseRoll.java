@@ -128,7 +128,7 @@ public class CourseRoll {
 	 */
 	public void drop(Student student) {
 		if(student == null) throw new IllegalArgumentException();
-		if(waitlist.size() < 1) {
+		if(waitlist.size() <= 0) {
 			try {
 				roll.remove(student);
 			} catch (Exception e) {
@@ -136,17 +136,18 @@ public class CourseRoll {
 			}
 		}
 		else if(waitlist.size() > 0) {
-			Student waitlisted = null;
+			Student waitlisted;
 			waitListCopy = new ArrayList<Student>();
-			for(int i = 0; i < waitlist.size(); i++) {
+			for(int i = 0; i <= waitlist.size(); i++) {
 				waitlisted = waitlist.dequeue();
 				if(waitlisted == student) {
 					isWaitListed = false;
+					waitlisted = null;
 					continue; //skip the student if a match is found
 				}
-				else waitListCopy.add(waitlisted); //add non matches to the copy
+				waitListCopy.add(waitlisted); //add non matches to the copy
 			}
-			for(int i = 0; i < waitListCopy.size(); i++) waitlist.enqueue(waitListCopy.get(i)); //re-queue the list from the copy
+			for(int i = 0; i <= waitListCopy.size(); i++) waitlist.enqueue(waitListCopy.get(i)); //re-queue the list from the copy
 		}
 
 	}
