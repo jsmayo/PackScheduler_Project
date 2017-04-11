@@ -70,8 +70,8 @@ public class FacultyRecordIO {
 			scanner.close();
 			throw new IllegalArgumentException();
 		}
-		int credits = Integer.parseInt(scanner.next());
-		processedFaculty = new Faculty(fname, lname, id, email, pw, credits);
+		int courses = Integer.parseInt(scanner.next());
+		processedFaculty = new Faculty(fname, lname, id, email, pw, courses);
 		scanner.close();
 		return processedFaculty;
 	}
