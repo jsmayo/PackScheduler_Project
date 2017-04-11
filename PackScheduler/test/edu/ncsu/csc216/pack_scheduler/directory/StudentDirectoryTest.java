@@ -18,7 +18,7 @@ import org.junit.Test;
  */
 public class StudentDirectoryTest {
 	
-	/** Valid course records */
+	/** Valid student records */
 	private final String validTestFile = "test-files/student_records.txt";
 	/** Test first name */
 	private static final String FIRST_NAME = "Stu";

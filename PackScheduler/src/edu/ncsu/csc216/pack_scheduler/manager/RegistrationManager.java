@@ -21,16 +21,25 @@ import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
  */
 public class RegistrationManager {
 
+	/**Instance for Registration Manager */
 	private static RegistrationManager instance;
+	/** Course catelog of all courses */
 	private CourseCatalog courseCatalog;
+	/** Directory of students */
 	private StudentDirectory studentDirectory;
+	/** User profile for Registrar */
 	private User registrar;
+	/** User profile for Current User */
 	private User currentUser;
 	/** Hashing algorithm */
 	private static final String HASH_ALGORITHM = "SHA-256";
+	/** Hard coded pw for registrar profile */
 	private static final String PW = "Regi5tr@r";
+	/**String field for storing hased password */
 	private static String hashPW;
+	/** Directory of Faculty */
 	private FacultyDirectory facultyDirectory;
+	
 
 	//Static code block for hashing the registrar user's password
 	{
