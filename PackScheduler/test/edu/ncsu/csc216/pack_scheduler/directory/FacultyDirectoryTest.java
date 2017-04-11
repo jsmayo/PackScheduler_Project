@@ -12,6 +12,11 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for FacultyDirectory class.
+ * @author Steven Mayo
+ *
+ */
 public class FacultyDirectoryTest {
 	/** Valid faculty records */
 	private final String validTestFile = "test-files/faculty_records.txt";
