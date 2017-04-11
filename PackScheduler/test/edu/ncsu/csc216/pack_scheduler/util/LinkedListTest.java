@@ -182,6 +182,7 @@ public class LinkedListTest<E> {
 		list.add("2");
 		list.add("3");
 		list.add("4");
+		assertEquals(5, list.size());
 		
 		
 		//ListIterator iterator = list.listIterator(2);
