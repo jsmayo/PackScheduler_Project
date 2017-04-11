@@ -44,7 +44,7 @@ public class FacultyDirectory {
 	 * Attempts to populate the FacultyDirectory object with values
 	 * parsed from the specified filename.
 	 * @param filename Filename to load into FacultyDirectory.
-	 * @throws IOException Thrown if the specified file cannot be accessed.
+	 * @throws IllegalArgumentException if the specified file cannot be accessed.
 	 */
 	public void loadFacultyFromFile(String filename) {
 		try {
