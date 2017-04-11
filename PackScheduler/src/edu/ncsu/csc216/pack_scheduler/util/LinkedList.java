@@ -301,18 +301,36 @@ public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 	
 	
 	//BEGIN LISTNODE CLASS
+	/**
+	 * ListNode class that provides structure for each element within the LinkedList.
+	 * @author Steven Mayo
+	 *
+	 */
 	private class ListNode{
 		
+		/** data of the node */
 		private E data;
+		/** Next Element in the LinkedList */
 		private ListNode next;
+		/** Previous Element in the LinkedList */
 		private ListNode prev;
 		
+		/**
+		 * Null constructor for a ListNode
+		 * @param data data value of the list node.
+		 */
 		public ListNode(E data) {
 			this.data = data;
 			this.next = null;
 			this.prev = null;
 		}
 		
+		/**
+		 * Constructor for a list node with links to next and previous nodes.
+		 * @param data data of the node.
+		 * @param prev Previous node in the LinkedList.
+		 * @param next  Next node in the LinkedList.
+		 */
 		public ListNode(E data, ListNode prev, ListNode next) {
 			this.data = data;
 			this.prev = prev;
