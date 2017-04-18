@@ -15,15 +15,12 @@ public class LinkedListRecursive<E> {
 	ListNode front;
 	/** Size of the LinkedList */
 	private int size;
-	/** LinkedList object */
-	//LinkedList<E> list;
-	
+
 	
 	/**
 	 * Constructor for LinkedListRecursive
 	 */
 	public LinkedListRecursive() {
-		//list = new LinkedList<>();
 		this.size = 0;
 		front = null;
 	}
@@ -33,7 +30,7 @@ public class LinkedListRecursive<E> {
 	 * @return True if no objects are contained within the LinkedList.
 	 */
 	public boolean isEmpty(){
-		return front == null; //if front is null, then the first element was never set and no elements exist.
+		return (size() == 0); 
 		
 	}
 
@@ -52,13 +49,16 @@ public class LinkedListRecursive<E> {
 	 * @return True if the element was added successfully. 
 	 */
 	public boolean add(E e) {
-		if(!isEmpty()) { // delegate if not empty
-			if(front.data.equals(e))  throw new IllegalArgumentException("duplicate found");
-			return front.add(e); //inner LN class handles this.
+		if(contains(e)) throw new IllegalArgumentException();
+		if(isEmpty()) { 
+			front = new ListNode(e, null); // handles empty cases only.
+			this.size++; //increase the size
+			return true; //exit the call
 		}
-		else front = new ListNode(e, front.next);
-		this.size++;
-		return true;
+		else {
+			return front.add(e); //else delegate recursive call to inner node
+		}
+	
 	}
 	
 	/**
@@ -69,16 +69,41 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public void add(int index, E e) {
-		if(index < 0 || index >= size() || (isEmpty() && index != 0) )throw new IndexOutOfBoundsException();
-		if(e == null) throw new NullPointerException();
-		if(index == 0) {
+		if(index < 0 || index > size()) throw new IndexOutOfBoundsException();
+		if(e.equals(null)) throw new NullPointerException();
+		if(contains(e)) throw new IllegalArgumentException();
+		if(isEmpty()) { 
+			front = new ListNode(e, null);
+			size++;
+			return;
+		}
+		
+		else if(index == 0 && !isEmpty() && index < size()) {
 			front = new ListNode(e, front);
 			size++;
+			return;
 		}
-		else {
+		else if(index == size() -1 ) {
+			add(e);
+			return;
+		}
+		else  
 			front.add(index, e);
-		}
+		
+		//al = toArray(); // reset the array with correct ordering of elements. 
 	}
+	
+	public ArrayList<ListNode> toArray() {
+		ArrayList<ListNode> al = new ArrayList<ListNode>();
+		if(front == null) return al; //handle empty case
+		else {
+			
+			al.add(front); //add the front node and call inner node for recursive add.
+			front.toArray(al);
+		}
+		return al;
+	}
+
 
 	/**
 	 * Returns the element at the given index.
@@ -88,8 +113,12 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public E get(int index) {
-		if(index < 0 || index >= size()) throw new IndexOutOfBoundsException();
-		return front.get(index);
+		if(index < 0 || size == 0  || (size() > 0 && index > size())) throw new IndexOutOfBoundsException();
+		//if(index == 0 && size() > 0) return front.data;
+		
+		return front.get(index); // delegate to recursive method
+		
+		
 	}
 	
 	/**
@@ -134,7 +163,12 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public E set(int index, E e) {
-		if(index < 0 || index >= size()) throw new IndexOutOfBoundsException();
+		if(index < 0 || size() == 0 || index > size()) throw new IndexOutOfBoundsException();
+		if(index == 0 && size() == 1) {
+			E replaced = front.data;
+			front.data = e;
+			return replaced; 
+		}
 		else return front.set(index, e);
 	}
 	
@@ -144,18 +178,11 @@ public class LinkedListRecursive<E> {
 	 * @return True if the given element is contained within the list.
 	 */
 	public boolean contains(E e) {
-		if(!isEmpty()) { //if not empty on the first instance, let the instance call itself
-			return front.contains(e);
-			}
-		return false;
+		if(isEmpty()) return false;
+		return front.contains(e); //can call this because guaranteed size != 0
 	}
 	
-	
-	
-	
 	//###################] Start ListNode Class [#################################
-	
-	
 	
 	/**
 	 * Constructor for the inner ListNode class. 
@@ -178,14 +205,13 @@ public class LinkedListRecursive<E> {
 		 * @param e element to add to the end of the LinkedList.
 		 */
 		public boolean add(E e) {
-			while(this.next != null) { 
-				this.next = next.next;
-			} 
-			//Stop when the next node is the end, so make the current next point to new node,
-			//Then point that node to the end. 
-			this.next = new ListNode(e, next.next); 
-			size++; //increase size
-			return true;
+			if(next == null) { //when next == null, you want to add E, since adding to the end.
+				next = new ListNode(e, null);
+				size++;
+				return true;
+			}
+			else  return next.add(e); //use next node to call recursively
+			//return false; //should not return false
 		}
 		
 		/**
@@ -197,13 +223,44 @@ public class LinkedListRecursive<E> {
 		 * greater than the size of the LinkedList.
 		 */
 		public void add(int index, E e) {
-			int i = 0;
-			while(this.next != null && i != index) { 
-				this.next = next.next;
+	
+			ArrayList<ListNode> al = next.toArray(new ArrayList<ListNode>());
+			ListNode previous =  al.get(index);
+			//if(index != size) previous = al.get(index - 1);
+			
+//			if(previous.next == null) {
+//				//this.data = e;
+//				//this.next = null;
+//				previous.next = new ListNode(e, null);
+//				size++;
+//				return;
+//				//al.add(previous.next); //add new node to the end of AL
+//			}
+					
+			 // know previous.next != null at this point.
+				this.data = e;
+				this.next = previous.next; //before the node at the current index
+				previous.next = new ListNode(data, next); // overwrite old "next" with what you want inserted.
+				size++;
+				return;
+//				for(int i = al.size(); i >= index; i--) { //reorder AL
+//					al(i + 1) = al.get(i);
+//				}
+//				al[index] = previous.next; //put insertion in.
+			
+		}
+		
+		public ArrayList<ListNode> toArray(ArrayList<ListNode> al) {
+			if(next == null) {
+				al.add(new ListNode(data, null)); // without this, AL will not add the last node and you will get IOOBE
+				return al;
 			}
-			//stop before the index, so set the NEXT to the new node.
-			this.next = new ListNode(e, next.next); 
-			size++; // increase size.
+			if(next != null) {
+				al.add(next); //add the element associated with front's node
+				return next.toArray(al); //use inner next to recursively call toArray if next != null
+			}
+			
+			return al;
 		}
 			
 		/**
@@ -212,13 +269,14 @@ public class LinkedListRecursive<E> {
 		 * @return Data contained at the given index. 
 		 */
 		public E get(int index) {
-			int counter = 0;
-			while(counter < index){
-				this.next = next.next;
-				counter++;
+			if(index == 0) return data;
+			else {
+				ArrayList<ListNode> al = front.toArray(new ArrayList<ListNode>());
+				ListNode a = al.get(index - 1 );
+				return a.data;
 			}
-			//when exiting, next is the index you want, so next.data
-			return next.data;
+			
+			
 		}
 			
 		/**
@@ -268,14 +326,25 @@ public class LinkedListRecursive<E> {
 		 * greater than the size of the LinkedList.
 		 */
 		public E set(int index, E e) {
-			int counter = 0;
-			while(counter < index) {
-				this.next = next.next; //focus on where you exit the loop
+			//you are at >=1 element by this point
+			E replaced = null;
+			int i = 0;
+			if(index == 1) {
+				replaced = next.data;
+				next.data = e;
+				return replaced;
 			}
-			// you exit with the next index being what you want set.
-			E replaced = next.data;
-			next.data = e;
-			return replaced;
+			else {
+				i = 1;
+				while(i < index) { 
+					next = next.next;
+					i++;
+				}
+				replaced = next.data;
+				next.data = e;
+			}
+				return replaced;			
+			
 		}
 		
 		/**
@@ -284,11 +353,11 @@ public class LinkedListRecursive<E> {
 		 * @return True if the given element is contained within the list.
 		 */
 		public boolean contains(E e) {
-			while(this.next != null) { //while the next node is not the end.
-				if(this.data.equals(e)) return true; //if first node matches (SINCE YOU ARE NOT NULL AT THIS POINT)
-				this.next = next.next; //next internal LN is the next.next LN
-			}
-			return false; //if you get out with no match, then return false.
+			if(data.equals(e)) return true;
+			if(next != null) 
+				return next.contains(e); //recursive call
+			return (data.equals(e)); //when next == null, do the final call and return
+
 		}
 
 	}
