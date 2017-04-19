@@ -40,7 +40,8 @@ public class LinkedListRecursive<E> {
 	 *  LinkedList.
 	 */
 	public int size() {
-		return size;
+		if(front == null) return 0;
+		else return front.size();
 	}
 	
 	/**
@@ -50,13 +51,15 @@ public class LinkedListRecursive<E> {
 	 */
 	public boolean add(E e) {
 		if(contains(e)) throw new IllegalArgumentException();
-		if(isEmpty()) { 
-			front = new ListNode(e, null); // handles empty cases only.
-			this.size++; //increase the size
+		if(isEmpty() || size() == 0) { 
+			front = new ListNode(e, front); // handles empty cases only.
+			size = size(); //increase the size
 			return true; //exit the call
 		}
 		else {
-			return front.add(e); //else delegate recursive call to inner node
+			boolean b = front.add(e); //else delegate recursive call to inner node
+			size = size();
+			return b;
 		}
 	
 	}
@@ -72,37 +75,39 @@ public class LinkedListRecursive<E> {
 		if(index < 0 || index > size()) throw new IndexOutOfBoundsException();
 		if(e.equals(null)) throw new NullPointerException();
 		if(contains(e)) throw new IllegalArgumentException();
-		if(isEmpty()) { 
-			front = new ListNode(e, null);
-			size++;
-			return;
-		}
 		
-		else if(index == 0 && !isEmpty() && index < size()) {
-			front = new ListNode(e, front);
-			size++;
+		//add to front
+		if(index == 0) {
+			//empty list
+				front = new ListNode(e, front);
+				size = size();
+				return;
+			}
+		else if(index == size()) {
+			boolean b = front.add(e); //add to end
+			if(!b) throw new IllegalArgumentException();
+			size = size();
 			return;
 		}
-		else if(index == size() -1 ) {
-			add(e);
-			return;
-		}
-		else  
+		else if(index > 0 && index < size()) {
 			front.add(index, e);
-		
-		//al = toArray(); // reset the array with correct ordering of elements. 
+			size = size();
+			return;
+		}
+		else throw new IllegalArgumentException();
+			
 	}
 	
-	public ArrayList<ListNode> toArray() {
-		ArrayList<ListNode> al = new ArrayList<ListNode>();
-		if(front == null) return al; //handle empty case
-		else {
-			
-			al.add(front); //add the front node and call inner node for recursive add.
-			front.toArray(al);
-		}
-		return al;
-	}
+//	public ArrayList<ListNode> toArray() {
+//		ArrayList<ListNode> al = new ArrayList<ListNode>();
+//		if(front == null) return al; //handle empty case
+//		else {
+//			
+//			al.add(front); //add the front node and call inner node for recursive add.
+//			front.toArray(al);
+//		}
+//		return al;
+//	}
 
 
 	/**
@@ -113,12 +118,8 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public E get(int index) {
-		if(index < 0 || size == 0  || (size() > 0 && index > size())) throw new IndexOutOfBoundsException();
-		//if(index == 0 && size() > 0) return front.data;
-		
+		if(index < 0 || front == null  || index >= size()) throw new IndexOutOfBoundsException();	
 		return front.get(index); // delegate to recursive method
-		
-		
 	}
 	
 	/**
@@ -127,13 +128,19 @@ public class LinkedListRecursive<E> {
 	 * @return True if the element was removed, null if not found.
 	 */
 	public boolean remove(E e){
-		if(isEmpty()) return false;
-		if(front.data.equals(e)) { //handle the first match aka base case
-			front = new ListNode(front.next.data, front.next.next); //skip if matched.
-			this.size--;
+		if(e == null) throw new NullPointerException();
+		if(front == null) return false;
+		if(front.data.equals(e)) {
+			front = front.next;
+			size = size();
 			return true;
 		}
-		else return front.remove(e);
+		else if(front.remove(e)) {
+			size = size();
+			return true;
+		}
+		else return false;	
+		
 	}
 	
 	/**
@@ -144,15 +151,22 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public E remove(int index){
-		if(index < 0 || index >= size() || (size() == 0 && index != 0)) throw new IndexOutOfBoundsException();
-		if(index == 0) {
-			E removed = front.data;
-			front = new ListNode(front.next.data, front.next.next);
-			size--;
-			return removed;
+		if(index >= size() || index < 0 || front == null) throw new IndexOutOfBoundsException();
+		E e = null;
+		if(index == 0) { //know front != null from first check
+			e = front.data;
+			front = front.next;
+			size = size();
+			return e;
 		}
-		return front.remove(index);
+		else {
+			e = front.remove(index);
+			size = size();
+			return e;
+		}
 	}
+				
+	
 	
 	/**
 	 * Sets the element at the given index to the value of the given element.
@@ -163,12 +177,7 @@ public class LinkedListRecursive<E> {
 	 * greater than the size of the LinkedList.
 	 */
 	public E set(int index, E e) {
-		if(index < 0 || size() == 0 || index > size()) throw new IndexOutOfBoundsException();
-		if(index == 0 && size() == 1) {
-			E replaced = front.data;
-			front.data = e;
-			return replaced; 
-		}
+		if(index < 0 || front == null || index >= size()) throw new IndexOutOfBoundsException();
 		else return front.set(index, e);
 	}
 	
@@ -181,6 +190,7 @@ public class LinkedListRecursive<E> {
 		if(isEmpty()) return false;
 		return front.contains(e); //can call this because guaranteed size != 0
 	}
+	
 	
 	//###################] Start ListNode Class [#################################
 	
@@ -200,6 +210,11 @@ public class LinkedListRecursive<E> {
 			this.next = next;
 		}
 		
+		public int size() {
+			if(next == null) return 1;
+			else return 1 + next.size();
+		}
+		
 		/**
 		 * Adds the given element to the end of the list. 
 		 * @param e element to add to the end of the LinkedList.
@@ -207,11 +222,9 @@ public class LinkedListRecursive<E> {
 		public boolean add(E e) {
 			if(next == null) { //when next == null, you want to add E, since adding to the end.
 				next = new ListNode(e, null);
-				size++;
 				return true;
 			}
-			else  return next.add(e); //use next node to call recursively
-			//return false; //should not return false
+			else return next.add(e); //use next node to call recursively
 		}
 		
 		/**
@@ -223,45 +236,31 @@ public class LinkedListRecursive<E> {
 		 * greater than the size of the LinkedList.
 		 */
 		public void add(int index, E e) {
-	
-			ArrayList<ListNode> al = next.toArray(new ArrayList<ListNode>());
-			ListNode previous =  al.get(index);
-			//if(index != size) previous = al.get(index - 1);
-			
-//			if(previous.next == null) {
-//				//this.data = e;
-//				//this.next = null;
-//				previous.next = new ListNode(e, null);
-//				size++;
-//				return;
-//				//al.add(previous.next); //add new node to the end of AL
-//			}
-					
-			 // know previous.next != null at this point.
-				this.data = e;
-				this.next = previous.next; //before the node at the current index
-				previous.next = new ListNode(data, next); // overwrite old "next" with what you want inserted.
-				size++;
+			//index > 0 and index < size
+			int step = 1; //constant stepsize
+			if(index == 1){ //if next index is the target, add and return.
+				next = new ListNode(e, next);
 				return;
-//				for(int i = al.size(); i >= index; i--) { //reorder AL
-//					al(i + 1) = al.get(i);
-//				}
-//				al[index] = previous.next; //put insertion in.
-			
-		}
-		
-		public ArrayList<ListNode> toArray(ArrayList<ListNode> al) {
-			if(next == null) {
-				al.add(new ListNode(data, null)); // without this, AL will not add the last node and you will get IOOBE
-				return al;
 			}
-			if(next != null) {
-				al.add(next); //add the element associated with front's node
-				return next.toArray(al); //use inner next to recursively call toArray if next != null
+			else { //if not at the target, recursive call and update an index reference.
+				if(index - step != 0) {
+					next.add(index - step, e);
+				}
 			}
-			
-			return al;
 		}
+
+//		public ArrayList<ListNode> toArray(ArrayList<ListNode> al) {
+//			if(next == null) {
+//				al.add(new ListNode(data, null)); // without this, AL will not add the last node and you will get IOOBE
+//				return al;
+//			}
+//			if(next != null) {
+//				al.add(next); //add the element associated with front's node
+//				return next.toArray(al); //use inner next to recursively call toArray if next != null
+//			}
+//			
+//			return al;
+//		}
 			
 		/**
 		 * Retrieves the data contained at the given index value.
@@ -269,14 +268,9 @@ public class LinkedListRecursive<E> {
 		 * @return Data contained at the given index. 
 		 */
 		public E get(int index) {
+			//know front is not null at this point, also index < size
 			if(index == 0) return data;
-			else {
-				ArrayList<ListNode> al = front.toArray(new ArrayList<ListNode>());
-				ListNode a = al.get(index - 1 );
-				return a.data;
-			}
-			
-			
+			else return next.get(index - 1); 		
 		}
 			
 		/**
@@ -285,17 +279,15 @@ public class LinkedListRecursive<E> {
 		 * @return True if the element was removed, null if not found.
 		 */
 		public boolean remove(E e){
-			while(this.next != null && !this.next.data.equals(e)) { 
-				// While the next element is not null (end of list)
-				// and while the next elements data does not match the given, continue checking.
-				this.next = next.next;
+			if(next == null) return false;
+			if(next.data.equals(e)){
+				//E r = next.data;
+				next = next.next;
+				return true;
 			}
-			//either null or matched when exiting
-			if(this.next == null) return false; //if next is null and no match was found, then return false
-			else  this.next = next.next;
-			size--; // reduce the size variable 
-			return true;
-		}
+			else return next.remove(e);
+			}
+		
 				
 		
 		/**
@@ -306,15 +298,15 @@ public class LinkedListRecursive<E> {
 		 * greater than the size of the LinkedList.
 		 */
 		public E remove(int index){
-			int counter = 0;
-			while(counter < index) {
-				this.next = next.next;
+			if(index == 1) {
+				E r = next.data;
+				next = next.next;
+				return r;
 			}
-			// this.next now points to the index you want removed.
-			E removed = next.data;
-			this.next = new ListNode(next.next.data, next.next.next); //skip over the data you want removed
-			size--;
-			return removed;
+			else {
+				if(next == null) return null;
+				return next.remove(index - 1);
+			}
 		}
 		
 		/**
@@ -327,24 +319,12 @@ public class LinkedListRecursive<E> {
 		 */
 		public E set(int index, E e) {
 			//you are at >=1 element by this point
-			E replaced = null;
-			int i = 0;
-			if(index == 1) {
-				replaced = next.data;
-				next.data = e;
+			if(index == 0) {
+				E replaced = data;
+				data = e;
 				return replaced;
 			}
-			else {
-				i = 1;
-				while(i < index) { 
-					next = next.next;
-					i++;
-				}
-				replaced = next.data;
-				next.data = e;
-			}
-				return replaced;			
-			
+			else return (next.set(index - 1, e));
 		}
 		
 		/**
@@ -354,12 +334,13 @@ public class LinkedListRecursive<E> {
 		 */
 		public boolean contains(E e) {
 			if(data.equals(e)) return true;
-			if(next != null) 
-				return next.contains(e); //recursive call
-			return (data.equals(e)); //when next == null, do the final call and return
+			else {
+				if(next == null)  return false;
+				else return next.contains(e); //recursive call
+			}
 
 		}
-
-	}
 		
+	}
 }
+
