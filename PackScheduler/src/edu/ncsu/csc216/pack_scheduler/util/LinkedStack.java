@@ -6,7 +6,7 @@ package edu.ncsu.csc216.pack_scheduler.util;
  * 
  * @author Steven Mayo
  *
- * @param <E>
+ * @param <E> Generic element of Type E to be placed within the Stack.
  */
 public class LinkedStack<E> implements Stack<E> {
 

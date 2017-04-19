@@ -1,10 +1,10 @@
 package edu.ncsu.csc216.pack_scheduler.util;
 
 /**
- * Customized implmentation of ArrayStack for the PackScheduler application.
+ * Customized implementation of ArrayStack for the PackScheduler application.
  * @author Steven
  *
- * @param <E>
+ * @param <E> Generic element of Type E to be contained within ArrayList 
  */
 public class ArrayStack<E> implements Stack<E> {
 	/**ArrayList to hold elements */

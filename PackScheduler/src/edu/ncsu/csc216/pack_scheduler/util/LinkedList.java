@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * Linked List that has been custom tailored for the PackScheduler application.
  * @author Steven Mayo
  *
- * @param <E>
+ * @param <E> Generic element of Type E to be added as a ListNode elmeent of LinkedList. 
  */
 public class LinkedList<E> extends java.util.AbstractSequentialList<E> {
 

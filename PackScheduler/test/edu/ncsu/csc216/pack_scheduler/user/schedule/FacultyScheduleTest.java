@@ -25,6 +25,7 @@ public class FacultyScheduleTest {
 
 	/**
 	 * Resets course_records.txt for use in other tests.
+	 * @throws Exception if an error is encountered while trying to access the specified filenames and locations. 
 	 */
 	@Before
 	public void setUp() throws Exception {

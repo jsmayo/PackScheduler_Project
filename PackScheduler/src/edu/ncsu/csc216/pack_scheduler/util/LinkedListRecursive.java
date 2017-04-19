@@ -3,7 +3,7 @@ package edu.ncsu.csc216.pack_scheduler.util;
 /**
  * Custom implementation of a recursive linked list 
  * that doesn't allow for null elements or duplicate elements as 
- * defined by {@link #equals()}.
+ * defined by Equals().
  * 
  * @author Steven Mayo
  * @param <E> Generic Object of Type E contained within the LinkedList 
@@ -14,6 +14,7 @@ public class LinkedListRecursive<E> {
 	/** First ListNode of the LinkedList */
 	ListNode front;
 	/** Size of the LinkedList */
+	@SuppressWarnings("unused")
 	private int size;
 
 	
@@ -73,7 +74,7 @@ public class LinkedListRecursive<E> {
 	 */
 	public void add(int index, E e) {
 		if(index < 0 || index > size()) throw new IndexOutOfBoundsException();
-		if(e.equals(null)) throw new NullPointerException();
+		if(e == null) throw new NullPointerException();
 		if(contains(e)) throw new IllegalArgumentException();
 		
 		//add to front
@@ -325,7 +326,7 @@ public class LinkedListRecursive<E> {
 				data = e;
 				return replaced;
 			}
-			else return (next.set(index - 1, e));
+			else return next.set(index - 1, e);
 		}
 		
 		/**
