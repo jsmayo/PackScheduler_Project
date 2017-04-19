@@ -155,7 +155,8 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param instructorId the instructorId to set
 	 */
 	public void setInstructorId(String instructorId) {
-		if(instructorId == null || instructorId.isEmpty()) throw new IllegalArgumentException("Invalid instructor id");
+		if(instructorId.isEmpty()) throw new IllegalArgumentException("Invalid instructor id");
+		//Removed null check to allow Registrar to set the Course's professor. 
 		this.instructorId = instructorId;
 	}
 	

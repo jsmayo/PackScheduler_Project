@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ *Tests for correct functionality of the LinkedListRecursive class.
  *
  * @author Steven Mayo
  */
@@ -12,6 +13,9 @@ public class LinkedListRecursiveTest {
 	
 	private LinkedListRecursive<String> list;
 
+	/**
+	 * Tests for LinkedListRecursive constructor
+	 */
 	@Test
 	public void testLinkedListRecursive() {
 		list = new LinkedListRecursive<>();
@@ -19,6 +23,9 @@ public class LinkedListRecursiveTest {
 		assertTrue(list.isEmpty());
 	}
 	
+	/**
+	 * Test add() method of LinkedListRecursive class
+	 */
 	@Test
 	public void testAdd() {
 		list = new LinkedListRecursive<>();
@@ -28,6 +35,9 @@ public class LinkedListRecursiveTest {
 		assertEquals(2, list.size());
 	}
 	
+	/**
+	 * Test get() method for LinkedListRecursive Class 
+	 */
 	@Test
 	public void testGet() {
 		list = new LinkedListRecursive<>();

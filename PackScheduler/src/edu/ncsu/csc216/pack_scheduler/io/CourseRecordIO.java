@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
+import edu.ncsu.csc216.pack_scheduler.manager.RegistrationManager;
 
 
 /**
@@ -62,21 +63,33 @@ public class CourseRecordIO {
 	 */
 	private static Course readCourse(String nextLine) throws IllegalArgumentException {
 		try (Scanner scanner = new Scanner(nextLine).useDelimiter(",")) {
-
 			String cname = scanner.next();
 			String ctitle = scanner.next();
 			String csection = scanner.next();
 			int ccredits = Integer.parseInt(scanner.next());
 			String cid = scanner.next();
+			String nullId = null;
 			int cenrollmentCap = Integer.parseInt(scanner.next());
 			String cmeetingDays = scanner.next();
 			if(cmeetingDays.equals("A") && scanner.hasNext()) throw new IllegalArgumentException("Invalid Argument");
 			if(scanner.hasNext()){
 				int cstartTime = Integer.parseInt(scanner.next());
 				int cendTime = Integer.parseInt(scanner.next());
-				return new Course(cname, ctitle, csection, ccredits, cid, cenrollmentCap, cmeetingDays, cstartTime, cendTime);
+				Course course = new Course(cname, ctitle, csection, ccredits, nullId, cenrollmentCap, cmeetingDays, cstartTime, cendTime); //create the course
+				if(RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(cid) != null){
+					course.setInstructorId(cid); //check to see if faculty id exists 
+					RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(cid).getSchedule().addCourseToSchedule(course); //set the professor id
+				}
+				return course;
 			}
-			else return new Course(cname, ctitle, csection, ccredits, cid, cenrollmentCap, cmeetingDays);
+			else {
+				Course course = new Course(cname, ctitle, csection, ccredits, null, cenrollmentCap, cmeetingDays);
+				if(RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(cid) != null){
+					course.setInstructorId(cid); //check to see if faculty id exists 
+					RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(cid).getSchedule().addCourseToSchedule(course); //set the professor id
+				}
+					return course;
+			}
 		} catch (NoSuchElementException e){
 			throw new IllegalArgumentException("Invalid argument");
 		}

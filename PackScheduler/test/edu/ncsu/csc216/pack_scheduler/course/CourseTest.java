@@ -333,20 +333,6 @@ public class CourseTest {
 		assertEquals(START_TIME, c.getStartTime());
 		assertEquals(END_TIME, c.getEndTime());
 		
-		//Test that setting the instructor id to null doesn't change the instructor id (or anything else).
-		try {
-			c.setInstructorId(null);
-			fail();
-		} catch (IllegalArgumentException e) {
-			assertEquals(NAME, c.getName());
-			assertEquals(TITLE, c.getTitle());
-			assertEquals(SECTION, c.getSection());
-			assertEquals(CREDITS, c.getCredits());
-			assertEquals(INSTRUCTOR_ID, c.getInstructorId());
-			assertEquals(MEETING_DAYS, c.getMeetingDays());
-			assertEquals(START_TIME, c.getStartTime());
-			assertEquals(END_TIME, c.getEndTime());
-		}
 		
 		//Test that setting the instructor id to "" doesn't change the instructor id (or anything else).
 		try {
