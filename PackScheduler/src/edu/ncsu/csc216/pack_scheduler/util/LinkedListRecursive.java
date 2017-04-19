@@ -178,6 +178,7 @@ public class LinkedListRecursive<E> {
 	 */
 	public E set(int index, E e) {
 		if(index < 0 || front == null || index >= size()) throw new IndexOutOfBoundsException();
+		if(e == null) throw new NullPointerException();
 		else return front.set(index, e);
 	}
 	
