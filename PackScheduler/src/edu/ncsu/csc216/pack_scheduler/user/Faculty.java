@@ -108,7 +108,7 @@ public class Faculty extends User {
 	 * MAX_COURSES. 
 	 */
 	public boolean isOverloaded() {
-		return (this.getMaxCourses() > MAX_COURSES);
+		return (schedule.getNumScheduledCourses() > this.getMaxCourses());
 	}
 	
 	

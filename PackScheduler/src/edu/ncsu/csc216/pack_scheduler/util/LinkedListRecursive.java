@@ -125,10 +125,10 @@ public class LinkedListRecursive<E> {
 	/**
 	 * Attempts to remove the given element from the LinkedList.
 	 * @param e Element to remove.
-	 * @return True if the element was removed, null if not found.
+	 * @return True if the element was removed, false if null or not found.
 	 */
 	public boolean remove(E e){
-		if(e == null) throw new NullPointerException();
+		if(e == null) return false;
 		if(front == null) return false;
 		if(front.data.equals(e)) {
 			front = front.next;
