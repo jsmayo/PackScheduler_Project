@@ -50,7 +50,7 @@ public class FacultySchedulePanel  extends JPanel implements ActionListener {
 	/** JTable for displaying the schedule of Courses */
 	private JTable tableSchedule;
 	/** TableModel for catalog */
-	private CourseTableModel catalogTableModel;
+	private RollTableModel catalogTableModel;
 	/** TableModel for schedule */
 	private CourseTableModel scheduleTableModel;
 	/** Faculty's FacultySchedule title label */
@@ -155,7 +155,7 @@ public class FacultySchedulePanel  extends JPanel implements ActionListener {
 //		pnlActions.setToolTipText("Scheduler Actions");
 
 		//Set up Catalog table
-		catalogTableModel = new CourseTableModel(true);
+		catalogTableModel = new RollTableModel(true);
 		tableCatalog = new JTable(catalogTableModel) {
 			private static final long serialVersionUID = 1L;
 
@@ -432,9 +432,7 @@ public class FacultySchedulePanel  extends JPanel implements ActionListener {
 		 * Updates the given model with {@link Course} information from the {@link WolfScheduler}.
 		 */
 		private void updateData() {
-			if (isCatalog) {
-				data = catalog.getCourseCatalog();
-			} else {
+		
 				currentUser = (Faculty)RegistrationManager.getInstance().getCurrentUser();
 				if (currentUser != null) {
 					schedule = currentUser.getSchedule();
@@ -445,7 +443,7 @@ public class FacultySchedulePanel  extends JPanel implements ActionListener {
 
 					FacultySchedulePanel.this.repaint();
 					FacultySchedulePanel.this.validate();
-				}
+				
 			}
 		}
 	}
