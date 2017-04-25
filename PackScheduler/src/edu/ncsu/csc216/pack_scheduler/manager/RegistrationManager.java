@@ -113,7 +113,7 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 		if(currentUser != null) return false;
-		Student s = null;
+		User user = null;
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
 			try {
@@ -134,14 +134,15 @@ public class RegistrationManager {
 
 		}
 
-		if(studentDirectory.getStudentById(id) == null) throw new IllegalArgumentException("User doesn't exist.");
-		s = studentDirectory.getStudentById(id);
+		if(studentDirectory.getStudentById(id) == null && facultyDirectory.getFacultyById(id) == null) throw new IllegalArgumentException("User doesn't exist.");
+		if(studentDirectory.getStudentById(id) == null) user = facultyDirectory.getFacultyById(id);
+		else user = studentDirectory.getStudentById(id);
 		try {
 			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 			digest.update(password.getBytes());
 			String localHashPW = new String(digest.digest());
-			if (s.getPassword().equals(localHashPW)) {
-				currentUser = s;
+			if (user.getPassword().equals(localHashPW)) {
+				currentUser = user;
 				return true;
 			}
 		} catch (NoSuchAlgorithmException e) {
